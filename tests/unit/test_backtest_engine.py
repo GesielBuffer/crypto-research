@@ -4,7 +4,12 @@ from pathlib import Path
 
 import pandas as pd
 
-from research.backtest import CostModel, apply_costs
+from research.backtest import (
+    CostModel,
+    FixedHorizonConfig,
+    apply_costs,
+    simulate_fixed_horizon,
+)
 from research.metrics import summarize_returns
 
 
@@ -25,6 +30,65 @@ class CostModelTests(unittest.TestCase):
     def test_negative_cost_is_rejected(self):
         with self.assertRaises(ValueError):
             CostModel(slippage=-0.0001)
+
+
+class FixedHorizonTests(unittest.TestCase):
+    def setUp(self):
+        self.bars = pd.DataFrame({
+            "open_time": pd.date_range("2026-01-01", periods=7, freq="5min", tz="UTC"),
+            "open": [100, 101, 102, 103, 104, 105, 106],
+            "close": [100.5, 101.5, 102.5, 103.5, 104.5, 105.5, 106.5],
+        })
+
+    def test_entry_is_next_open_and_exit_is_future_close(self):
+        signals = pd.Series([True, False, False, False, False, False, False])
+        trades = simulate_fixed_horizon(
+            self.bars,
+            signals,
+            FixedHorizonConfig(hold_bars=3, costs=CostModel(fees=0.0006)),
+        )
+
+        trade = trades.iloc[0]
+        self.assertEqual(trade.entry_position, 1)
+        self.assertEqual(trade.exit_position, 3)
+        self.assertEqual(trade.entry_price, 101.0)
+        self.assertEqual(trade.exit_price, 103.5)
+        self.assertAlmostEqual(trade.gross_return, 103.5 / 101 - 1)
+        self.assertAlmostEqual(trade.net_return, trade.gross_return - 0.0006)
+
+    def test_short_return_has_inverse_direction(self):
+        signals = pd.Series([True, False, False, False, False, False, False])
+        trades = simulate_fixed_horizon(
+            self.bars, signals, FixedHorizonConfig(side="short", hold_bars=2)
+        )
+        self.assertAlmostEqual(trades.iloc[0].gross_return, -(102.5 / 101 - 1))
+
+    def test_single_position_rejects_only_overlapping_signals(self):
+        signals = pd.Series([True, True, False, True, False, False, False])
+        trades = simulate_fixed_horizon(
+            self.bars, signals, FixedHorizonConfig(hold_bars=3)
+        )
+        self.assertEqual(trades.signal_position.tolist(), [0, 3])
+
+    def test_allow_policy_keeps_overlapping_signals(self):
+        signals = pd.Series([True, True, False, False, False, False, False])
+        trades = simulate_fixed_horizon(
+            self.bars,
+            signals,
+            FixedHorizonConfig(hold_bars=3, overlap="allow"),
+        )
+        self.assertEqual(trades.signal_position.tolist(), [0, 1])
+
+    def test_incomplete_last_trade_is_dropped(self):
+        signals = pd.Series([False, False, False, False, False, True, True])
+        trades = simulate_fixed_horizon(
+            self.bars, signals, FixedHorizonConfig(hold_bars=2)
+        )
+        self.assertTrue(trades.empty)
+
+    def test_same_candle_entry_is_rejected(self):
+        with self.assertRaises(ValueError):
+            FixedHorizonConfig(entry_delay_bars=0)
 
 
 class FrozenC2RegressionTests(unittest.TestCase):
