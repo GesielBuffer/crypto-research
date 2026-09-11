@@ -1,0 +1,54 @@
+{
+  "description": "Replay congelado do holdout agosto/2026; resultado permanece FAIL.",
+  "expected_decision": "FAIL",
+  "experiment_id": "c2_august_holdout_replay",
+  "generated_at_utc": "2026-09-11T04:26:14.313577+00:00",
+  "git_commit": "01d8acbba75daa33af4c609977183fc390e1161e",
+  "inputs": {
+    "candles": [
+      {
+        "path": "data/BNBUSDT_5m_2026-08-01_2026-09-01.csv",
+        "sha256": "397f4f5b8b7dabdb79fad2136231c1d8a6f5e4aedbed8a24bf8e306ff90c2040"
+      },
+      {
+        "path": "data/BTCUSDT_5m_2026-08-01_2026-09-01.csv",
+        "sha256": "5f6dbae1295add65f8ebe213e56536ce666c346cc19e940dcf216e969b116611"
+      },
+      {
+        "path": "data/ETHUSDT_5m_2026-08-01_2026-09-01.csv",
+        "sha256": "9e64e2fc0dd760439dd7f09412961588ab58561e7b24f92b53c21e700f020f80"
+      },
+      {
+        "path": "data/SOLUSDT_5m_2026-08-01_2026-09-01.csv",
+        "sha256": "5c57df854cd08277d50a270ebc64454517648bc01b3fd7e756f1f797d8e486d9"
+      }
+    ],
+    "summary": {
+      "path": "results/c2_august_holdout_global.csv",
+      "sha256": "b62d5169b11b9b2ef6416f5563b95c5923ec73211d54165d272b4a0fc08ce2d7"
+    },
+    "trades": {
+      "path": "results/c2_august_holdout_trades.csv",
+      "sha256": "bbde77acfe16878039a4def1202411ad7e89ac42c1e0d3e42d35e596e7c8db15"
+    }
+  },
+  "metrics": {
+    "mean_return": -0.0007980390104794528,
+    "median_return": -0.0016000259074069982,
+    "profit_factor": 0.7140796324534253,
+    "samples": 47,
+    "win_rate": 0.2978723404255319
+  },
+  "mismatches": {},
+  "parameters": {
+    "cost": 0.0006,
+    "entry_delay_bars": 1,
+    "hold_bars": 6,
+    "interval": "5m",
+    "overlap": "single_position",
+    "side": "long"
+  },
+  "split": "holdout",
+  "status": "PASS_REGRESSION",
+  "strategy_version": "C2_FROZEN_DEV_2026_08_27"
+}
