@@ -12,6 +12,10 @@ hold_bars = 6
 overlap = "single_position"
 cost = 0.0006
 expected_decision = "EXPLORATORY_ONLY"
+data_start = "2024-01-01"
+data_end = "2026-08-01"
+evaluation_start = "2024-01-01"
+evaluation_end = "2026-08-01"
 
 [experiments.c2_august_holdout_replay]
 description = "Replay congelado do holdout agosto/2026; resultado permanece FAIL."
@@ -27,3 +31,7 @@ hold_bars = 6
 overlap = "single_position"
 cost = 0.0006
 expected_decision = "FAIL"
+data_start = "2026-07-01"
+data_end = "2026-09-01"
+evaluation_start = "2026-08-01"
+evaluation_end = "2026-09-01"
