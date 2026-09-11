@@ -75,6 +75,15 @@ Alguns modulos centrais:
 - `research/statistics.py`: estatisticas e profit factor.
 - `research/validation.py`: experimentos e validacao com amostras nao sobrepostas.
 - `research/regimes.py`: classificacao de regimes de mercado.
+- `research/backtest.py`: modelo canonico e aditivo de custos por trade.
+- `research/metrics.py`: metricas canonicas de retorno para experimentos.
+
+O primeiro teste de regressao do motor reproduz os resumos congelados da C2 sem
+baixar dados nem reabrir o holdout:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -p "test_*.py"
+```
 
 ## Exemplos
 
