@@ -85,6 +85,10 @@ baixar dados nem reabrir o holdout:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -p "test_*.py"
 ```
 
+Quando os caches publicos mensais estao presentes em `data/`, a mesma suite
+tambem reproduz cada entrada e retorno bruto congelado da C2 diretamente dos
+candles. Os caches continuam fora do Git.
+
 ## Exemplos
 
 ### Baixar candles publicos
