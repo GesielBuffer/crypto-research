@@ -2,21 +2,37 @@
   "description": "Replay congelado do holdout agosto/2026; resultado permanece FAIL.",
   "expected_decision": "FAIL",
   "experiment_id": "c2_august_holdout_replay",
-  "generated_at_utc": "2026-09-11T04:26:14.313577+00:00",
-  "git_commit": "01d8acbba75daa33af4c609977183fc390e1161e",
+  "generated_at_utc": "2026-09-11T04:31:02.374500+00:00",
+  "git_commit": "77ca6f3a8af88e5d256667736125960a6bf33aad",
   "inputs": {
     "candles": [
       {
+        "path": "data/BNBUSDT_5m_2026-07-01_2026-08-01.csv",
+        "sha256": "8050e4f492c6d30b3c3edb8247106e3e773e5cdcd82e34172beb5e72f1305fe8"
+      },
+      {
         "path": "data/BNBUSDT_5m_2026-08-01_2026-09-01.csv",
         "sha256": "397f4f5b8b7dabdb79fad2136231c1d8a6f5e4aedbed8a24bf8e306ff90c2040"
+      },
+      {
+        "path": "data/BTCUSDT_5m_2026-07-01_2026-08-01.csv",
+        "sha256": "bd43113b7a666ac580723cf91434a917716f11fe514b8ce63ea6ce25d05e9449"
       },
       {
         "path": "data/BTCUSDT_5m_2026-08-01_2026-09-01.csv",
         "sha256": "5f6dbae1295add65f8ebe213e56536ce666c346cc19e940dcf216e969b116611"
       },
       {
+        "path": "data/ETHUSDT_5m_2026-07-01_2026-08-01.csv",
+        "sha256": "a4ef4de5aed3f533e69b44f370265c5cf5e9662a4b69f043e1c0d9f7facf4089"
+      },
+      {
         "path": "data/ETHUSDT_5m_2026-08-01_2026-09-01.csv",
         "sha256": "9e64e2fc0dd760439dd7f09412961588ab58561e7b24f92b53c21e700f020f80"
+      },
+      {
+        "path": "data/SOLUSDT_5m_2026-07-01_2026-08-01.csv",
+        "sha256": "5075bcb741d6f2914230ef902ef16d5723b1b3e8347eb4ad89571184ec67b257"
       },
       {
         "path": "data/SOLUSDT_5m_2026-08-01_2026-09-01.csv",
@@ -42,7 +58,11 @@
   "mismatches": {},
   "parameters": {
     "cost": 0.0006,
+    "data_end": "2026-09-01",
+    "data_start": "2026-07-01",
     "entry_delay_bars": 1,
+    "evaluation_end": "2026-09-01",
+    "evaluation_start": "2026-08-01",
     "hold_bars": 6,
     "interval": "5m",
     "overlap": "single_position",
