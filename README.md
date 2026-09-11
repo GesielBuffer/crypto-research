@@ -89,6 +89,19 @@ Quando os caches publicos mensais estao presentes em `data/`, a mesma suite
 tambem reproduz cada entrada e retorno bruto congelado da C2 diretamente dos
 candles. Os caches continuam fora do Git.
 
+### Executar um experimento registrado
+
+```powershell
+.\.venv\Scripts\python.exe -m research.run_research --list
+.\.venv\Scripts\python.exe -m research.run_research c2_development_replay
+.\.venv\Scripts\python.exe -m research.run_research c2_august_holdout_replay
+```
+
+Cada execucao valida o resultado congelado e grava em `results/runs/` um
+relatorio com parametros, commit do codigo e checksums de todos os arquivos de
+entrada. `PASS_REGRESSION` significa apenas que o resultado foi reproduzido; a
+decisao cientifica da C2 no holdout continua sendo `FAIL`.
+
 ## Exemplos
 
 ### Baixar candles publicos
