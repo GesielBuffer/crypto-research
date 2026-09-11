@@ -82,12 +82,17 @@ O primeiro teste de regressao do motor reproduz os resumos congelados da C2 sem
 baixar dados nem reabrir o holdout:
 
 ```powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests -p "test_*.py"
+.\.venv\Scripts\python.exe -m unittest discover -s tests/unit -p "test_*.py" -v
 ```
 
-Quando os caches publicos mensais estao presentes em `data/`, a mesma suite
-tambem reproduz cada entrada e retorno bruto congelado da C2 diretamente dos
-candles. Os caches continuam fora do Git.
+Quando os caches publicos mensais estao presentes em `data/`, execute tambem a
+regressao pesada que reproduz sinais, entradas e retornos da C2 diretamente dos
+candles. Testes sem o cache necessario sao marcados como ignorados; os dados
+continuam fora do Git.
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests/regression -p "test_*.py" -v
+```
 
 ### Executar um experimento registrado
 

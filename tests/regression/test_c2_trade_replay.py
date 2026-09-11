@@ -58,6 +58,8 @@ class C2TradeReplayTests(unittest.TestCase):
             path = DATA_DIR / (
                 f"{symbol}_5m_{start:%Y-%m-%d}_{end:%Y-%m-%d}.csv"
             )
+            if not path.exists():
+                self.skipTest(f"cache local ausente: {path.name}")
             frames.append(load_csv(path))
         return pd.concat(frames, ignore_index=True).drop_duplicates("open_time")
 
