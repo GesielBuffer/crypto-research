@@ -11,6 +11,7 @@ from research.backtest import (
     simulate_fixed_horizon,
 )
 from research.metrics import summarize_returns
+from research.signals import C2SignalConfig, build_c2_signals
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -89,6 +90,47 @@ class FixedHorizonTests(unittest.TestCase):
     def test_same_candle_entry_is_rejected(self):
         with self.assertRaises(ValueError):
             FixedHorizonConfig(entry_delay_bars=0)
+
+
+class C2SignalTests(unittest.TestCase):
+    def test_future_candles_cannot_change_past_features_or_signals(self):
+        bars = pd.DataFrame({
+            "open": [100.0] * 10,
+            "close": [100.0, 101.0, 99.0, 102.0, 100.0, 104.0, 100.0, 99.0, 101.0, 100.0],
+        })
+        config = C2SignalConfig(
+            lookback=4,
+            min_periods=3,
+            extreme_quantile=0.75,
+            z_threshold=1.0,
+            fresh_lookback_bars=2,
+        )
+        original = build_c2_signals(bars, config)
+        changed = bars.copy()
+        changed.loc[7:, "close"] = [500.0, 1.0, 700.0]
+        recalculated = build_c2_signals(changed, config)
+
+        pd.testing.assert_frame_equal(original.loc[:6], recalculated.loc[:6])
+
+    def test_current_candle_is_excluded_from_threshold_and_freshness(self):
+        bars = pd.DataFrame({
+            "open": [100.0] * 6,
+            "close": [100.0, 101.0, 99.0, 100.5, 110.0, 111.0],
+        })
+        features = build_c2_signals(
+            bars,
+            C2SignalConfig(
+                lookback=4,
+                min_periods=3,
+                extreme_quantile=0.75,
+                z_threshold=1.0,
+                fresh_lookback_bars=2,
+            ),
+        )
+        self.assertTrue(features.loc[4, "signal"])
+        self.assertEqual(features.loc[4, "prior_extreme_count"], 0)
+        self.assertFalse(features.loc[5, "signal"])
+        self.assertEqual(features.loc[5, "prior_extreme_count"], 1)
 
 
 class FrozenC2RegressionTests(unittest.TestCase):
