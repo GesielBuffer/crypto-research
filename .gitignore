@@ -1,0 +1,36 @@
+# Segredos e configuracao local
+.env
+.env.*
+!.env.example
+
+# Ambientes Python
+.venv/
+.venv_*/
+venv/
+
+# Cache e ferramentas
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE e sistema operacional
+.vscode/*.local.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Dados historicos: reproduziveis por download, grandes demais para Git
+data/
+
+# Resultados brutos por evento podem ultrapassar o limite do GitHub.
+# Resumos, decisoes, estabilidade e curvas menores continuam versionados.
+results/*events*.csv
+
+# Logs e artefatos temporarios
+*.log
+*.tmp
+work/

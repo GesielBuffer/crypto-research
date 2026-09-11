@@ -1,0 +1,2 @@
+strategy_version,holdout_start,holdout_end,base_cost,samples,mean_return,median_return,trimmed_mean_5,winsorized_mean_5,win_rate,profit_factor,portfolio_return,portfolio_max_drawdown,decision
+C2_FROZEN_DEV_2026_08_27,2026-08-01 00:00:00+00:00,2026-09-01 00:00:00+00:00,0.0006,47,-0.0007980390104794528,-0.0016000259074069982,-0.0006766646966039556,-0.0004938869018320225,0.2978723404255319,0.7140796324534253,-0.009429288112743683,-0.01710736432862714,FAIL — holdout não confirmou o edge

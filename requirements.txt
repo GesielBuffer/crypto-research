@@ -1,0 +1,6 @@
+pandas>=2.2
+numpy>=1.26
+requests>=2.32
+python-dotenv>=1.0
+scikit-learn>=1.5
+

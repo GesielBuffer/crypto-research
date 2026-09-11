@@ -1,0 +1,3 @@
+minutes,global_pf,global_mean,pass_global,bootstrap_prob_pf_gt_1,bootstrap_prob_mean_gt_0,pass_bootstrap,assets_pf_gt_1,pass_assets,worst_loo_asset_pf,pass_loo_asset,worst_loo_year_pf,pass_loo_year,positive_semesters,total_semesters,pass_semesters,ROBUSTNESS_PASS
+60,1.1103853517104234,0.0003886270461324805,True,0.899,0.899,False,3,True,1.0572030945464608,True,0.9685194536248153,False,3,6,False,False
+120,1.0827253449618492,0.00038069102200430973,True,0.8338,0.8338,False,3,True,1.0457508733957013,True,0.9424671611194543,False,4,6,True,False

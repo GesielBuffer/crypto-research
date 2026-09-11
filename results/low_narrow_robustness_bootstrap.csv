@@ -1,0 +1,2 @@
+bootstrap_runs,mean_ci_low,mean_ci_high,pf_ci_low,pf_ci_high,prob_mean_gt_0,prob_pf_gt_1,prob_pf_ge_1_03,prob_pf_ge_1_08
+5000,-0.000729136807097485,0.0012430388240845722,0.8374612742425165,1.3372061628108578,0.7028,0.7028,0.6222,0.4744
