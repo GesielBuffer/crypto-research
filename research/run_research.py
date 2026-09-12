@@ -18,6 +18,7 @@ from research.backtest import CostModel, FixedHorizonConfig
 from research.backtest import simulate_fixed_horizon
 from research.binance_data import load_csv
 from research.config import BASE_DIR, DATA_DIR, RESULTS_DIR
+from research.data_manifest import verify_manifest
 from research.metrics import summarize_returns
 from research.signals import build_c2_signals
 
@@ -32,6 +33,7 @@ REQUIRED_SPEC_FIELDS = {
     "split",
     "trades_file",
     "summary_file",
+    "data_manifest",
     "signal_time_column",
     "interval",
     "side",
@@ -58,7 +60,7 @@ def validate_experiment_spec(experiment_id: str, spec: dict) -> None:
             f"experiment '{experiment_id}' missing fields: {sorted(missing)}"
         )
 
-    for field in ("trades_file", "summary_file"):
+    for field in ("trades_file", "summary_file", "data_manifest"):
         path = Path(spec[field])
         if path.is_absolute() or ".." in path.parts:
             raise ValueError(
@@ -180,6 +182,8 @@ def run_experiment(experiment_id: str, *, write_report: bool = True) -> dict:
     missing = [str(path) for path in cache_files if not path.exists()]
     if missing:
         raise FileNotFoundError(f"missing cache files: {missing}")
+    manifest_path = BASE_DIR / spec["data_manifest"]
+    verified_manifest_entries = verify_manifest(manifest_path, cache_files)
     generated = generate_trades(frozen, spec, config)
     signal_column = spec["signal_time_column"]
     expected_trades = frozen.copy()
@@ -233,6 +237,11 @@ def run_experiment(experiment_id: str, *, write_report: bool = True) -> dict:
         "metrics": {field: actual[field] for field in COMPARISON_FIELDS},
         "mismatches": mismatches,
         "inputs": {
+            "data_manifest": {
+                "path": spec["data_manifest"],
+                "sha256": sha256(manifest_path),
+                "verified_files": len(verified_manifest_entries),
+            },
             "trades": {"path": spec["trades_file"], "sha256": sha256(trades_path)},
             "summary": {"path": spec["summary_file"], "sha256": sha256(summary_path)},
             "candles": [

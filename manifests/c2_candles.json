@@ -1,0 +1,1035 @@
+{
+  "dataset_id": "c2-public-futures-5m-2024-01_2026-08",
+  "files": [
+    {
+      "bytes": 1210063,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2024-02-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-01-01_2024-02-01.csv",
+      "rows": 8929,
+      "sha256": "559cdf61d91603ada05efa40fc1407fc41768923f543773beab6e66a8658e09a"
+    },
+    {
+      "bytes": 1129695,
+      "first_open_time": "2024-02-01T00:00:00+00:00",
+      "last_open_time": "2024-03-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-02-01_2024-03-01.csv",
+      "rows": 8353,
+      "sha256": "19b344ee082ccf007718d66443ebb37238a16a679c82d35a2d50806018f3627e"
+    },
+    {
+      "bytes": 1221926,
+      "first_open_time": "2024-03-01T00:00:00+00:00",
+      "last_open_time": "2024-04-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-03-01_2024-04-01.csv",
+      "rows": 8929,
+      "sha256": "9a674762f3572fde8be5a853bca4a514e2876a9ecbfbc3d7e288afca1fbaa0de"
+    },
+    {
+      "bytes": 1176353,
+      "first_open_time": "2024-04-01T00:00:00+00:00",
+      "last_open_time": "2024-05-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-04-01_2024-05-01.csv",
+      "rows": 8641,
+      "sha256": "8f37aea2d6bab4942e8327f7ec047252acbb220cca83f9d99ece5bef6cdcb8fc"
+    },
+    {
+      "bytes": 1204765,
+      "first_open_time": "2024-05-01T00:00:00+00:00",
+      "last_open_time": "2024-06-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-05-01_2024-06-01.csv",
+      "rows": 8929,
+      "sha256": "47d5469dde891e84b0f1e9f6d15cc55f611cc89214d63c3d8b7ad278ca90cda0"
+    },
+    {
+      "bytes": 1167837,
+      "first_open_time": "2024-06-01T00:00:00+00:00",
+      "last_open_time": "2024-07-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-06-01_2024-07-01.csv",
+      "rows": 8641,
+      "sha256": "86f2d409e4ebb1ea26b9676750617d929b39d72a562a7071cfb89ab666dc22f4"
+    },
+    {
+      "bytes": 1201980,
+      "first_open_time": "2024-07-01T00:00:00+00:00",
+      "last_open_time": "2024-08-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-07-01_2024-08-01.csv",
+      "rows": 8929,
+      "sha256": "00222a3a58b4df6229c50b983681e7dae99b72b0384bd43ac9fb5ade5d1db019"
+    },
+    {
+      "bytes": 1206258,
+      "first_open_time": "2024-08-01T00:00:00+00:00",
+      "last_open_time": "2024-09-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-08-01_2024-09-01.csv",
+      "rows": 8929,
+      "sha256": "75acc4b5219f424956cf384891f50695928ed5882d22f2b0ce3eb8bf833d5fdd"
+    },
+    {
+      "bytes": 1165520,
+      "first_open_time": "2024-09-01T00:00:00+00:00",
+      "last_open_time": "2024-10-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-09-01_2024-10-01.csv",
+      "rows": 8641,
+      "sha256": "f2c82025740d7363711f810cd5abb9161573420a70d5b8c4d7602384c7bbf9db"
+    },
+    {
+      "bytes": 1199387,
+      "first_open_time": "2024-10-01T00:00:00+00:00",
+      "last_open_time": "2024-11-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-10-01_2024-11-01.csv",
+      "rows": 8929,
+      "sha256": "02fc8417bc0230191659ead3ecafdf7f6c3336fa799f58667cf50cefd6eb6841"
+    },
+    {
+      "bytes": 1177822,
+      "first_open_time": "2024-11-01T00:00:00+00:00",
+      "last_open_time": "2024-12-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-11-01_2024-12-01.csv",
+      "rows": 8641,
+      "sha256": "2f62acc9b89cb6909af4b5bc8f113df14c546e8be6f56688f3a71196371c03b7"
+    },
+    {
+      "bytes": 1218827,
+      "first_open_time": "2024-12-01T00:00:00+00:00",
+      "last_open_time": "2025-01-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2024-12-01_2025-01-01.csv",
+      "rows": 8929,
+      "sha256": "d7b1c857e5e62bc7dc94e602e5cde2906765a3499395b9f8e48634258883915c"
+    },
+    {
+      "bytes": 1206345,
+      "first_open_time": "2025-01-01T00:00:00+00:00",
+      "last_open_time": "2025-02-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-01-01_2025-02-01.csv",
+      "rows": 8929,
+      "sha256": "3c4a7499d8c3ec3dedb783a2a7f9eec035d254108e334ecb2d2b73d7babf3d92"
+    },
+    {
+      "bytes": 1097711,
+      "first_open_time": "2025-02-01T00:00:00+00:00",
+      "last_open_time": "2025-03-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-02-01_2025-03-01.csv",
+      "rows": 8065,
+      "sha256": "e1d964255e86d5f00b4877a97926db695a894e4a51b367cec98c609140c626bc"
+    },
+    {
+      "bytes": 1211159,
+      "first_open_time": "2025-03-01T00:00:00+00:00",
+      "last_open_time": "2025-04-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-03-01_2025-04-01.csv",
+      "rows": 8929,
+      "sha256": "cb93800ef469e89bafaee60a9368590bd83cd43c37ceb22f03e4ecf88323c49d"
+    },
+    {
+      "bytes": 1165414,
+      "first_open_time": "2025-04-01T00:00:00+00:00",
+      "last_open_time": "2025-05-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-04-01_2025-05-01.csv",
+      "rows": 8641,
+      "sha256": "3d6643afed161ec11bd806f8a7518c65d22cde752dc726d40893ba7745e4e3c2"
+    },
+    {
+      "bytes": 1205055,
+      "first_open_time": "2025-05-01T00:00:00+00:00",
+      "last_open_time": "2025-06-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-05-01_2025-06-01.csv",
+      "rows": 8929,
+      "sha256": "04f90c7889b62dfb3bbb93b885a712de5c413eeb6eac0e174778d63f386a9554"
+    },
+    {
+      "bytes": 1158800,
+      "first_open_time": "2025-06-01T00:00:00+00:00",
+      "last_open_time": "2025-07-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-06-01_2025-07-01.csv",
+      "rows": 8641,
+      "sha256": "a4b7e28315e8e63c20d34b9fd2ea20edacf178ba215a5409f32ca8f6b1abd64f"
+    },
+    {
+      "bytes": 1205625,
+      "first_open_time": "2025-07-01T00:00:00+00:00",
+      "last_open_time": "2025-08-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-07-01_2025-08-01.csv",
+      "rows": 8929,
+      "sha256": "5d17d590bcf0499f380bcd69f837b7ffb6ab123bb3d64b2b1535197261fb0908"
+    },
+    {
+      "bytes": 1209543,
+      "first_open_time": "2025-08-01T00:00:00+00:00",
+      "last_open_time": "2025-09-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-08-01_2025-09-01.csv",
+      "rows": 8929,
+      "sha256": "9be17575587db64d7cee2619d894f7db586fa0b84deb60eccc33e17db667479c"
+    },
+    {
+      "bytes": 1179630,
+      "first_open_time": "2025-09-01T00:00:00+00:00",
+      "last_open_time": "2025-10-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-09-01_2025-10-01.csv",
+      "rows": 8641,
+      "sha256": "6f44768e31bf64fb9e5ba3fe160dcbc52c9ec861138a85a3a09584f2747158fb"
+    },
+    {
+      "bytes": 1264172,
+      "first_open_time": "2025-10-01T00:00:00+00:00",
+      "last_open_time": "2025-11-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-10-01_2025-11-01.csv",
+      "rows": 8929,
+      "sha256": "8d244a429287f000f7afafff7b44c6d537431a5acba3590ac65b2fcc7d6777aa"
+    },
+    {
+      "bytes": 1179272,
+      "first_open_time": "2025-11-01T00:00:00+00:00",
+      "last_open_time": "2025-12-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-11-01_2025-12-01.csv",
+      "rows": 8641,
+      "sha256": "3e64c34e8a63a0bbd17f870c16246b893e34298cf05a2ea9f2cd4794cdff0e00"
+    },
+    {
+      "bytes": 1203374,
+      "first_open_time": "2025-12-01T00:00:00+00:00",
+      "last_open_time": "2026-01-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2025-12-01_2026-01-01.csv",
+      "rows": 8929,
+      "sha256": "5d647687b9030fa7767056f5be228de531f409a8902d4f72f4f105af46df7760"
+    },
+    {
+      "bytes": 1203337,
+      "first_open_time": "2026-01-01T00:00:00+00:00",
+      "last_open_time": "2026-02-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2026-01-01_2026-02-01.csv",
+      "rows": 8929,
+      "sha256": "eef3586292220c0c3dd4647c89e9d10a5bd7e493ff0ad3b8254e7e69f49a1859"
+    },
+    {
+      "bytes": 1094613,
+      "first_open_time": "2026-02-01T00:00:00+00:00",
+      "last_open_time": "2026-03-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2026-02-01_2026-03-01.csv",
+      "rows": 8065,
+      "sha256": "d5a548ce4075ffd9e6c6e22b2fb086254b1c1d9381d92b664dce5471fe53742a"
+    },
+    {
+      "bytes": 1203039,
+      "first_open_time": "2026-03-01T00:00:00+00:00",
+      "last_open_time": "2026-04-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2026-03-01_2026-04-01.csv",
+      "rows": 8929,
+      "sha256": "26e858f811b8f0f732e5165827326936614f731198cf5dd1194389c8f7209d45"
+    },
+    {
+      "bytes": 1160033,
+      "first_open_time": "2026-04-01T00:00:00+00:00",
+      "last_open_time": "2026-05-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2026-04-01_2026-05-01.csv",
+      "rows": 8641,
+      "sha256": "93caac8b2cc6a07062fbe6e5e597adb215aa2192cbe3c9b27250ad5b81d83983"
+    },
+    {
+      "bytes": 1201353,
+      "first_open_time": "2026-05-01T00:00:00+00:00",
+      "last_open_time": "2026-06-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2026-05-01_2026-06-01.csv",
+      "rows": 8929,
+      "sha256": "8db0991c35177a33bd6c67c94f252c8f533833141bda0f2540e7fbc7cade3bd4"
+    },
+    {
+      "bytes": 1165991,
+      "first_open_time": "2026-06-01T00:00:00+00:00",
+      "last_open_time": "2026-07-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2026-06-01_2026-07-01.csv",
+      "rows": 8641,
+      "sha256": "87133859fc3896c53e9d17a729777beccb5977901f5c3826253e732ea4a522b3"
+    },
+    {
+      "bytes": 1195181,
+      "first_open_time": "2026-07-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "path": "data/BNBUSDT_5m_2026-07-01_2026-08-01.csv",
+      "rows": 8929,
+      "sha256": "8050e4f492c6d30b3c3edb8247106e3e773e5cdcd82e34172beb5e72f1305fe8"
+    },
+    {
+      "bytes": 1187390,
+      "first_open_time": "2026-08-01T00:00:00+00:00",
+      "last_open_time": "2026-08-31T23:55:00+00:00",
+      "path": "data/BNBUSDT_5m_2026-08-01_2026-09-01.csv",
+      "rows": 8928,
+      "sha256": "397f4f5b8b7dabdb79fad2136231c1d8a6f5e4aedbed8a24bf8e306ff90c2040"
+    },
+    {
+      "bytes": 1289835,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2024-02-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-01-01_2024-02-01.csv",
+      "rows": 8929,
+      "sha256": "47ce14b2681d452478e98180745fcb03af175f4a44d905eb03d81cae67d2a5a0"
+    },
+    {
+      "bytes": 1206378,
+      "first_open_time": "2024-02-01T00:00:00+00:00",
+      "last_open_time": "2024-03-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-02-01_2024-03-01.csv",
+      "rows": 8353,
+      "sha256": "581083699870b45291e29f0b2e4ad9218b9f33ce2b01a8db640def5c89c9960c"
+    },
+    {
+      "bytes": 1296219,
+      "first_open_time": "2024-03-01T00:00:00+00:00",
+      "last_open_time": "2024-04-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-03-01_2024-04-01.csv",
+      "rows": 8929,
+      "sha256": "0994a39a358cf9c8ce794de55a0dbd8c3933d4f34267816021b0bc1a851ee650"
+    },
+    {
+      "bytes": 1250493,
+      "first_open_time": "2024-04-01T00:00:00+00:00",
+      "last_open_time": "2024-05-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-04-01_2024-05-01.csv",
+      "rows": 8641,
+      "sha256": "ac3f3364f503a0891d095a68e4c33baf3b3b3594cad950fa737dd727865aa9c3"
+    },
+    {
+      "bytes": 1285721,
+      "first_open_time": "2024-05-01T00:00:00+00:00",
+      "last_open_time": "2024-06-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-05-01_2024-06-01.csv",
+      "rows": 8929,
+      "sha256": "1667946eed8f74bef11e1fc430d3e4c97123d8f8555f1fafb9fe355a014dc264"
+    },
+    {
+      "bytes": 1237907,
+      "first_open_time": "2024-06-01T00:00:00+00:00",
+      "last_open_time": "2024-07-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-06-01_2024-07-01.csv",
+      "rows": 8641,
+      "sha256": "0ee59a10ab24a932d1124592f1a91e6515ed28642b9e607352858cb635815e09"
+    },
+    {
+      "bytes": 1288871,
+      "first_open_time": "2024-07-01T00:00:00+00:00",
+      "last_open_time": "2024-08-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-07-01_2024-08-01.csv",
+      "rows": 8929,
+      "sha256": "d4256ddc51101e69ed722423cdacd7ba285fd10ac232502933a8c010fe194a6d"
+    },
+    {
+      "bytes": 1289375,
+      "first_open_time": "2024-08-01T00:00:00+00:00",
+      "last_open_time": "2024-09-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-08-01_2024-09-01.csv",
+      "rows": 8929,
+      "sha256": "9682521c4efe5b9a3d521fc8d56ad66acf1587acc5c3a1ab0f1116451db19ce4"
+    },
+    {
+      "bytes": 1245004,
+      "first_open_time": "2024-09-01T00:00:00+00:00",
+      "last_open_time": "2024-10-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-09-01_2024-10-01.csv",
+      "rows": 8641,
+      "sha256": "90e37fdd4be794ff4a94a27b9ff788505cd9174f065d3dc146d03649ec5c8497"
+    },
+    {
+      "bytes": 1284806,
+      "first_open_time": "2024-10-01T00:00:00+00:00",
+      "last_open_time": "2024-11-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-10-01_2024-11-01.csv",
+      "rows": 8929,
+      "sha256": "2303b2bc48478513b1b07b4476fd2752302931415406335d8ac8f5dd9db33077"
+    },
+    {
+      "bytes": 1251766,
+      "first_open_time": "2024-11-01T00:00:00+00:00",
+      "last_open_time": "2024-12-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-11-01_2024-12-01.csv",
+      "rows": 8641,
+      "sha256": "b05816afeb8aa4aac212d092d7cacdb35d1c92ce72bb6bcf839fd512c583c677"
+    },
+    {
+      "bytes": 1300289,
+      "first_open_time": "2024-12-01T00:00:00+00:00",
+      "last_open_time": "2025-01-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2024-12-01_2025-01-01.csv",
+      "rows": 8929,
+      "sha256": "8be33b63ba1e478f2ad886f65304d2b03ef5f1ed9c2ab423c169feac65b9fc77"
+    },
+    {
+      "bytes": 1305037,
+      "first_open_time": "2025-01-01T00:00:00+00:00",
+      "last_open_time": "2025-02-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-01-01_2025-02-01.csv",
+      "rows": 8929,
+      "sha256": "78311df411baf58b6c00f8618dfccb0f26ffbe73dd21a0c695a6685cceda757a"
+    },
+    {
+      "bytes": 1162491,
+      "first_open_time": "2025-02-01T00:00:00+00:00",
+      "last_open_time": "2025-03-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-02-01_2025-03-01.csv",
+      "rows": 8065,
+      "sha256": "cef97ab6c52ee117e65897dc6f0de51fbdcca9d0b144ef82557ee4f8c78a3af3"
+    },
+    {
+      "bytes": 1288073,
+      "first_open_time": "2025-03-01T00:00:00+00:00",
+      "last_open_time": "2025-04-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-03-01_2025-04-01.csv",
+      "rows": 8929,
+      "sha256": "842f87ca292a89d423ce5af085462dbb3a6b5190a9e8c6cc09f8ea42d0ab95c4"
+    },
+    {
+      "bytes": 1245812,
+      "first_open_time": "2025-04-01T00:00:00+00:00",
+      "last_open_time": "2025-05-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-04-01_2025-05-01.csv",
+      "rows": 8641,
+      "sha256": "d95ef6ed43f2d5dafeab50a6f45ab8ca7a29ec90b7f3b0ef78cc8480ba82f909"
+    },
+    {
+      "bytes": 1313124,
+      "first_open_time": "2025-05-01T00:00:00+00:00",
+      "last_open_time": "2025-06-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-05-01_2025-06-01.csv",
+      "rows": 8929,
+      "sha256": "71aedcea3614208bae9ad0844b30c52d60e1ff49c14d7abfc0a49a92ccbabb67"
+    },
+    {
+      "bytes": 1274859,
+      "first_open_time": "2025-06-01T00:00:00+00:00",
+      "last_open_time": "2025-07-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-06-01_2025-07-01.csv",
+      "rows": 8641,
+      "sha256": "1f66b513eab90dd2e2bbf599657d651aab94c74dac0bebe2efa7f4d0cef5c104"
+    },
+    {
+      "bytes": 1316739,
+      "first_open_time": "2025-07-01T00:00:00+00:00",
+      "last_open_time": "2025-08-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-07-01_2025-08-01.csv",
+      "rows": 8929,
+      "sha256": "e05fe6f50ead1596a649ab9658ff84a5c74763556a0a8df4fb521f6533f6364d"
+    },
+    {
+      "bytes": 1316071,
+      "first_open_time": "2025-08-01T00:00:00+00:00",
+      "last_open_time": "2025-09-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-08-01_2025-09-01.csv",
+      "rows": 8929,
+      "sha256": "e6c61299cc8e8ed7973259fa761b5703a529c9016e30747a51b74c82dabb8602"
+    },
+    {
+      "bytes": 1270225,
+      "first_open_time": "2025-09-01T00:00:00+00:00",
+      "last_open_time": "2025-10-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-09-01_2025-10-01.csv",
+      "rows": 8641,
+      "sha256": "5d0449684f402b699157a892a4a2d4eca46093a19b758d53836979530c6cf9c4"
+    },
+    {
+      "bytes": 1321877,
+      "first_open_time": "2025-10-01T00:00:00+00:00",
+      "last_open_time": "2025-11-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-10-01_2025-11-01.csv",
+      "rows": 8929,
+      "sha256": "679182c0d2a2c9cb1e1e8b253dacf21c3bea4e771150223f9603383f6e0c3fcb"
+    },
+    {
+      "bytes": 1258884,
+      "first_open_time": "2025-11-01T00:00:00+00:00",
+      "last_open_time": "2025-12-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-11-01_2025-12-01.csv",
+      "rows": 8641,
+      "sha256": "fb26c0e23408fe92bb9f145282bc0c1062145d34d8128f852cd8196637223f7c"
+    },
+    {
+      "bytes": 1278331,
+      "first_open_time": "2025-12-01T00:00:00+00:00",
+      "last_open_time": "2026-01-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2025-12-01_2026-01-01.csv",
+      "rows": 8929,
+      "sha256": "a73ec1773267af83dec251d71d5f28f1fb8f792c7ce85978bf4ddc04a5858c55"
+    },
+    {
+      "bytes": 1277261,
+      "first_open_time": "2026-01-01T00:00:00+00:00",
+      "last_open_time": "2026-02-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2026-01-01_2026-02-01.csv",
+      "rows": 8929,
+      "sha256": "66179d42bb6fd6f6702ac930924f51d9936b1a34d606a4ac24a37a024054f195"
+    },
+    {
+      "bytes": 1164608,
+      "first_open_time": "2026-02-01T00:00:00+00:00",
+      "last_open_time": "2026-03-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2026-02-01_2026-03-01.csv",
+      "rows": 8065,
+      "sha256": "7365ba9eca1be3bee82688ffc4804bcbbc894cd3db9ec38d30b5f4447b250995"
+    },
+    {
+      "bytes": 1287153,
+      "first_open_time": "2026-03-01T00:00:00+00:00",
+      "last_open_time": "2026-04-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2026-03-01_2026-04-01.csv",
+      "rows": 8929,
+      "sha256": "f386dfa9261b0888c6434186fa02b4cf59e739388b46650372c888d519d3ea76"
+    },
+    {
+      "bytes": 1238737,
+      "first_open_time": "2026-04-01T00:00:00+00:00",
+      "last_open_time": "2026-05-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2026-04-01_2026-05-01.csv",
+      "rows": 8641,
+      "sha256": "d12db5290047fefeaa685d3d509a5759cc45bdcdc58e20e892fe1283fee3c057"
+    },
+    {
+      "bytes": 1276374,
+      "first_open_time": "2026-05-01T00:00:00+00:00",
+      "last_open_time": "2026-06-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2026-05-01_2026-06-01.csv",
+      "rows": 8929,
+      "sha256": "422107e7fab9fac0f028d3e7dbdf757c5df495a68399e3735fb0c5a59f26b542"
+    },
+    {
+      "bytes": 1243507,
+      "first_open_time": "2026-06-01T00:00:00+00:00",
+      "last_open_time": "2026-07-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2026-06-01_2026-07-01.csv",
+      "rows": 8641,
+      "sha256": "a51287c823800d2e911eade4d9af552e75c64ee7dd201e3140609e4068873aad"
+    },
+    {
+      "bytes": 1276840,
+      "first_open_time": "2026-07-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "path": "data/BTCUSDT_5m_2026-07-01_2026-08-01.csv",
+      "rows": 8929,
+      "sha256": "bd43113b7a666ac580723cf91434a917716f11fe514b8ce63ea6ce25d05e9449"
+    },
+    {
+      "bytes": 1263987,
+      "first_open_time": "2026-08-01T00:00:00+00:00",
+      "last_open_time": "2026-08-31T23:55:00+00:00",
+      "path": "data/BTCUSDT_5m_2026-08-01_2026-09-01.csv",
+      "rows": 8928,
+      "sha256": "5f6dbae1295add65f8ebe213e56536ce666c346cc19e940dcf216e969b116611"
+    },
+    {
+      "bytes": 1301908,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2024-02-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-01-01_2024-02-01.csv",
+      "rows": 8929,
+      "sha256": "ff805349607b53b703de53c66799a15c32da326bc48172ec2467d78c2c5b77b8"
+    },
+    {
+      "bytes": 1218911,
+      "first_open_time": "2024-02-01T00:00:00+00:00",
+      "last_open_time": "2024-03-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-02-01_2024-03-01.csv",
+      "rows": 8353,
+      "sha256": "7f0aabdc81262b7c544bb2281f459de74bc9d04d688ef8fa51692e8ee47142f0"
+    },
+    {
+      "bytes": 1309514,
+      "first_open_time": "2024-03-01T00:00:00+00:00",
+      "last_open_time": "2024-04-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-03-01_2024-04-01.csv",
+      "rows": 8929,
+      "sha256": "f0564339a46fbb94f7f5d627b9caf0ffdff765bb3ea381b6cbd9b91c7e49d96c"
+    },
+    {
+      "bytes": 1264388,
+      "first_open_time": "2024-04-01T00:00:00+00:00",
+      "last_open_time": "2024-05-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-04-01_2024-05-01.csv",
+      "rows": 8641,
+      "sha256": "2b125003faf99260096d5255dfedd5ddc8674496ab8fa5020d9cd54334aaa747"
+    },
+    {
+      "bytes": 1302995,
+      "first_open_time": "2024-05-01T00:00:00+00:00",
+      "last_open_time": "2024-06-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-05-01_2024-06-01.csv",
+      "rows": 8929,
+      "sha256": "838346f4118c876f3932c65ce66bf40fa5ef5a1148171e6cecd43abdc4b0e300"
+    },
+    {
+      "bytes": 1255425,
+      "first_open_time": "2024-06-01T00:00:00+00:00",
+      "last_open_time": "2024-07-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-06-01_2024-07-01.csv",
+      "rows": 8641,
+      "sha256": "339104d95c2ed5b22f0ae759031dffe1abc1efafe7c8fdedd83713432d39d73f"
+    },
+    {
+      "bytes": 1301786,
+      "first_open_time": "2024-07-01T00:00:00+00:00",
+      "last_open_time": "2024-08-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-07-01_2024-08-01.csv",
+      "rows": 8929,
+      "sha256": "7d4d80aa3f70e8ff3fcfd57da37fded3cf4e4eae84a62e1a9f2f2af442ff4be9"
+    },
+    {
+      "bytes": 1303253,
+      "first_open_time": "2024-08-01T00:00:00+00:00",
+      "last_open_time": "2024-09-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-08-01_2024-09-01.csv",
+      "rows": 8929,
+      "sha256": "fdd0400151a24e5de36cc214e5e21cd21408002f6a3a6d7ff0d659f3ac67fe5c"
+    },
+    {
+      "bytes": 1257393,
+      "first_open_time": "2024-09-01T00:00:00+00:00",
+      "last_open_time": "2024-10-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-09-01_2024-10-01.csv",
+      "rows": 8641,
+      "sha256": "7baf96930c9c8e0ca12aeda17d65233300524fc8e3fd883356691b5ca5ffaa07"
+    },
+    {
+      "bytes": 1299735,
+      "first_open_time": "2024-10-01T00:00:00+00:00",
+      "last_open_time": "2024-11-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-10-01_2024-11-01.csv",
+      "rows": 8929,
+      "sha256": "45cf26a330157725bf25ecffb79c352633dbcaba4428346b1b2ae44eaefe0fd7"
+    },
+    {
+      "bytes": 1271144,
+      "first_open_time": "2024-11-01T00:00:00+00:00",
+      "last_open_time": "2024-12-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-11-01_2024-12-01.csv",
+      "rows": 8641,
+      "sha256": "ae515f17408543f5c801adb3a39665f89bdb8e84df4d22619c0bf98ee0c81e6b"
+    },
+    {
+      "bytes": 1311707,
+      "first_open_time": "2024-12-01T00:00:00+00:00",
+      "last_open_time": "2025-01-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2024-12-01_2025-01-01.csv",
+      "rows": 8929,
+      "sha256": "62824f3935592b74dc0406807757fe7e3cdc82222571b12232425db0eee1ebe9"
+    },
+    {
+      "bytes": 1307744,
+      "first_open_time": "2025-01-01T00:00:00+00:00",
+      "last_open_time": "2025-02-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-01-01_2025-02-01.csv",
+      "rows": 8929,
+      "sha256": "09ade5dab60c0e3573a230f3449d8a4b199a2f4ec5d833ec9d1b442730495548"
+    },
+    {
+      "bytes": 1185262,
+      "first_open_time": "2025-02-01T00:00:00+00:00",
+      "last_open_time": "2025-03-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-02-01_2025-03-01.csv",
+      "rows": 8065,
+      "sha256": "40846ee0e325aeaf112ed63f706a29cd95ebecdf145247bbac00d574e7501a31"
+    },
+    {
+      "bytes": 1310080,
+      "first_open_time": "2025-03-01T00:00:00+00:00",
+      "last_open_time": "2025-04-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-03-01_2025-04-01.csv",
+      "rows": 8929,
+      "sha256": "c96c76b3ccbc97d11caaa524df5c70fdb9f20974443cf158e62e4594b395328c"
+    },
+    {
+      "bytes": 1271615,
+      "first_open_time": "2025-04-01T00:00:00+00:00",
+      "last_open_time": "2025-05-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-04-01_2025-05-01.csv",
+      "rows": 8641,
+      "sha256": "d49dcecbff7b455c28edbf2657c611c2f3c666a10768da1c1a259d32e0d9333c"
+    },
+    {
+      "bytes": 1318688,
+      "first_open_time": "2025-05-01T00:00:00+00:00",
+      "last_open_time": "2025-06-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-05-01_2025-06-01.csv",
+      "rows": 8929,
+      "sha256": "60a438663146d10c7158c4544b19d59a94fcd95bdb9e180fabe3fab27cc74153"
+    },
+    {
+      "bytes": 1273361,
+      "first_open_time": "2025-06-01T00:00:00+00:00",
+      "last_open_time": "2025-07-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-06-01_2025-07-01.csv",
+      "rows": 8641,
+      "sha256": "655c2d50b9864cd1b573aa3bbe693e20e892f989b5433a5e3da124225ddd7a1a"
+    },
+    {
+      "bytes": 1319251,
+      "first_open_time": "2025-07-01T00:00:00+00:00",
+      "last_open_time": "2025-08-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-07-01_2025-08-01.csv",
+      "rows": 8929,
+      "sha256": "9edc5305bea8f7efbd0982c074c378532da8088396dad94d0ec7335c126ced52"
+    },
+    {
+      "bytes": 1322585,
+      "first_open_time": "2025-08-01T00:00:00+00:00",
+      "last_open_time": "2025-09-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-08-01_2025-09-01.csv",
+      "rows": 8929,
+      "sha256": "07526840c78b124ba5bdd190095851546a56ce9f594f92e956850ffa7844665e"
+    },
+    {
+      "bytes": 1269682,
+      "first_open_time": "2025-09-01T00:00:00+00:00",
+      "last_open_time": "2025-10-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-09-01_2025-10-01.csv",
+      "rows": 8641,
+      "sha256": "3d1048ff5102560981fdf6e7f367db034e7ac25e18e22a4b45f729f2b9b86b70"
+    },
+    {
+      "bytes": 1317763,
+      "first_open_time": "2025-10-01T00:00:00+00:00",
+      "last_open_time": "2025-11-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-10-01_2025-11-01.csv",
+      "rows": 8929,
+      "sha256": "41488a9a97991abb639124bfd5f758f7d4f1935d22451d0357ea42c0967172de"
+    },
+    {
+      "bytes": 1274901,
+      "first_open_time": "2025-11-01T00:00:00+00:00",
+      "last_open_time": "2025-12-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-11-01_2025-12-01.csv",
+      "rows": 8641,
+      "sha256": "0f5e564bc021d3120f2a00efa436b42b53cc552b746b35183e1f170ae4ede2ff"
+    },
+    {
+      "bytes": 1309047,
+      "first_open_time": "2025-12-01T00:00:00+00:00",
+      "last_open_time": "2026-01-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2025-12-01_2026-01-01.csv",
+      "rows": 8929,
+      "sha256": "27de4fba050c9119e714812f692e89f53ed31ce7cc1b886d089ff513269b4e11"
+    },
+    {
+      "bytes": 1307176,
+      "first_open_time": "2026-01-01T00:00:00+00:00",
+      "last_open_time": "2026-02-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2026-01-01_2026-02-01.csv",
+      "rows": 8929,
+      "sha256": "a4f545712953945c8a911b0fb0efa6a38c22e3dc085e6185f269ee2486d7694f"
+    },
+    {
+      "bytes": 1190446,
+      "first_open_time": "2026-02-01T00:00:00+00:00",
+      "last_open_time": "2026-03-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2026-02-01_2026-03-01.csv",
+      "rows": 8065,
+      "sha256": "c4c32b932ba2a780c7b808fbc577c1d1a1e2fa2180efcf5713cbaa2d8a619465"
+    },
+    {
+      "bytes": 1314003,
+      "first_open_time": "2026-03-01T00:00:00+00:00",
+      "last_open_time": "2026-04-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2026-03-01_2026-04-01.csv",
+      "rows": 8929,
+      "sha256": "5d6e9e81153d95bd340c471a6baaf16db55979a3d32960cbcc28dad2084f73c4"
+    },
+    {
+      "bytes": 1266116,
+      "first_open_time": "2026-04-01T00:00:00+00:00",
+      "last_open_time": "2026-05-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2026-04-01_2026-05-01.csv",
+      "rows": 8641,
+      "sha256": "337623e5e36c9d5902cb685c864372e288bf4208b356c2fd957043b06e9cdfd8"
+    },
+    {
+      "bytes": 1303269,
+      "first_open_time": "2026-05-01T00:00:00+00:00",
+      "last_open_time": "2026-06-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2026-05-01_2026-06-01.csv",
+      "rows": 8929,
+      "sha256": "f43e02850817c5d3ed1a1f16f50083ab327d5a32604ead8b17c978f12a7a52f8"
+    },
+    {
+      "bytes": 1269483,
+      "first_open_time": "2026-06-01T00:00:00+00:00",
+      "last_open_time": "2026-07-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2026-06-01_2026-07-01.csv",
+      "rows": 8641,
+      "sha256": "cfd924cd464f55cd60a7a3c227cf37d108de7e39df54d17a2569298824af0877"
+    },
+    {
+      "bytes": 1305808,
+      "first_open_time": "2026-07-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "path": "data/ETHUSDT_5m_2026-07-01_2026-08-01.csv",
+      "rows": 8929,
+      "sha256": "a4ef4de5aed3f533e69b44f370265c5cf5e9662a4b69f043e1c0d9f7facf4089"
+    },
+    {
+      "bytes": 1300577,
+      "first_open_time": "2026-08-01T00:00:00+00:00",
+      "last_open_time": "2026-08-31T23:55:00+00:00",
+      "path": "data/ETHUSDT_5m_2026-08-01_2026-09-01.csv",
+      "rows": 8928,
+      "sha256": "9e64e2fc0dd760439dd7f09412961588ab58561e7b24f92b53c21e700f020f80"
+    },
+    {
+      "bytes": 1190480,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2024-02-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-01-01_2024-02-01.csv",
+      "rows": 8929,
+      "sha256": "3044bc8637663393af06463e9ef20624d2582463bbc3a21dc94836a0fc896bcc"
+    },
+    {
+      "bytes": 1127100,
+      "first_open_time": "2024-02-01T00:00:00+00:00",
+      "last_open_time": "2024-03-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-02-01_2024-03-01.csv",
+      "rows": 8353,
+      "sha256": "76d3937fa2990daabb5a4407e4c19229596235fbf6bfefb8db13c15fece470e7"
+    },
+    {
+      "bytes": 1221081,
+      "first_open_time": "2024-03-01T00:00:00+00:00",
+      "last_open_time": "2024-04-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-03-01_2024-04-01.csv",
+      "rows": 8929,
+      "sha256": "ca8f548e90dcc24fded8b30b9992ce37b8e26f442e1e7d9a3d4597cf8e752e7e"
+    },
+    {
+      "bytes": 1176602,
+      "first_open_time": "2024-04-01T00:00:00+00:00",
+      "last_open_time": "2024-05-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-04-01_2024-05-01.csv",
+      "rows": 8641,
+      "sha256": "c4669f91a0cd51948fbd81dc680919b0371b9d4f48326d9ed29d0c38bc3ae6dc"
+    },
+    {
+      "bytes": 1210106,
+      "first_open_time": "2024-05-01T00:00:00+00:00",
+      "last_open_time": "2024-06-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-05-01_2024-06-01.csv",
+      "rows": 8929,
+      "sha256": "ce93e5fd4538a14dcbc691b5ee0e80226a282c7b4735c34779ebed8fd5346fa3"
+    },
+    {
+      "bytes": 1165625,
+      "first_open_time": "2024-06-01T00:00:00+00:00",
+      "last_open_time": "2024-07-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-06-01_2024-07-01.csv",
+      "rows": 8641,
+      "sha256": "ff00fee0b1fbb378ed2d6af6160d042f5148243089fd4b3fada037f29a11792f"
+    },
+    {
+      "bytes": 1209818,
+      "first_open_time": "2024-07-01T00:00:00+00:00",
+      "last_open_time": "2024-08-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-07-01_2024-08-01.csv",
+      "rows": 8929,
+      "sha256": "c9692239e3564b751fba27fbb2a178e806ada66495aca3f3cdb7daa9cb91ed27"
+    },
+    {
+      "bytes": 1213756,
+      "first_open_time": "2024-08-01T00:00:00+00:00",
+      "last_open_time": "2024-09-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-08-01_2024-09-01.csv",
+      "rows": 8929,
+      "sha256": "9526b0e57ea4bf5b38417d153552e370d15822a9c9f7c5930df73075ff7ceace"
+    },
+    {
+      "bytes": 1169882,
+      "first_open_time": "2024-09-01T00:00:00+00:00",
+      "last_open_time": "2024-10-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-09-01_2024-10-01.csv",
+      "rows": 8641,
+      "sha256": "c285c78e4efe94a497d9c64053dab888ae9ffed122d07103edc590156c74ed43"
+    },
+    {
+      "bytes": 1189046,
+      "first_open_time": "2024-10-01T00:00:00+00:00",
+      "last_open_time": "2024-11-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-10-01_2024-11-01.csv",
+      "rows": 8929,
+      "sha256": "deb268736f2aae90facb82e59045058e382354415d503357f3db69f79c2e8516"
+    },
+    {
+      "bytes": 1142871,
+      "first_open_time": "2024-11-01T00:00:00+00:00",
+      "last_open_time": "2024-12-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-11-01_2024-12-01.csv",
+      "rows": 8641,
+      "sha256": "d2ec17e4ab0a4b13b52fb6b761ddd8e2f11bd632c89184a70f028bbc0dcb21b5"
+    },
+    {
+      "bytes": 1176390,
+      "first_open_time": "2024-12-01T00:00:00+00:00",
+      "last_open_time": "2025-01-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2024-12-01_2025-01-01.csv",
+      "rows": 8929,
+      "sha256": "e4b67c8aaf53edefe86b30ce788d4e0b9324e85d3d0f148b62158121a1055550"
+    },
+    {
+      "bytes": 1180042,
+      "first_open_time": "2025-01-01T00:00:00+00:00",
+      "last_open_time": "2025-02-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-01-01_2025-02-01.csv",
+      "rows": 8929,
+      "sha256": "f9a14abe0190fd7a18bd7dd295ed14db7b5a11155bc2579eaa3e9cbb902a65af"
+    },
+    {
+      "bytes": 1066337,
+      "first_open_time": "2025-02-01T00:00:00+00:00",
+      "last_open_time": "2025-03-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-02-01_2025-03-01.csv",
+      "rows": 8065,
+      "sha256": "6de8f0bc3cd00c95723b931d2165e9c382a049f509678aefc2ece588a543e699"
+    },
+    {
+      "bytes": 1172960,
+      "first_open_time": "2025-03-01T00:00:00+00:00",
+      "last_open_time": "2025-04-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-03-01_2025-04-01.csv",
+      "rows": 8929,
+      "sha256": "70499e24686f3a459e8bc3ca92478758d117f7ac9c64ef6b898382cb0521f025"
+    },
+    {
+      "bytes": 1203603,
+      "first_open_time": "2025-04-01T00:00:00+00:00",
+      "last_open_time": "2025-05-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-04-01_2025-05-01.csv",
+      "rows": 8641,
+      "sha256": "997178d226cbae9171a54ea8b7b605cd96f6fa6d873a2ca054aca63f4d0d918f"
+    },
+    {
+      "bytes": 1263101,
+      "first_open_time": "2025-05-01T00:00:00+00:00",
+      "last_open_time": "2025-06-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-05-01_2025-06-01.csv",
+      "rows": 8929,
+      "sha256": "aea65d794d30c8b0b9a058a36564a28bf26fa971bd49c33a7359720d97f58d33"
+    },
+    {
+      "bytes": 1220807,
+      "first_open_time": "2025-06-01T00:00:00+00:00",
+      "last_open_time": "2025-07-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-06-01_2025-07-01.csv",
+      "rows": 8641,
+      "sha256": "93402cfa049f2bcedbec1d7c454eb64f1874544d4d90aa91ec6d59b7b5c1d03c"
+    },
+    {
+      "bytes": 1264374,
+      "first_open_time": "2025-07-01T00:00:00+00:00",
+      "last_open_time": "2025-08-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-07-01_2025-08-01.csv",
+      "rows": 8929,
+      "sha256": "9ca0743dff8046dc039ab075a26089618716b8d7d3d9cd86a91fb6e4d43e3520"
+    },
+    {
+      "bytes": 1270104,
+      "first_open_time": "2025-08-01T00:00:00+00:00",
+      "last_open_time": "2025-09-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-08-01_2025-09-01.csv",
+      "rows": 8929,
+      "sha256": "781fed0e3c5c0ead274df7169940098f4d73a3287dec36b5367a4ce3fb27f5db"
+    },
+    {
+      "bytes": 1226764,
+      "first_open_time": "2025-09-01T00:00:00+00:00",
+      "last_open_time": "2025-10-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-09-01_2025-10-01.csv",
+      "rows": 8641,
+      "sha256": "e34969783fb8a649fa41841e53acd5f8ac0772eaa7fca69a8cae7a4301a0650c"
+    },
+    {
+      "bytes": 1269740,
+      "first_open_time": "2025-10-01T00:00:00+00:00",
+      "last_open_time": "2025-11-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-10-01_2025-11-01.csv",
+      "rows": 8929,
+      "sha256": "fe52af5456c254bd03db1e8cdb3b4f7b53a3facd403d899f9e62de2a46eca069"
+    },
+    {
+      "bytes": 1224947,
+      "first_open_time": "2025-11-01T00:00:00+00:00",
+      "last_open_time": "2025-12-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-11-01_2025-12-01.csv",
+      "rows": 8641,
+      "sha256": "9d9621b501c8a2796704b8407a48673e63e8f8e421699a91ea6baa718032c75b"
+    },
+    {
+      "bytes": 1258338,
+      "first_open_time": "2025-12-01T00:00:00+00:00",
+      "last_open_time": "2026-01-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2025-12-01_2026-01-01.csv",
+      "rows": 8929,
+      "sha256": "d48857e3166c89eed9c6a7d9dca9ea74487c68866d513eaa0638c4a0eb82662e"
+    },
+    {
+      "bytes": 1257432,
+      "first_open_time": "2026-01-01T00:00:00+00:00",
+      "last_open_time": "2026-02-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2026-01-01_2026-02-01.csv",
+      "rows": 8929,
+      "sha256": "d7b4a0b0ad1c942853cf58311ff2c30b14ff05ceec2f897c3d110a11e0e38e76"
+    },
+    {
+      "bytes": 1111437,
+      "first_open_time": "2026-02-01T00:00:00+00:00",
+      "last_open_time": "2026-03-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2026-02-01_2026-03-01.csv",
+      "rows": 8065,
+      "sha256": "2149e46e8c2050ed3f6b07dfd9e8887a50591644a98cb105e36613fef37fe895"
+    },
+    {
+      "bytes": 1222587,
+      "first_open_time": "2026-03-01T00:00:00+00:00",
+      "last_open_time": "2026-04-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2026-03-01_2026-04-01.csv",
+      "rows": 8929,
+      "sha256": "1728f06d588809d84887e337e6f5699e4347b7c788dd68f488339595e5e37c95"
+    },
+    {
+      "bytes": 1178593,
+      "first_open_time": "2026-04-01T00:00:00+00:00",
+      "last_open_time": "2026-05-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2026-04-01_2026-05-01.csv",
+      "rows": 8641,
+      "sha256": "b4f2ecd7c6e2a799bd0e8a89967f006f76e9e821eedb8a50f65d42b6c881e0f9"
+    },
+    {
+      "bytes": 1216563,
+      "first_open_time": "2026-05-01T00:00:00+00:00",
+      "last_open_time": "2026-06-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2026-05-01_2026-06-01.csv",
+      "rows": 8929,
+      "sha256": "fd9a40570028d6f0fa1cafb1e169952da3d25c6f4f34c13d18eba86aef43f84c"
+    },
+    {
+      "bytes": 1182884,
+      "first_open_time": "2026-06-01T00:00:00+00:00",
+      "last_open_time": "2026-07-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2026-06-01_2026-07-01.csv",
+      "rows": 8641,
+      "sha256": "b5c21135c4da2a7f1c9c68eb626e63f0e71ef2890eb12661dc9687e7e087bf87"
+    },
+    {
+      "bytes": 1214048,
+      "first_open_time": "2026-07-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "path": "data/SOLUSDT_5m_2026-07-01_2026-08-01.csv",
+      "rows": 8929,
+      "sha256": "5075bcb741d6f2914230ef902ef16d5723b1b3e8347eb4ad89571184ec67b257"
+    },
+    {
+      "bytes": 1202909,
+      "first_open_time": "2026-08-01T00:00:00+00:00",
+      "last_open_time": "2026-08-31T23:55:00+00:00",
+      "path": "data/SOLUSDT_5m_2026-08-01_2026-09-01.csv",
+      "rows": 8928,
+      "sha256": "5c57df854cd08277d50a270ebc64454517648bc01b3fd7e756f1f797d8e486d9"
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "endpoint": "https://fapi.binance.com/fapi/v1/klines",
+    "market": "USD-M Futures",
+    "provider": "Binance"
+  }
+}
