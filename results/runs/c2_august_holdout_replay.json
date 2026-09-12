@@ -2,8 +2,8 @@
   "description": "Replay congelado do holdout agosto/2026; resultado permanece FAIL.",
   "expected_decision": "FAIL",
   "experiment_id": "c2_august_holdout_replay",
-  "generated_at_utc": "2026-09-11T04:31:02.374500+00:00",
-  "git_commit": "77ca6f3a8af88e5d256667736125960a6bf33aad",
+  "generated_at_utc": "2026-09-12T09:41:17.223238+00:00",
+  "git_commit": "efb1936a1abda4753266d8f70bec4f7e7c7066e6",
   "inputs": {
     "candles": [
       {
@@ -39,6 +39,11 @@
         "sha256": "5c57df854cd08277d50a270ebc64454517648bc01b3fd7e756f1f797d8e486d9"
       }
     ],
+    "data_manifest": {
+      "path": "manifests/c2_candles.json",
+      "sha256": "996785767ecf2e390c1d63aedc44598d5126a572021bc46971c4747a03cfa3b7",
+      "verified_files": 8
+    },
     "summary": {
       "path": "results/c2_august_holdout_global.csv",
       "sha256": "b62d5169b11b9b2ef6416f5563b95c5923ec73211d54165d272b4a0fc08ce2d7"

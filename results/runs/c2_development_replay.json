@@ -2,8 +2,8 @@
   "description": "Replay congelado da C2 no conjunto de desenvolvimento; nao promove estrategia.",
   "expected_decision": "EXPLORATORY_ONLY",
   "experiment_id": "c2_development_replay",
-  "generated_at_utc": "2026-09-11T04:31:00.558456+00:00",
-  "git_commit": "77ca6f3a8af88e5d256667736125960a6bf33aad",
+  "generated_at_utc": "2026-09-12T09:41:26.891239+00:00",
+  "git_commit": "efb1936a1abda4753266d8f70bec4f7e7c7066e6",
   "inputs": {
     "candles": [
       {
@@ -503,6 +503,11 @@
         "sha256": "5075bcb741d6f2914230ef902ef16d5723b1b3e8347eb4ad89571184ec67b257"
       }
     ],
+    "data_manifest": {
+      "path": "manifests/c2_candles.json",
+      "sha256": "996785767ecf2e390c1d63aedc44598d5126a572021bc46971c4747a03cfa3b7",
+      "verified_files": 124
+    },
     "summary": {
       "path": "results/c2_canonical_summary.csv",
       "sha256": "b5a460024ac9562618a3153607e67707f8b2521175fbfdde9e8491557c85e5ff"
