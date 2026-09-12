@@ -1,0 +1,112 @@
+{
+  "description": "Migracao do estudo de sensibilidade a custos da hipotese trend-short.",
+  "expected_decision": "FAIL_COST_ROBUSTNESS",
+  "experiment_id": "trend_short_cost_sensitivity",
+  "generated_at_utc": "2026-09-12T10:07:14.866020+00:00",
+  "git_commit": "72527f247e0382fde166710ae8e9aad035072320",
+  "inputs": {
+    "data_manifest": {
+      "path": "manifests/c2_candles.json",
+      "sha256": "996785767ecf2e390c1d63aedc44598d5126a572021bc46971c4747a03cfa3b7",
+      "verified_files": 24
+    },
+    "detailed": {
+      "path": "results/cost_sensitivity_detailed.csv",
+      "sha256": "e93750d3e6b5189d0486168cff3292bc07456eac8962e79223f77344b536c826"
+    },
+    "summary": {
+      "path": "results/cost_sensitivity_summary.csv",
+      "sha256": "e75768c2806784af2ea70ceee34e25de66652ea2c358154bb431435763348d31"
+    }
+  },
+  "metrics": [
+    {
+      "cost": 0.0,
+      "median_mean_return": -3.3805880912800176e-05,
+      "median_profit_factor": 0.9907495174881928,
+      "median_win_rate": 0.4352130865260439,
+      "positive_window_rate": 0.4583333333333333,
+      "positive_windows": 11,
+      "total_samples": 2097,
+      "windows": 24
+    },
+    {
+      "cost": 0.0002,
+      "median_mean_return": -0.00023380588091279975,
+      "median_profit_factor": 0.9366911995232301,
+      "median_win_rate": 0.4167120008704167,
+      "positive_window_rate": 0.25,
+      "positive_windows": 6,
+      "total_samples": 2097,
+      "windows": 24
+    },
+    {
+      "cost": 0.0004,
+      "median_mean_return": -0.00043380588091279957,
+      "median_profit_factor": 0.8472188315708153,
+      "median_win_rate": 0.4093535572408812,
+      "positive_window_rate": 0.125,
+      "positive_windows": 3,
+      "total_samples": 2097,
+      "windows": 24
+    },
+    {
+      "cost": 0.0006,
+      "median_mean_return": -0.0006338058809128007,
+      "median_profit_factor": 0.7730639068551011,
+      "median_win_rate": 0.3919845485272815,
+      "positive_window_rate": 0.0,
+      "positive_windows": 0,
+      "total_samples": 2097,
+      "windows": 24
+    },
+    {
+      "cost": 0.0008,
+      "median_mean_return": -0.0008338058809128006,
+      "median_profit_factor": 0.7214567001396597,
+      "median_win_rate": 0.3710826210826211,
+      "positive_window_rate": 0.0,
+      "positive_windows": 0,
+      "total_samples": 2097,
+      "windows": 24
+    },
+    {
+      "cost": 0.001,
+      "median_mean_return": -0.001033805880912801,
+      "median_profit_factor": 0.6633336007395785,
+      "median_win_rate": 0.34973721930243673,
+      "positive_window_rate": 0.0,
+      "positive_windows": 0,
+      "total_samples": 2097,
+      "windows": 24
+    }
+  ],
+  "mismatches": {},
+  "parameters": {
+    "costs": [
+      0.0,
+      0.0002,
+      0.0004,
+      0.0006,
+      0.0008,
+      0.001
+    ],
+    "data_end": "2026-08-01",
+    "data_start": "2026-02-01",
+    "entry_delay_bars": 1,
+    "evaluation_end": "2026-08-01",
+    "evaluation_start": "2026-02-01",
+    "hold_bars": 12,
+    "interval": "5m",
+    "overlap": "single_position",
+    "symbols": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "BNBUSDT",
+      "SOLUSDT"
+    ]
+  },
+  "split": "development",
+  "status": "PASS_REGRESSION",
+  "strategy_version": "TREND_SHORT_LEGACY_V1"
+}
