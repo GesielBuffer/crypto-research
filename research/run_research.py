@@ -26,12 +26,81 @@ REGISTRY_PATH = BASE_DIR / "experiments" / "registry.toml"
 COMPARISON_FIELDS = (
     "samples", "mean_return", "median_return", "win_rate", "profit_factor"
 )
+REQUIRED_SPEC_FIELDS = {
+    "description",
+    "strategy_version",
+    "split",
+    "trades_file",
+    "summary_file",
+    "signal_time_column",
+    "interval",
+    "side",
+    "entry_delay_bars",
+    "hold_bars",
+    "overlap",
+    "cost",
+    "expected_decision",
+    "data_start",
+    "data_end",
+    "evaluation_start",
+    "evaluation_end",
+}
+
+
+def validate_experiment_spec(experiment_id: str, spec: dict) -> None:
+    """Reject incomplete or unsafe experiment definitions before execution."""
+
+    if not isinstance(spec, dict):
+        raise ValueError(f"experiment '{experiment_id}' must be a TOML table")
+    missing = REQUIRED_SPEC_FIELDS.difference(spec)
+    if missing:
+        raise ValueError(
+            f"experiment '{experiment_id}' missing fields: {sorted(missing)}"
+        )
+
+    for field in ("trades_file", "summary_file"):
+        path = Path(spec[field])
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError(
+                f"experiment '{experiment_id}' field '{field}' must stay inside the repository"
+            )
+    if spec["side"] not in {"long", "short"}:
+        raise ValueError(f"experiment '{experiment_id}' has invalid side")
+    if spec["overlap"] not in {"allow", "single_position"}:
+        raise ValueError(f"experiment '{experiment_id}' has invalid overlap policy")
+    if not isinstance(spec["entry_delay_bars"], int) or spec["entry_delay_bars"] < 1:
+        raise ValueError(f"experiment '{experiment_id}' must enter at t+1 or later")
+    if not isinstance(spec["hold_bars"], int) or spec["hold_bars"] < spec["entry_delay_bars"]:
+        raise ValueError(f"experiment '{experiment_id}' has invalid hold_bars")
+    if not isinstance(spec["cost"], (int, float)) or spec["cost"] < 0:
+        raise ValueError(f"experiment '{experiment_id}' has invalid cost")
+
+    dates = {
+        field: pd.Timestamp(spec[field], tz="UTC")
+        for field in ("data_start", "data_end", "evaluation_start", "evaluation_end")
+    }
+    if dates["data_start"] >= dates["data_end"]:
+        raise ValueError(f"experiment '{experiment_id}' has an empty data period")
+    if dates["evaluation_start"] >= dates["evaluation_end"]:
+        raise ValueError(f"experiment '{experiment_id}' has an empty evaluation period")
+    if (
+        dates["evaluation_start"] < dates["data_start"]
+        or dates["evaluation_end"] > dates["data_end"]
+    ):
+        raise ValueError(
+            f"experiment '{experiment_id}' evaluation period must be inside the data period"
+        )
 
 
 def load_registry(path: Path = REGISTRY_PATH) -> dict:
     with path.open("rb") as handle:
         document = tomllib.load(handle)
-    return document.get("experiments", {})
+    experiments = document.get("experiments", {})
+    if not isinstance(experiments, dict) or not experiments:
+        raise ValueError("registry must contain at least one experiment")
+    for experiment_id, spec in experiments.items():
+        validate_experiment_spec(experiment_id, spec)
+    return experiments
 
 
 def sha256(path: Path) -> str:

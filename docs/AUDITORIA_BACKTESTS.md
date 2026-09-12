@@ -2,6 +2,20 @@
 
 Data da auditoria: 2026-09-11
 
+## Estado da consolidacao em 2026-09-12
+
+Os principais vazios identificados nesta auditoria ja comecaram a ser corrigidos:
+
+- `research/backtest.py` passou a ser a fonte canonica para custos aditivos e simulacao de horizonte fixo com entrada em `t+1`;
+- `research/signals.py` regenera os sinais congelados da C2 sem lookahead;
+- `research/metrics.py` centraliza as metricas basicas;
+- `experiments/registry.toml` registra os replays de desenvolvimento e holdout;
+- `research/run_research.py` executa experimentos por ID, valida o registro e grava commit e checksums nos relatorios;
+- testes unitarios e de regressao reproduzem a C2 desde os candles publicos em cache;
+- a CI valida o nucleo offline em cada push e pull request.
+
+Essa consolidacao melhora a reprodutibilidade, mas nao altera a decisao cientifica: a C2 continua reprovada no holdout e nenhuma estrategia esta autorizada para paper trading ou producao. Permanecem como proximos marcos um manifesto independente dos dados, a migracao gradual dos experimentos monoliticos e um protocolo novo de holdout.
+
 ## Resposta executiva
 
 Nem tudo o que foi feito era necessario na forma em que foi implementado.
@@ -68,13 +82,13 @@ Alguns arquivos globais apresentam PF acima de 1 em subconjuntos ou custos favor
 
 - Dezenas de `test_*.py` monoliticos repetem funcoes de HTTP, calendario, `profit_factor`, resumo, bootstrap e exportacao.
 - Os arquivos com prefixo `test_` sao experimentos executaveis, nao testes automatizados com assercoes.
-- Nao ha um registro central de experimentos, parametros, dados de entrada, commit do codigo e conclusao.
+- O registro central agora cobre a C2; os demais experimentos ainda precisam ser migrados gradualmente.
 - Muitos resultados podem ser sobrescritos pelo mesmo nome sem vinculo criptografico com codigo e dados.
 - `requirements.txt` usa apenas limites minimos, prejudicando reprodutibilidade futura.
 - Dados nao possuem manifesto com origem, periodo, cobertura e checksum.
 - O teste de muitas combinacoes nao possui controle explicito de multiple testing/false discovery.
-- O simulador nao esta consolidado como uma unica fonte para fees, slippage, funding, latencia, fills parciais, lot size, tick size, liquidation e sinais simultaneos.
-- `backtest.py`, `signals.py`, `metrics.py` e `run_research.py` estao vazios, enquanto a logica correspondente ficou duplicada nos experimentos.
+- O simulador canonico ja cobre fees, slippage, funding, entrada defasada e sobreposicao; latencia variavel, fills parciais, lot size, tick size e liquidacao ainda nao foram incorporados.
+- `backtest.py`, `signals.py`, `metrics.py` e `run_research.py` agora formam o primeiro caminho consolidado, mas a logica antiga continua duplicada nos experimentos ainda nao migrados.
 - `main.py` mistura estrategia, acesso a exchange, risco e loop operacional em um unico arquivo e nao deve ser a base da nova arquitetura.
 - A integracao `chatgpt_connection.py` e o pacote `openai` nao sao necessarios para o Codex desenvolver o repositorio pelo VS Code.
 
