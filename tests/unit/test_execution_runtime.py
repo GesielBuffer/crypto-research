@@ -8,7 +8,7 @@ from execution.journal import JsonlOrderJournal
 from execution.models import OrderIntent, Side
 from execution.paper import PaperExchange
 from execution.risk import RiskEngine, RiskLimits, RiskRejected, RiskSnapshot
-from execution.service import TradingService
+from execution.service import IdempotencyConflict, ReconciliationRequired, TradingService
 
 
 NOW = datetime(2026, 9, 12, tzinfo=timezone.utc)
@@ -21,6 +21,22 @@ class FailingExchange:
     def submit_market(self, order_intent):
         raise ConnectionError("simulated network failure")
 
+    def find_fill(self, order_intent):
+        return None
+
+
+class AcceptedThenTimeoutExchange(PaperExchange):
+    def __init__(self):
+        super().__init__()
+        self.failed_once = False
+
+    def submit_market(self, order_intent):
+        fill = super().submit_market(order_intent)
+        if not self.failed_once:
+            self.failed_once = True
+            raise TimeoutError("response lost after exchange accepted order")
+        return fill
+
 
 def intent(**overrides):
     values = {
@@ -30,7 +46,7 @@ def intent(**overrides):
         "quantity": Decimal("0.001"),
         "reference_price": Decimal("50000"),
         "leverage": 1,
-        "client_order_id": "approved-v1-BTCUSDT-20260912T000000Z",
+        "client_order_id": "apv1-BTC-20260912T000000Z",
         "market_data_time": NOW,
     }
     values.update(overrides)
@@ -51,6 +67,11 @@ class ExecutionRuntimeTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(self.exchange.snapshot().open_symbols, frozenset({"BTCUSDT"}))
 
+    def test_reused_id_with_different_order_is_rejected(self):
+        self.service.execute(intent(), now=NOW)
+        with self.assertRaises(IdempotencyConflict):
+            self.service.execute(intent(quantity=Decimal("0.002")), now=NOW)
+
     def test_unapproved_strategy_is_blocked(self):
         with self.assertRaisesRegex(RiskRejected, "not approved"):
             self.service.execute(intent(strategy_id="C2_FAILED"), now=NOW)
@@ -60,6 +81,16 @@ class ExecutionRuntimeTests(unittest.TestCase):
             self.service.execute(
                 intent(market_data_time=NOW - timedelta(minutes=1)), now=NOW
             )
+
+    def test_future_market_data_is_blocked(self):
+        with self.assertRaisesRegex(RiskRejected, "future"):
+            self.service.execute(
+                intent(market_data_time=NOW + timedelta(seconds=6)), now=NOW
+            )
+
+    def test_invalid_client_order_id_is_blocked(self):
+        with self.assertRaisesRegex(RiskRejected, "client_order_id"):
+            self.service.execute(intent(client_order_id="bad id"), now=NOW)
 
     def test_notional_and_leverage_limits_are_enforced(self):
         with self.assertRaises(RiskRejected):
@@ -95,5 +126,35 @@ class ExecutionRuntimeTests(unittest.TestCase):
                 service.execute(intent(), now=NOW)
             self.assertEqual(
                 journal.pending_order_ids(),
-                {"approved-v1-BTCUSDT-20260912T000000Z"},
+                {"apv1-BTC-20260912T000000Z"},
             )
+            with self.assertRaises(ReconciliationRequired):
+                service.execute(intent(), now=NOW)
+
+    def test_timeout_after_acceptance_is_reconciled_without_resubmission(self):
+        with tempfile.TemporaryDirectory() as directory:
+            exchange = AcceptedThenTimeoutExchange()
+            journal = JsonlOrderJournal(Path(directory) / "orders.jsonl")
+            service = TradingService(
+                exchange,
+                RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+                journal,
+            )
+            with self.assertRaises(TimeoutError):
+                service.execute(intent(), now=NOW)
+            recovered = service.execute(intent(), now=NOW)
+            self.assertEqual(recovered.client_order_id, intent().client_order_id)
+            self.assertEqual(journal.pending_order_ids(), set())
+
+    def test_journal_exchange_divergence_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            journal = JsonlOrderJournal(Path(directory) / "orders.jsonl")
+            journal.record_fill(self.exchange.submit_market(intent()))
+            restarted_exchange = PaperExchange()
+            service = TradingService(
+                restarted_exchange,
+                RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+                journal,
+            )
+            with self.assertRaisesRegex(ReconciliationRequired, "cannot confirm"):
+                service.execute(intent(), now=NOW)

@@ -7,7 +7,7 @@ from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 
-from execution.models import Fill, OrderIntent
+from execution.models import Fill, OrderIntent, Side
 
 
 def _json_value(value):
@@ -37,10 +37,12 @@ class JsonlOrderJournal:
             os.fsync(handle.fileno())
 
     def record_intent(self, intent: OrderIntent) -> None:
-        self._append("intent", asdict(intent))
+        if intent.client_order_id not in self.intent_ids():
+            self._append("intent", asdict(intent))
 
     def record_fill(self, fill: Fill) -> None:
-        self._append("fill", asdict(fill))
+        if self.fill_for(fill.client_order_id) is None:
+            self._append("fill", asdict(fill))
 
     def records(self) -> list[dict]:
         if not self.path.exists():
@@ -49,12 +51,33 @@ class JsonlOrderJournal:
             return [json.loads(line) for line in handle if line.strip()]
 
     def pending_order_ids(self) -> set[str]:
-        intents = set()
-        fills = set()
+        return self.intent_ids().difference(self.fill_ids())
+
+    def intent_ids(self) -> set[str]:
+        return {
+            record["payload"]["client_order_id"]
+            for record in self.records()
+            if record["event"] == "intent"
+        }
+
+    def fill_ids(self) -> set[str]:
+        return {
+            record["payload"]["client_order_id"]
+            for record in self.records()
+            if record["event"] == "fill"
+        }
+
+    def fill_for(self, client_order_id: str) -> Fill | None:
         for record in self.records():
-            order_id = record["payload"]["client_order_id"]
-            if record["event"] == "intent":
-                intents.add(order_id)
-            elif record["event"] == "fill":
-                fills.add(order_id)
-        return intents.difference(fills)
+            payload = record["payload"]
+            if record["event"] != "fill" or payload["client_order_id"] != client_order_id:
+                continue
+            return Fill(
+                client_order_id=payload["client_order_id"],
+                symbol=payload["symbol"],
+                side=Side(payload["side"]),
+                quantity=Decimal(payload["quantity"]),
+                price=Decimal(payload["price"]),
+                filled_at=datetime.fromisoformat(payload["filled_at"]),
+            )
+        return None

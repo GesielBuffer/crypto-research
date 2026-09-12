@@ -18,6 +18,8 @@ conta real.
 - `execution/paper.py`: exchange local sem credenciais e com IDs idempotentes;
 - `execution/service.py`: unica porta para validacao e envio ao adaptador;
 - `execution/journal.py`: journal append-only e deteccao de ordens interrompidas;
+- `execution/binance_testnet.py`: gateway USD-M assinado que rejeita qualquer host diferente do Testnet;
+- `execution/config.py`: configuracao fail-closed; variaveis de ambiente nao conseguem habilitar conta real;
 - `execution/readiness.py`: gates objetivos de promocao;
 - `deployment/readiness.toml`: estado versionado da promocao.
 
@@ -46,3 +48,18 @@ Verifique o estado atual sem acessar exchange:
 
 Enquanto houver blockers, nenhum adaptador de conta real deve ser conectado ao
 `TradingService`.
+
+## Correcoes fail-closed
+
+- retries consultam primeiro o `client_order_id` na exchange;
+- timeout depois do aceite e reconciliado sem uma segunda ordem;
+- IDs reaproveitados para quantidade, ativo ou lado diferentes sao rejeitados;
+- journal e exchange divergentes exigem reconciliacao, sem retry cego;
+- timestamps obsoletos ou no futuro sao recusados;
+- IDs fora do formato aceito pela Binance sao recusados;
+- o gateway implementado aceita somente `https://testnet.binancefuture.com`.
+
+O gateway testnet possui testes unitarios com transporte simulado, mas o gate
+`testnet_passed` permanece falso ate um ciclo real no ambiente de demonstracao,
+com credenciais exclusivas e sem permissao de saque. Nenhuma credencial foi
+lida ou usada durante esta implementacao.

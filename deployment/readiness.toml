@@ -11,6 +11,9 @@ testnet_passed = false
 failure_recovery_tested = true
 order_reconciliation_tested = true
 kill_switch_tested = true
+testnet_adapter_unit_tested = true
+live_adapter_reviewed = false
+human_live_approval = false
 
 [evidence]
 current_candidate = "C2_FROZEN_DEV_2026_08_27"

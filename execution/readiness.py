@@ -12,6 +12,8 @@ REQUIRED_LIVE_GATES = (
     "failure_recovery_tested",
     "order_reconciliation_tested",
     "kill_switch_tested",
+    "live_adapter_reviewed",
+    "human_live_approval",
 )
 
 
@@ -28,4 +30,16 @@ def live_blockers(document: dict) -> list[str]:
         blockers.append("deployment_mode_is_not_live")
     if not deployment.get("real_trading_enabled", False):
         blockers.append("real_trading_is_disabled")
+    evidence = document.get("evidence", {})
+    if gates.get("strategy_approved") and not deployment.get("approved_strategy_id"):
+        blockers.append("approved_strategy_id_is_missing")
+    if gates.get("fresh_holdout_passed") and evidence.get("current_holdout_decision") != "PASS":
+        blockers.append("holdout_evidence_is_not_pass")
+    for gate, field in (
+        ("paper_trading_passed", "paper_report_sha256"),
+        ("testnet_passed", "testnet_report_sha256"),
+        ("human_live_approval", "human_approval_ref"),
+    ):
+        if gates.get(gate) and not evidence.get(field):
+            blockers.append(f"{field}_is_missing")
     return blockers

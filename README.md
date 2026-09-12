@@ -148,6 +148,8 @@ verifique os gates sem conectar a uma exchange:
 Ordens passam obrigatoriamente por estrategia aprovada, limite de notional,
 alavancagem, numero de posicoes, perda diaria, idade do dado e kill switch. Nao
 existe adaptador de conta real habilitado enquanto os gates estiverem fechados.
+O gateway Binance disponivel e restrito estruturalmente ao Testnet e nao e
+instanciado pelo comando de readiness.
 
 ## Exemplos
 

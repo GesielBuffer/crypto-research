@@ -37,5 +37,8 @@ class PaperExchange:
         self._fills[intent.client_order_id] = fill
         return fill
 
+    def find_fill(self, intent: OrderIntent) -> Fill | None:
+        return self._fills.get(intent.client_order_id)
+
     def activate_kill_switch(self) -> None:
         self._kill_switch = True
