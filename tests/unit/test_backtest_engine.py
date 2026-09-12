@@ -64,6 +64,17 @@ class FixedHorizonTests(unittest.TestCase):
         )
         self.assertAlmostEqual(trades.iloc[0].gross_return, -(102.5 / 101 - 1))
 
+    def test_inverse_short_convention_reproduces_legacy_targets(self):
+        signals = pd.Series([True, False, False, False, False, False, False])
+        trades = simulate_fixed_horizon(
+            self.bars,
+            signals,
+            FixedHorizonConfig(
+                side="short", hold_bars=2, short_return_convention="inverse"
+            ),
+        )
+        self.assertAlmostEqual(trades.iloc[0].gross_return, 101 / 102.5 - 1)
+
     def test_single_position_rejects_only_overlapping_signals(self):
         signals = pd.Series([True, True, False, True, False, False, False])
         trades = simulate_fixed_horizon(

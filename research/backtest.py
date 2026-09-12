@@ -15,6 +15,7 @@ import pandas as pd
 
 Side = Literal["long", "short"]
 OverlapPolicy = Literal["allow", "single_position"]
+ShortReturnConvention = Literal["linear", "inverse"]
 
 
 @dataclass(frozen=True)
@@ -60,6 +61,7 @@ class FixedHorizonConfig:
     entry_delay_bars: int = 1
     hold_bars: int = 1
     overlap: OverlapPolicy = "single_position"
+    short_return_convention: ShortReturnConvention = "linear"
     costs: CostModel = CostModel()
 
     def __post_init__(self) -> None:
@@ -71,6 +73,8 @@ class FixedHorizonConfig:
             raise ValueError("hold_bars must be >= entry_delay_bars")
         if self.overlap not in ("allow", "single_position"):
             raise ValueError("overlap must be 'allow' or 'single_position'")
+        if self.short_return_convention not in ("linear", "inverse"):
+            raise ValueError("short_return_convention must be 'linear' or 'inverse'")
 
 
 def simulate_fixed_horizon(
@@ -123,8 +127,12 @@ def simulate_fixed_horizon(
         exit_price = float(bars["close"].iloc[exit_position])
         if entry_price <= 0 or exit_price <= 0:
             raise ValueError("entry and exit prices must be positive")
-        direction = 1.0 if cfg.side == "long" else -1.0
-        gross_return = direction * (exit_price / entry_price - 1.0)
+        if cfg.side == "long":
+            gross_return = exit_price / entry_price - 1.0
+        elif cfg.short_return_convention == "inverse":
+            gross_return = entry_price / exit_price - 1.0
+        else:
+            gross_return = 1.0 - exit_price / entry_price
         records.append({
             "signal_time": bars[time_column].iloc[signal_position],
             "entry_time": bars[time_column].iloc[entry_position],

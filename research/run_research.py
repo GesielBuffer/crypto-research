@@ -19,6 +19,10 @@ from research.backtest import simulate_fixed_horizon
 from research.binance_data import load_csv
 from research.config import BASE_DIR, DATA_DIR, RESULTS_DIR
 from research.data_manifest import verify_manifest
+from research.experiments.cost_sensitivity import (
+    cache_files as cost_sensitivity_cache_files,
+    reproduce as reproduce_cost_sensitivity,
+)
 from research.metrics import summarize_returns
 from research.signals import build_c2_signals
 
@@ -27,25 +31,26 @@ REGISTRY_PATH = BASE_DIR / "experiments" / "registry.toml"
 COMPARISON_FIELDS = (
     "samples", "mean_return", "median_return", "win_rate", "profit_factor"
 )
-REQUIRED_SPEC_FIELDS = {
+COMMON_SPEC_FIELDS = {
+    "kind",
     "description",
     "strategy_version",
     "split",
-    "trades_file",
-    "summary_file",
     "data_manifest",
-    "signal_time_column",
     "interval",
-    "side",
-    "entry_delay_bars",
-    "hold_bars",
-    "overlap",
-    "cost",
     "expected_decision",
     "data_start",
     "data_end",
     "evaluation_start",
     "evaluation_end",
+}
+C2_SPEC_FIELDS = {
+    "trades_file", "summary_file", "signal_time_column", "side",
+    "entry_delay_bars", "hold_bars", "overlap", "cost",
+}
+COST_SENSITIVITY_SPEC_FIELDS = {
+    "detailed_file", "summary_file", "symbols", "entry_delay_bars",
+    "hold_bars", "overlap", "costs",
 }
 
 
@@ -54,19 +59,28 @@ def validate_experiment_spec(experiment_id: str, spec: dict) -> None:
 
     if not isinstance(spec, dict):
         raise ValueError(f"experiment '{experiment_id}' must be a TOML table")
-    missing = REQUIRED_SPEC_FIELDS.difference(spec)
+    kind = spec.get("kind")
+    kind_fields = {
+        "c2_replay": C2_SPEC_FIELDS,
+        "trend_short_cost_sensitivity": COST_SENSITIVITY_SPEC_FIELDS,
+    }.get(kind)
+    if kind_fields is None:
+        raise ValueError(f"experiment '{experiment_id}' has unsupported kind: {kind}")
+    missing = (COMMON_SPEC_FIELDS | kind_fields).difference(spec)
     if missing:
         raise ValueError(
             f"experiment '{experiment_id}' missing fields: {sorted(missing)}"
         )
 
-    for field in ("trades_file", "summary_file", "data_manifest"):
+    path_fields = ["summary_file", "data_manifest"]
+    path_fields.append("trades_file" if kind == "c2_replay" else "detailed_file")
+    for field in path_fields:
         path = Path(spec[field])
         if path.is_absolute() or ".." in path.parts:
             raise ValueError(
                 f"experiment '{experiment_id}' field '{field}' must stay inside the repository"
             )
-    if spec["side"] not in {"long", "short"}:
+    if kind == "c2_replay" and spec["side"] not in {"long", "short"}:
         raise ValueError(f"experiment '{experiment_id}' has invalid side")
     if spec["overlap"] not in {"allow", "single_position"}:
         raise ValueError(f"experiment '{experiment_id}' has invalid overlap policy")
@@ -74,8 +88,17 @@ def validate_experiment_spec(experiment_id: str, spec: dict) -> None:
         raise ValueError(f"experiment '{experiment_id}' must enter at t+1 or later")
     if not isinstance(spec["hold_bars"], int) or spec["hold_bars"] < spec["entry_delay_bars"]:
         raise ValueError(f"experiment '{experiment_id}' has invalid hold_bars")
-    if not isinstance(spec["cost"], (int, float)) or spec["cost"] < 0:
-        raise ValueError(f"experiment '{experiment_id}' has invalid cost")
+    costs = [spec["cost"]] if kind == "c2_replay" else spec["costs"]
+    if (
+        not isinstance(costs, list)
+        or not costs
+        or any(not isinstance(cost, (int, float)) or cost < 0 for cost in costs)
+    ):
+        raise ValueError(f"experiment '{experiment_id}' has invalid costs")
+    if kind == "trend_short_cost_sensitivity" and (
+        not isinstance(spec["symbols"], list) or not spec["symbols"]
+    ):
+        raise ValueError(f"experiment '{experiment_id}' must define symbols")
 
     dates = {
         field: pd.Timestamp(spec[field], tz="UTC")
@@ -162,12 +185,117 @@ def generate_trades(frozen: pd.DataFrame, spec: dict, config: FixedHorizonConfig
     ].sort_values(["signal_time", "symbol"], ignore_index=True)
 
 
+def compare_frozen_frame(
+    actual: pd.DataFrame,
+    expected: pd.DataFrame,
+    *,
+    sort_by: list[str],
+) -> dict:
+    """Compare a regenerated result table with a committed small artifact."""
+
+    if set(actual.columns) != set(expected.columns):
+        return {
+            "columns": {
+                "actual": actual.columns.tolist(),
+                "expected": expected.columns.tolist(),
+            }
+        }
+    actual = actual[expected.columns].sort_values(sort_by, ignore_index=True)
+    expected = expected.sort_values(sort_by, ignore_index=True)
+    if len(actual) != len(expected):
+        return {"rows": {"actual": len(actual), "expected": len(expected)}}
+
+    mismatches = {}
+    for column in expected.columns:
+        if pd.api.types.is_numeric_dtype(expected[column]):
+            matches = np.allclose(
+                actual[column].to_numpy(dtype=float),
+                expected[column].to_numpy(dtype=float),
+                rtol=1e-12,
+                atol=1e-12,
+                equal_nan=True,
+            )
+        else:
+            matches = actual[column].astype(str).equals(expected[column].astype(str))
+        if not matches:
+            mismatches[column] = "values differ"
+    return mismatches
+
+
+def run_cost_sensitivity_experiment(
+    experiment_id: str,
+    spec: dict,
+    *,
+    write_report: bool,
+) -> dict:
+    detailed_path = BASE_DIR / spec["detailed_file"]
+    summary_path = BASE_DIR / spec["summary_file"]
+    manifest_path = BASE_DIR / spec["data_manifest"]
+    paths = cost_sensitivity_cache_files(spec)
+    verified = verify_manifest(manifest_path, paths)
+    detailed, summary, _ = reproduce_cost_sensitivity(spec)
+    expected_detailed = pd.read_csv(detailed_path)
+    expected_summary = pd.read_csv(summary_path)
+    mismatches = {
+        "detailed": compare_frozen_frame(
+            detailed, expected_detailed, sort_by=["symbol", "period", "cost"]
+        ),
+        "summary": compare_frozen_frame(
+            summary, expected_summary, sort_by=["cost"]
+        ),
+    }
+    mismatches = {key: value for key, value in mismatches.items() if value}
+    report = {
+        "experiment_id": experiment_id,
+        "description": spec["description"],
+        "strategy_version": spec["strategy_version"],
+        "split": spec["split"],
+        "expected_decision": spec["expected_decision"],
+        "status": "PASS_REGRESSION" if not mismatches else "FAIL_REGRESSION",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "git_commit": current_commit(),
+        "parameters": {
+            key: spec[key] for key in (
+                "interval", "symbols", "entry_delay_bars", "hold_bars",
+                "overlap", "costs", "data_start", "data_end",
+                "evaluation_start", "evaluation_end",
+            )
+        },
+        "metrics": summary.to_dict(orient="records"),
+        "mismatches": mismatches,
+        "inputs": {
+            "data_manifest": {
+                "path": spec["data_manifest"],
+                "sha256": sha256(manifest_path),
+                "verified_files": len(verified),
+            },
+            "detailed": {
+                "path": spec["detailed_file"], "sha256": sha256(detailed_path)
+            },
+            "summary": {
+                "path": spec["summary_file"], "sha256": sha256(summary_path)
+            },
+        },
+    }
+    if write_report:
+        output = RESULTS_DIR / "runs" / f"{experiment_id}.json"
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    if mismatches:
+        raise AssertionError(f"regression mismatch: {mismatches}")
+    return report
+
+
 def run_experiment(experiment_id: str, *, write_report: bool = True) -> dict:
     registry = load_registry()
     if experiment_id not in registry:
         choices = ", ".join(sorted(registry))
         raise ValueError(f"unknown experiment '{experiment_id}'; choose: {choices}")
     spec = registry[experiment_id]
+    if spec["kind"] == "trend_short_cost_sensitivity":
+        return run_cost_sensitivity_experiment(
+            experiment_id, spec, write_report=write_report
+        )
     trades_path = BASE_DIR / spec["trades_file"]
     summary_path = BASE_DIR / spec["summary_file"]
     frozen = pd.read_csv(trades_path)

@@ -1,4 +1,5 @@
 [experiments.c2_development_replay]
+kind = "c2_replay"
 description = "Replay congelado da C2 no conjunto de desenvolvimento; nao promove estrategia."
 strategy_version = "C2_FROZEN_DEV_2026_08_27"
 split = "development"
@@ -19,6 +20,7 @@ evaluation_start = "2024-01-01"
 evaluation_end = "2026-08-01"
 
 [experiments.c2_august_holdout_replay]
+kind = "c2_replay"
 description = "Replay congelado do holdout agosto/2026; resultado permanece FAIL."
 strategy_version = "C2_FROZEN_DEV_2026_08_27"
 split = "holdout"
@@ -37,3 +39,23 @@ data_start = "2026-07-01"
 data_end = "2026-09-01"
 evaluation_start = "2026-08-01"
 evaluation_end = "2026-09-01"
+
+[experiments.trend_short_cost_sensitivity]
+kind = "trend_short_cost_sensitivity"
+description = "Migracao do estudo de sensibilidade a custos da hipotese trend-short."
+strategy_version = "TREND_SHORT_LEGACY_V1"
+split = "development"
+detailed_file = "results/cost_sensitivity_detailed.csv"
+summary_file = "results/cost_sensitivity_summary.csv"
+data_manifest = "manifests/c2_candles.json"
+interval = "5m"
+symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT"]
+entry_delay_bars = 1
+hold_bars = 12
+overlap = "single_position"
+costs = [0.0, 0.0002, 0.0004, 0.0006, 0.0008, 0.001]
+expected_decision = "FAIL_COST_ROBUSTNESS"
+data_start = "2026-02-01"
+data_end = "2026-08-01"
+evaluation_start = "2026-02-01"
+evaluation_end = "2026-08-01"

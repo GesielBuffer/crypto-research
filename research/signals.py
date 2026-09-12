@@ -67,3 +67,19 @@ def build_c2_signals(
         & (frame["prior_extreme_count"] == 0)
     ).fillna(False)
     return frame
+
+
+def build_trend_short_signal(frame: pd.DataFrame) -> pd.Series:
+    """Reproduce the frozen EMA/MACD/ADX/volume short hypothesis."""
+
+    required = {"ema_9", "ema_21", "ema_35", "macd_hist", "adx", "volume_ratio"}
+    missing = required.difference(frame.columns)
+    if missing:
+        raise ValueError(f"features missing required columns: {sorted(missing)}")
+    return (
+        (frame["ema_9"] < frame["ema_21"])
+        & (frame["ema_21"] < frame["ema_35"])
+        & (frame["macd_hist"] < 0)
+        & (frame["adx"] >= 25)
+        & (frame["volume_ratio"] >= 1.5)
+    ).fillna(False)

@@ -11,6 +11,7 @@ class ResearchRunnerTests(unittest.TestCase):
         registry = load_registry()
         self.assertIn("c2_development_replay", registry)
         self.assertIn("c2_august_holdout_replay", registry)
+        self.assertIn("trend_short_cost_sensitivity", registry)
         self.assertEqual(registry["c2_august_holdout_replay"]["expected_decision"], "FAIL")
 
     def test_unknown_experiment_is_rejected(self):
