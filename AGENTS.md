@@ -19,7 +19,7 @@ Transformar este laboratorio em um sistema de pesquisa quantitativa reproduzivel
 - Verificacao rapida sem rede:
   - `.venv\Scripts\python.exe -m pip check`
   - `.venv\Scripts\python.exe -m compileall -q research .`
-- Teste publico com rede: `.venv\Scripts\python.exe test_indicators.py`
+- Teste publico com rede: `.venv\Scripts\python.exe -m experiments.legacy.test_indicators`
 
 ## Protocolo de pesquisa
 
