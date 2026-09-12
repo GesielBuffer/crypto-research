@@ -57,6 +57,8 @@ O arquivo `.env` nunca entra no Git. Nao coloque segredos diretamente no codigo.
 ```text
 crypto_research/
 |-- research/       modulos reutilizaveis de dados, indicadores e validacao
+|-- manifests/      identidade, origem e cobertura dos datasets locais
+|-- experiments/    registro declarativo dos experimentos reproduziveis
 |-- data/           cache historico local; nao versionado
 |-- results/        resultados e decisoes; eventos brutos grandes nao versionados
 |-- test_*.py       experimentos historicos e testes de hipoteses
@@ -106,6 +108,24 @@ Cada execucao valida o resultado congelado e grava em `results/runs/` um
 relatorio com parametros, commit do codigo e checksums de todos os arquivos de
 entrada. `PASS_REGRESSION` significa apenas que o resultado foi reproduzido; a
 decisao cientifica da C2 no holdout continua sendo `FAIL`.
+
+Antes do replay, o executor confere cada cache contra o manifesto versionado em
+`manifests/c2_candles.json`. O manifesto registra a origem publica, cobertura,
+numero de linhas, tamanho e SHA-256, sem enviar os candles ao Git. Para
+reconstrui-lo de forma deterministica depois de uma aquisicao deliberada de
+dados:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.data_manifest `
+  --experiment c2_development_replay `
+  --experiment c2_august_holdout_replay `
+  --dataset-id c2-public-futures-5m-2024-01_2026-08 `
+  --output manifests/c2_candles.json
+```
+
+O antigo `test_c2_august_holdout.py` foi reduzido a um ponto de entrada de
+compatibilidade e agora delega ao executor registrado. A implementacao
+monolitica anterior continua acessivel no historico Git.
 
 ## Exemplos
 

@@ -11,10 +11,12 @@ Os principais vazios identificados nesta auditoria ja comecaram a ser corrigidos
 - `research/metrics.py` centraliza as metricas basicas;
 - `experiments/registry.toml` registra os replays de desenvolvimento e holdout;
 - `research/run_research.py` executa experimentos por ID, valida o registro e grava commit e checksums nos relatorios;
+- `manifests/c2_candles.json` fixa origem, cobertura, tamanho, linhas e SHA-256 dos 128 caches usados pela C2;
+- o holdout C2 deixou de ter duas implementacoes ativas: `test_c2_august_holdout.py` agora e apenas um ponto de entrada para o motor consolidado;
 - testes unitarios e de regressao reproduzem a C2 desde os candles publicos em cache;
 - a CI valida o nucleo offline em cada push e pull request.
 
-Essa consolidacao melhora a reprodutibilidade, mas nao altera a decisao cientifica: a C2 continua reprovada no holdout e nenhuma estrategia esta autorizada para paper trading ou producao. Permanecem como proximos marcos um manifesto independente dos dados, a migracao gradual dos experimentos monoliticos e um protocolo novo de holdout.
+Essa consolidacao melhora a reprodutibilidade, mas nao altera a decisao cientifica: a C2 continua reprovada no holdout e nenhuma estrategia esta autorizada para paper trading ou producao. Permanecem como proximos marcos a migracao gradual dos demais experimentos monoliticos e um protocolo novo de holdout.
 
 ## Resposta executiva
 
@@ -85,7 +87,7 @@ Alguns arquivos globais apresentam PF acima de 1 em subconjuntos ou custos favor
 - O registro central agora cobre a C2; os demais experimentos ainda precisam ser migrados gradualmente.
 - Muitos resultados podem ser sobrescritos pelo mesmo nome sem vinculo criptografico com codigo e dados.
 - `requirements.txt` usa apenas limites minimos, prejudicando reprodutibilidade futura.
-- Dados nao possuem manifesto com origem, periodo, cobertura e checksum.
+- A C2 agora possui manifesto de dados; as demais familias ainda precisam receber manifestos durante a migracao.
 - O teste de muitas combinacoes nao possui controle explicito de multiple testing/false discovery.
 - O simulador canonico ja cobre fees, slippage, funding, entrada defasada e sobreposicao; latencia variavel, fills parciais, lot size, tick size e liquidacao ainda nao foram incorporados.
 - `backtest.py`, `signals.py`, `metrics.py` e `run_research.py` agora formam o primeiro caminho consolidado, mas a logica antiga continua duplicada nos experimentos ainda nao migrados.
