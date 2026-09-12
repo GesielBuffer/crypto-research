@@ -7,7 +7,7 @@ Transformar este laboratorio em um sistema de pesquisa quantitativa reproduzivel
 ## Regra de seguranca inegociavel
 
 - Nunca execute `main.py`, envie ordens, altere `DRY_RUN` para `False` ou use a conta real sem autorizacao explicita do usuario para aquela execucao.
-- Considere `main.py` codigo de producao legado e potencialmente perigoso: atualmente ele aponta para ambiente real.
+- Considere `main.py` um ponto de entrada legado desativado. A implementacao perigosa anterior permanece somente no historico Git.
 - Nunca leia, mostre, versione ou copie valores de `.env`, chaves da Binance, chaves OpenAI ou outros segredos.
 - Pesquisa historica deve usar endpoints publicos e nao precisa de credenciais de trading.
 - Antes de paper trading: testes automatizados, simulacao de falhas, reconciliacao de ordens e protecao de posicao sao obrigatorios.

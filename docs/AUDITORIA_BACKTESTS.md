@@ -13,6 +13,8 @@ Os principais vazios identificados nesta auditoria ja comecaram a ser corrigidos
 - `research/run_research.py` executa experimentos por ID, valida o registro e grava commit e checksums nos relatorios;
 - `manifests/c2_candles.json` fixa origem, cobertura, tamanho, linhas e SHA-256 dos 128 caches usados pela C2;
 - o holdout C2 deixou de ter duas implementacoes ativas: `test_c2_august_holdout.py` agora e apenas um ponto de entrada para o motor consolidado;
+- a sensibilidade a custos trend-short tambem foi migrada e preserva explicitamente a convencao historica de retorno short;
+- os demais scripts exploratorios foram isolados em `experiments/legacy/`; nenhum deles pertence ao runtime operacional ou pode promover uma estrategia;
 - testes unitarios e de regressao reproduzem a C2 desde os candles publicos em cache;
 - a CI valida o nucleo offline em cada push e pull request.
 

@@ -34,3 +34,4 @@ results/*events*.csv
 *.log
 *.tmp
 work/
+runtime/

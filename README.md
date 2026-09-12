@@ -59,9 +59,11 @@ crypto_research/
 |-- research/       modulos reutilizaveis de dados, indicadores e validacao
 |-- manifests/      identidade, origem e cobertura dos datasets locais
 |-- experiments/    registro declarativo dos experimentos reproduziveis
+|-- execution/      runtime isolado, paper exchange e controles de risco
+|-- deployment/     gates versionados de promocao operacional
 |-- data/           cache historico local; nao versionado
 |-- results/        resultados e decisoes; eventos brutos grandes nao versionados
-|-- test_*.py       experimentos historicos e testes de hipoteses
+|-- experiments/legacy/  arquivo dos experimentos monoliticos historicos
 |-- main.py         bot legado de execucao real; nao executar
 |-- AGENTS.md       regras permanentes para o Codex
 |-- requirements.txt
@@ -102,6 +104,7 @@ continuam fora do Git.
 .\.venv\Scripts\python.exe -m research.run_research --list
 .\.venv\Scripts\python.exe -m research.run_research c2_development_replay
 .\.venv\Scripts\python.exe -m research.run_research c2_august_holdout_replay
+.\.venv\Scripts\python.exe -m research.run_research trend_short_cost_sensitivity
 ```
 
 Cada execucao valida o resultado congelado e grava em `results/runs/` um
@@ -127,6 +130,25 @@ O antigo `test_c2_august_holdout.py` foi reduzido a um ponto de entrada de
 compatibilidade e agora delega ao executor registrado. A implementacao
 monolitica anterior continua acessivel no historico Git.
 
+O mesmo processo foi concluido para `test_cost_sensitivity.py`. A hipotese
+trend-short usa explicitamente a convencao historica de retorno short inverso,
+e o motor reproduz as 144 linhas detalhadas e as seis faixas de custo sem
+divergencias. A decisao permanece `FAIL_COST_ROBUSTNESS`.
+
+### Runtime operacional seguro
+
+O novo runtime e separado de `main.py` e nasce em modo `paper`. Consulte
+`docs/PRODUCTION_READINESS.md`, consulte o inventario em `docs/MIGRATION.md` e
+verifique os gates sem conectar a uma exchange:
+
+```powershell
+.\.venv\Scripts\python.exe -m execution.app
+```
+
+Ordens passam obrigatoriamente por estrategia aprovada, limite de notional,
+alavancagem, numero de posicoes, perda diaria, idade do dado e kill switch. Nao
+existe adaptador de conta real habilitado enquanto os gates estiverem fechados.
+
 ## Exemplos
 
 ### Baixar candles publicos
@@ -147,7 +169,7 @@ print(df[["open_time", "open", "high", "low", "close", "volume"]].head())
 Executar o exemplo existente:
 
 ```powershell
-.\.venv\Scripts\python.exe test_download.py
+.\.venv\Scripts\python.exe -m experiments.legacy.test_download
 ```
 
 ### Calcular todos os indicadores
@@ -168,7 +190,7 @@ print(df[[
 Executar a validacao existente:
 
 ```powershell
-.\.venv\Scripts\python.exe test_indicators.py
+.\.venv\Scripts\python.exe -m experiments.legacy.test_indicators
 ```
 
 ### Carregar um cache local
@@ -192,7 +214,10 @@ Verificar imports e bytecode, sem operar e sem baixar dados:
 .\.venv\Scripts\python.exe -m compileall -q research
 ```
 
-Os arquivos chamados `test_*.py` sao majoritariamente experimentos executaveis, nao uma suite pytest convencional. Alguns fazem downloads extensos ou geram centenas de megabytes; leia o cabecalho e confirme periodo, custo e arquivos de saida antes de executa-los.
+Os experimentos monoliticos historicos foram preservados em
+`experiments/legacy/` e nao pertencem a suite automatizada. Alguns fazem
+downloads extensos ou geram centenas de megabytes; execute-os apenas por modulo
+e depois de revisar configuracao, custo e arquivos de saida.
 
 ## Politica de dados e GitHub
 

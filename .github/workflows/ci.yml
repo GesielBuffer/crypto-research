@@ -22,6 +22,8 @@ jobs:
       - name: Check dependencies
         run: python -m pip check
       - name: Compile research modules
-        run: python -m compileall -q research tests
+        run: python -m compileall -q research execution experiments tests
       - name: Run offline unit tests
         run: python -m unittest discover -s tests/unit -p "test_*.py" -v
+      - name: Report operational readiness
+        run: python -m execution.app

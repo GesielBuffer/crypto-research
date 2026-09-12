@@ -1,0 +1,19 @@
+[deployment]
+mode = "paper"
+real_trading_enabled = false
+approved_strategy_id = ""
+
+[gates]
+strategy_approved = false
+fresh_holdout_passed = false
+paper_trading_passed = false
+testnet_passed = false
+failure_recovery_tested = true
+order_reconciliation_tested = true
+kill_switch_tested = true
+
+[evidence]
+current_candidate = "C2_FROZEN_DEV_2026_08_27"
+current_holdout_decision = "FAIL"
+current_holdout_profit_factor = 0.7140796324534253
+note = "Engineering may advance in paper mode; real trading remains blocked."
