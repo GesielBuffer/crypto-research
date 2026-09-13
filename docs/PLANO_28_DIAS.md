@@ -52,3 +52,7 @@ novo.
 Em 2026-09-13, protecao obrigatoria e fechamento emergencial foram implementados
 e cobertos por testes locais e testes unitarios do adaptador Testnet. Continuam
 fechados os gates de estrategia, holdout, paper, Testnet e adaptador real.
+
+A primeira nova familia foi pre-registrada em
+`experiments/medium_trend_v1.toml` antes da execucao. Ela limita a grade, separa
+desenvolvimento, validacao e confirmacao e exige robustez a 0,10% de custo.

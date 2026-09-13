@@ -1,0 +1,47 @@
+[experiment]
+strategy_version = "MEDIUM_TREND_EVENT_V1"
+hypothesis = "Event-driven medium trend entries can survive 0.06% to 0.10% round-trip costs across assets and time splits."
+registered_on = "2026-09-13"
+status = "PREREGISTERED"
+
+[data]
+symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT"]
+interval = "5m"
+start = "2024-01-01"
+end = "2026-08-01"
+manifest = "manifests/c2_candles.json"
+
+[splits]
+development_start = "2024-01-01"
+development_end = "2025-01-01"
+validation_start = "2025-01-01"
+validation_end = "2026-01-01"
+confirmation_start = "2026-01-01"
+confirmation_end = "2026-08-01"
+
+[execution]
+entry_delay_bars = 1
+overlap = "single_position"
+costs = [0.0006, 0.001]
+signal = "first bar of aligned EMA trend with slow EMA slope, ADX and DI confirmation"
+
+[grid]
+fast_spans = [24, 48]
+slow_spans = [96, 192]
+adx_thresholds = [20, 25]
+hold_bars = [48, 96]
+sides = ["long", "short"]
+
+[selection]
+development_min_samples = 100
+development_min_profit_factor = 1.15
+validation_min_samples = 100
+validation_min_profit_factor = 1.10
+confirmation_min_samples = 60
+confirmation_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+min_profitable_assets_per_split = 3
+
+[decision]
+rule = "PASS only if one fixed parameter set satisfies every split, stress-cost and asset breadth criterion."
+august_2026_role = "excluded; previously opened data cannot be a fresh holdout"
