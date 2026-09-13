@@ -12,16 +12,22 @@ conta real.
 
 ## Componentes implementados
 
-- `execution/models.py`: contratos imutaveis de intencao e fill;
+- `execution/models.py`: contratos imutaveis de entrada, fill e protecao;
 - `execution/risk.py`: estrategia aprovada, notional, alavancagem, posicoes,
   perda diaria, freshness dos dados e kill switch;
 - `execution/paper.py`: exchange local sem credenciais e com IDs idempotentes;
 - `execution/service.py`: unica porta para validacao e envio ao adaptador;
+- toda entrada exige stop-loss e take-profit; falha de protecao aciona
+  fechamento emergencial e impede reutilizacao da entrada encerrada;
 - `execution/journal.py`: journal append-only e deteccao de ordens interrompidas;
 - `execution/binance_testnet.py`: gateway USD-M assinado que rejeita qualquer host diferente do Testnet;
 - `execution/config.py`: configuracao fail-closed; variaveis de ambiente nao conseguem habilitar conta real;
 - `execution/readiness.py`: gates objetivos de promocao;
 - `deployment/readiness.toml`: estado versionado da promocao.
+
+As protecoes usam o servico Algo atual da Binance USD-M
+(`/fapi/v1/algoOrder` e `/fapi/v1/openAlgoOrders`). Os tipos condicionais nao
+sao enviados pelo endpoint legado de ordens comuns.
 
 O legado `main.py` nao faz parte da nova arquitetura e nao deve ser executado.
 Ele mistura selecao de ativos, sinal, cliente HTTP, sizing, protecao e loop, alem
@@ -38,7 +44,8 @@ Trading real somente pode ser considerado quando todos forem verdadeiros:
 5. recuperacao de falhas simulada;
 6. reconciliacao de ordens e posicoes testada;
 7. kill switch testado;
-8. revisao humana da promocao e das credenciais de menor privilegio.
+8. protecao de posicao e fechamento emergencial testados;
+9. revisao humana da promocao e das credenciais de menor privilegio.
 
 Verifique o estado atual sem acessar exchange:
 

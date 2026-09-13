@@ -11,7 +11,13 @@ from urllib.parse import urlencode
 
 import requests
 
-from execution.models import Fill, OrderIntent, Side
+from execution.models import (
+    Fill,
+    OrderIntent,
+    ProtectionReceipt,
+    Side,
+    child_order_id,
+)
 from execution.risk import RiskSnapshot
 
 
@@ -106,6 +112,111 @@ class BinanceUsdMTestnetExchange:
                 return None
             raise
         return self._fill_from_response(body)
+
+    def find_protection(self, intent: OrderIntent) -> ProtectionReceipt | None:
+        orders = self._signed_request(
+            "GET", "/fapi/v1/openAlgoOrders", {"symbol": intent.symbol}
+        )
+        open_ids = {row.get("clientAlgoId") for row in orders}
+        stop_id = child_order_id(intent.client_order_id, "sl")
+        take_profit_id = child_order_id(intent.client_order_id, "tp")
+        if stop_id in open_ids and take_profit_id in open_ids:
+            return ProtectionReceipt(intent.client_order_id, stop_id, take_profit_id)
+        return None
+
+    def submit_protection(
+        self, intent: OrderIntent, entry_fill: Fill
+    ) -> ProtectionReceipt:
+        existing = self.find_protection(intent)
+        if existing is not None:
+            return existing
+        exit_side = entry_fill.side.opposite.value
+        stop_id = child_order_id(intent.client_order_id, "sl")
+        take_profit_id = child_order_id(intent.client_order_id, "tp")
+        common = {
+            "algoType": "CONDITIONAL",
+            "symbol": intent.symbol,
+            "side": exit_side,
+            "closePosition": "true",
+            "workingType": "MARK_PRICE",
+            "priceProtect": "TRUE",
+        }
+        stop = self._signed_request(
+            "POST",
+            "/fapi/v1/algoOrder",
+            {
+                **common,
+                "type": "STOP_MARKET",
+                "triggerPrice": str(intent.protection.stop_loss_price),
+                "clientAlgoId": stop_id,
+            },
+        )
+        take_profit = self._signed_request(
+            "POST",
+            "/fapi/v1/algoOrder",
+            {
+                **common,
+                "type": "TAKE_PROFIT_MARKET",
+                "triggerPrice": str(intent.protection.take_profit_price),
+                "clientAlgoId": take_profit_id,
+            },
+        )
+        if (
+            stop.get("clientAlgoId") != stop_id
+            or take_profit.get("clientAlgoId") != take_profit_id
+        ):
+            raise RuntimeError("testnet did not confirm both protection orders")
+        return ProtectionReceipt(intent.client_order_id, stop_id, take_profit_id)
+
+    def emergency_close(self, intent: OrderIntent, entry_fill: Fill) -> Fill:
+        exit_id = child_order_id(intent.client_order_id, "exit")
+        emergency_intent = OrderIntent(
+            strategy_id=intent.strategy_id,
+            symbol=intent.symbol,
+            side=entry_fill.side.opposite,
+            quantity=entry_fill.quantity,
+            reference_price=entry_fill.price,
+            leverage=intent.leverage,
+            client_order_id=exit_id,
+            market_data_time=intent.market_data_time,
+            protection=intent.protection,
+        )
+        existing = self.find_fill(emergency_intent)
+        if existing is None:
+            body = self._signed_request(
+                "POST",
+                "/fapi/v1/order",
+                {
+                    "symbol": intent.symbol,
+                    "side": entry_fill.side.opposite.value,
+                    "type": "MARKET",
+                    "quantity": str(entry_fill.quantity),
+                    "reduceOnly": "true",
+                    "newClientOrderId": exit_id,
+                    "newOrderRespType": "RESULT",
+                },
+            )
+            existing = self._fill_from_response(body)
+            if existing is None:
+                raise RuntimeError("testnet emergency close did not return an execution")
+        self._signed_request(
+            "DELETE", "/fapi/v1/algoOpenOrders", {"symbol": intent.symbol}
+        )
+        return existing
+
+    def find_emergency_exit(self, intent: OrderIntent) -> Fill | None:
+        exit_intent = OrderIntent(
+            strategy_id=intent.strategy_id,
+            symbol=intent.symbol,
+            side=intent.side.opposite,
+            quantity=intent.quantity,
+            reference_price=intent.reference_price,
+            leverage=intent.leverage,
+            client_order_id=child_order_id(intent.client_order_id, "exit"),
+            market_data_time=intent.market_data_time,
+            protection=intent.protection,
+        )
+        return self.find_fill(exit_intent)
 
     def submit_market(self, intent: OrderIntent) -> Fill:
         body = self._signed_request(

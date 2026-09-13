@@ -5,10 +5,16 @@ from decimal import Decimal
 from pathlib import Path
 
 from execution.journal import JsonlOrderJournal
-from execution.models import OrderIntent, Side
+from execution.models import OrderIntent, PositionProtection, Side
 from execution.paper import PaperExchange
 from execution.risk import RiskEngine, RiskLimits, RiskRejected, RiskSnapshot
-from execution.service import IdempotencyConflict, ReconciliationRequired, TradingService
+from execution.service import (
+    IdempotencyConflict,
+    PositionProtectionFailed,
+    ReconciliationRequired,
+    TradingService,
+    UnprotectedPositionEmergency,
+)
 
 
 NOW = datetime(2026, 9, 12, tzinfo=timezone.utc)
@@ -38,6 +44,36 @@ class AcceptedThenTimeoutExchange(PaperExchange):
         return fill
 
 
+class ProtectionFailureExchange(PaperExchange):
+    def submit_protection(self, order_intent, entry_fill):
+        raise ConnectionError("simulated protection failure")
+
+
+class TotalProtectionFailureExchange(ProtectionFailureExchange):
+    def emergency_close(self, order_intent, entry_fill):
+        raise ConnectionError("simulated emergency close failure")
+
+
+class ProtectionLookupFailureExchange(PaperExchange):
+    def find_protection(self, order_intent):
+        raise ConnectionError("simulated protection lookup failure")
+
+
+class SlippedFillExchange(PaperExchange):
+    def submit_market(self, order_intent):
+        fill = super().submit_market(order_intent)
+        slipped = type(fill)(
+            client_order_id=fill.client_order_id,
+            symbol=fill.symbol,
+            side=fill.side,
+            quantity=fill.quantity,
+            price=Decimal("51100"),
+            filled_at=fill.filled_at,
+        )
+        self._fills[order_intent.client_order_id] = slipped
+        return slipped
+
+
 def intent(**overrides):
     values = {
         "strategy_id": "approved-v1",
@@ -48,6 +84,10 @@ def intent(**overrides):
         "leverage": 1,
         "client_order_id": "apv1-BTC-20260912T000000Z",
         "market_data_time": NOW,
+        "protection": PositionProtection(
+            stop_loss_price=Decimal("49500"),
+            take_profit_price=Decimal("51000"),
+        ),
     }
     values.update(overrides)
     return OrderIntent(**values)
@@ -66,6 +106,88 @@ class ExecutionRuntimeTests(unittest.TestCase):
         second = self.service.execute(intent(), now=NOW)
         self.assertEqual(first, second)
         self.assertEqual(self.exchange.snapshot().open_symbols, frozenset({"BTCUSDT"}))
+        self.assertIsNotNone(self.exchange.find_protection(intent()))
+
+    def test_long_requires_stop_below_and_target_above_entry(self):
+        with self.assertRaisesRegex(RiskRejected, "bracket"):
+            self.service.execute(
+                intent(
+                    protection=PositionProtection(
+                        stop_loss_price=Decimal("50500"),
+                        take_profit_price=Decimal("51000"),
+                    )
+                ),
+                now=NOW,
+            )
+
+    def test_short_requires_target_below_and_stop_above_entry(self):
+        with self.assertRaisesRegex(RiskRejected, "bracket"):
+            self.service.execute(
+                intent(
+                    side=Side.SELL,
+                    protection=PositionProtection(
+                        stop_loss_price=Decimal("49000"),
+                        take_profit_price=Decimal("48000"),
+                    ),
+                ),
+                now=NOW,
+            )
+
+    def test_planned_loss_is_limited(self):
+        with self.assertRaisesRegex(RiskRejected, "planned stop loss"):
+            self.service.execute(
+                intent(
+                    quantity=Decimal("0.01"),
+                    reference_price=Decimal("10000"),
+                    protection=PositionProtection(
+                        stop_loss_price=Decimal("9000"),
+                        take_profit_price=Decimal("11000"),
+                    ),
+                ),
+                now=NOW,
+            )
+
+    def test_protection_failure_immediately_closes_position(self):
+        exchange = ProtectionFailureExchange()
+        service = TradingService(
+            exchange,
+            RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+        )
+        with self.assertRaises(PositionProtectionFailed):
+            service.execute(intent(), now=NOW)
+        self.assertEqual(exchange.snapshot().open_symbols, frozenset())
+        with self.assertRaisesRegex(PositionProtectionFailed, "already closed"):
+            service.execute(intent(), now=NOW)
+        self.assertIsNone(exchange.find_protection(intent()))
+
+    def test_protection_lookup_failure_immediately_closes_position(self):
+        exchange = ProtectionLookupFailureExchange()
+        service = TradingService(
+            exchange,
+            RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+        )
+        with self.assertRaises(PositionProtectionFailed):
+            service.execute(intent(), now=NOW)
+        self.assertEqual(exchange.snapshot().open_symbols, frozenset())
+
+    def test_fill_outside_protection_bracket_is_closed(self):
+        exchange = SlippedFillExchange()
+        service = TradingService(
+            exchange,
+            RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+        )
+        with self.assertRaises(PositionProtectionFailed):
+            service.execute(intent(), now=NOW)
+        self.assertEqual(exchange.snapshot().open_symbols, frozenset())
+
+    def test_double_failure_requires_manual_intervention(self):
+        exchange = TotalProtectionFailureExchange()
+        service = TradingService(
+            exchange,
+            RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+        )
+        with self.assertRaises(UnprotectedPositionEmergency):
+            service.execute(intent(), now=NOW)
 
     def test_reused_id_with_different_order_is_rejected(self):
         self.service.execute(intent(), now=NOW)

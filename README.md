@@ -8,7 +8,9 @@ dados historicos -> indicadores/features -> hipotese -> backtest
 -> somente entao, producao
 ```
 
-> **Aviso de seguranca:** `main.py` e um bot legado capaz de operar Binance Futures e atualmente contem `TESTNET = False` e `DRY_RUN = False`. Nao execute esse arquivo. Nenhuma estrategia deste repositorio esta aprovada para dinheiro real.
+> **Aviso de seguranca:** `main.py` e apenas um stub desativado; a implementacao
+> legada capaz de operar Binance Futures permanece somente no historico Git.
+> Nenhuma estrategia deste repositorio esta aprovada para dinheiro real.
 
 ## Estado atual
 
@@ -150,6 +152,11 @@ alavancagem, numero de posicoes, perda diaria, idade do dado e kill switch. Nao
 existe adaptador de conta real habilitado enquanto os gates estiverem fechados.
 O gateway Binance disponivel e restrito estruturalmente ao Testnet e nao e
 instanciado pelo comando de readiness.
+
+Cada intencao tambem contem stop-loss e take-profit obrigatorios. Depois do
+fill, o runtime confirma as duas protecoes. Se a criacao ou consulta delas
+falhar, tenta zerar a posicao imediatamente com uma ordem reduce-only e registra
+o incidente no journal. Consulte o cronograma em `docs/PLANO_28_DIAS.md`.
 
 ## Exemplos
 

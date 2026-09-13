@@ -9,7 +9,7 @@ from execution.binance_testnet import (
     BinanceUsdMTestnetExchange,
     TESTNET_BASE_URL,
 )
-from execution.models import OrderIntent, Side
+from execution.models import Fill, OrderIntent, PositionProtection, Side, child_order_id
 
 
 class FakeResponse:
@@ -41,6 +41,10 @@ def intent():
         leverage=1,
         client_order_id="apv1-BTC-20260912T000000Z",
         market_data_time=datetime(2026, 9, 12, tzinfo=timezone.utc),
+        protection=PositionProtection(
+            stop_loss_price=Decimal("49000"),
+            take_profit_price=Decimal("52000"),
+        ),
     )
 
 
@@ -98,3 +102,55 @@ class BinanceTestnetTests(unittest.TestCase):
         self.assertEqual(snapshot.open_symbols, frozenset({"BTCUSDT"}))
         self.assertEqual(snapshot.realized_pnl_today, Decimal("-2.25"))
         self.assertTrue(snapshot.kill_switch)
+
+    def test_protection_uses_two_close_position_trigger_orders(self):
+        stop_id = child_order_id(intent().client_order_id, "sl")
+        take_profit_id = child_order_id(intent().client_order_id, "tp")
+        session = FakeSession([
+            FakeResponse(200, []),
+            FakeResponse(200, {"clientAlgoId": stop_id}),
+            FakeResponse(200, {"clientAlgoId": take_profit_id}),
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        entry_fill = Fill.from_intent(intent())
+        receipt = exchange.submit_protection(intent(), entry_fill)
+        self.assertEqual(receipt.stop_client_order_id, stop_id)
+        self.assertEqual(
+            session.calls[0][0:2],
+            ("GET", TESTNET_BASE_URL + "/fapi/v1/openAlgoOrders"),
+        )
+        stop_params = session.calls[1][2]["params"]
+        take_profit_params = session.calls[2][2]["params"]
+        self.assertEqual(stop_params["type"], "STOP_MARKET")
+        self.assertEqual(take_profit_params["type"], "TAKE_PROFIT_MARKET")
+        self.assertEqual(stop_params["algoType"], "CONDITIONAL")
+        self.assertEqual(stop_params["triggerPrice"], "49000")
+        self.assertEqual(stop_params["closePosition"], "true")
+        self.assertEqual(
+            session.calls[1][0:2],
+            ("POST", TESTNET_BASE_URL + "/fapi/v1/algoOrder"),
+        )
+
+    def test_emergency_close_is_reduce_only_and_cancels_triggers(self):
+        entry_fill = Fill.from_intent(intent())
+        exit_id = child_order_id(intent().client_order_id, "exit")
+        close_body = {
+            "clientOrderId": exit_id,
+            "symbol": "BTCUSDT",
+            "side": "SELL",
+            "executedQty": "0.001",
+            "avgPrice": "49990",
+            "updateTime": 1789161600000,
+        }
+        session = FakeSession([
+            FakeResponse(400, {"code": -2013, "msg": "Order does not exist"}),
+            FakeResponse(200, close_body),
+            FakeResponse(200, {"code": 200, "msg": "success"}),
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        fill = exchange.emergency_close(intent(), entry_fill)
+        self.assertEqual(fill.client_order_id, exit_id)
+        self.assertEqual(session.calls[1][2]["params"]["reduceOnly"], "true")
+        self.assertEqual(session.calls[2][0:2], (
+            "DELETE", TESTNET_BASE_URL + "/fapi/v1/algoOpenOrders"
+        ))

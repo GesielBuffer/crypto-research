@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 import re
 
-from execution.models import OrderIntent
+from execution.models import Fill, OrderIntent, Side
 
 
 class RiskRejected(RuntimeError):
@@ -19,6 +19,7 @@ class RiskLimits:
     max_open_positions: int = 1
     max_leverage: int = 1
     max_daily_loss: Decimal = Decimal("10")
+    max_loss_per_order: Decimal = Decimal("2")
     max_market_data_age: timedelta = timedelta(seconds=30)
     max_clock_skew: timedelta = timedelta(seconds=5)
 
@@ -31,6 +32,8 @@ class RiskLimits:
             raise ValueError("max_leverage must be at least 1")
         if self.max_daily_loss <= 0:
             raise ValueError("max_daily_loss must be positive")
+        if self.max_loss_per_order <= 0:
+            raise ValueError("max_loss_per_order must be positive")
         if self.max_market_data_age <= timedelta(0) or self.max_clock_skew < timedelta(0):
             raise ValueError("market data timing limits are invalid")
 
@@ -77,6 +80,34 @@ class RiskEngine:
             reasons.append("leverage exceeds limit")
         if valid_prices and intent.notional > self.limits.max_notional_per_order:
             reasons.append("order notional exceeds limit")
+        protection = intent.protection
+        protection_prices_valid = protection is not None and (
+            protection.stop_loss_price.is_finite()
+            and protection.take_profit_price.is_finite()
+            and protection.stop_loss_price > 0
+            and protection.take_profit_price > 0
+        )
+        if not protection_prices_valid:
+            reasons.append("protection prices must be positive")
+        elif intent.side.value == "BUY" and not (
+            protection.stop_loss_price
+            < intent.reference_price
+            < protection.take_profit_price
+        ):
+            reasons.append("long protection prices must bracket the entry")
+        elif intent.side.value == "SELL" and not (
+            protection.take_profit_price
+            < intent.reference_price
+            < protection.stop_loss_price
+        ):
+            reasons.append("short protection prices must bracket the entry")
+        elif valid_prices:
+            planned_loss = (
+                abs(intent.reference_price - protection.stop_loss_price)
+                * intent.quantity
+            )
+            if planned_loss > self.limits.max_loss_per_order:
+                reasons.append("planned stop loss exceeds per-order loss limit")
         if snapshot.realized_pnl_today <= -self.limits.max_daily_loss:
             reasons.append("daily loss limit reached")
         if (
@@ -91,5 +122,31 @@ class RiskEngine:
             reasons.append("market data is stale")
         elif market_time - current_time > self.limits.max_clock_skew:
             reasons.append("market data timestamp is in the future")
+        if reasons:
+            raise RiskRejected("; ".join(reasons))
+
+    def validate_fill_protection(self, intent: OrderIntent, fill: Fill) -> None:
+        """Reject protection that no longer brackets the actual execution price."""
+        protection = intent.protection
+        if fill.side is Side.BUY:
+            bracketed = (
+                protection.stop_loss_price
+                < fill.price
+                < protection.take_profit_price
+            )
+        else:
+            bracketed = (
+                protection.take_profit_price
+                < fill.price
+                < protection.stop_loss_price
+            )
+        actual_planned_loss = (
+            abs(fill.price - protection.stop_loss_price) * fill.quantity
+        )
+        reasons = []
+        if not bracketed:
+            reasons.append("protection no longer brackets the actual fill")
+        if actual_planned_loss > self.limits.max_loss_per_order:
+            reasons.append("actual fill makes planned loss exceed the limit")
         if reasons:
             raise RiskRejected("; ".join(reasons))

@@ -7,7 +7,7 @@ from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 
-from execution.models import Fill, OrderIntent, Side
+from execution.models import Fill, OrderIntent, ProtectionReceipt, Side
 
 
 def _json_value(value):
@@ -44,6 +44,14 @@ class JsonlOrderJournal:
         if self.fill_for(fill.client_order_id) is None:
             self._append("fill", asdict(fill))
 
+    def record_protection(self, receipt: ProtectionReceipt) -> None:
+        if receipt.entry_client_order_id not in self.protected_entry_ids():
+            self._append("protection", asdict(receipt))
+
+    def record_emergency_exit(self, fill: Fill) -> None:
+        if fill.client_order_id not in self.emergency_exit_ids():
+            self._append("emergency_exit", asdict(fill))
+
     def records(self) -> list[dict]:
         if not self.path.exists():
             return []
@@ -65,6 +73,20 @@ class JsonlOrderJournal:
             record["payload"]["client_order_id"]
             for record in self.records()
             if record["event"] == "fill"
+        }
+
+    def protected_entry_ids(self) -> set[str]:
+        return {
+            record["payload"]["entry_client_order_id"]
+            for record in self.records()
+            if record["event"] == "protection"
+        }
+
+    def emergency_exit_ids(self) -> set[str]:
+        return {
+            record["payload"]["client_order_id"]
+            for record in self.records()
+            if record["event"] == "emergency_exit"
         }
 
     def fill_for(self, client_order_id: str) -> Fill | None:

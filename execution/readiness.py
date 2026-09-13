@@ -12,6 +12,8 @@ REQUIRED_LIVE_GATES = (
     "failure_recovery_tested",
     "order_reconciliation_tested",
     "kill_switch_tested",
+    "position_protection_tested",
+    "emergency_close_tested",
     "live_adapter_reviewed",
     "human_live_approval",
 )
