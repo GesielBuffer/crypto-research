@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
+import numpy as np
 import pandas as pd
 
 
@@ -100,51 +101,50 @@ def simulate_fixed_horizon(
     if len(signals) != len(bars) or not signals.index.equals(bars.index):
         raise ValueError("signals must have the same length and index as bars")
 
-    selected: list[int] = []
-    next_allowed = 0
-    for position, is_signal in enumerate(signals.fillna(False).astype(bool)):
-        if not is_signal or position + cfg.hold_bars >= len(bars):
-            continue
-        if cfg.overlap == "single_position" and position < next_allowed:
-            continue
-        selected.append(position)
-        if cfg.overlap == "single_position":
-            next_allowed = position + cfg.hold_bars
+    candidates = np.flatnonzero(signals.fillna(False).to_numpy(dtype=bool))
+    candidates = candidates[candidates + cfg.hold_bars < len(bars)]
+    if cfg.overlap == "single_position":
+        selected = []
+        next_allowed = 0
+        for position in candidates:
+            if position >= next_allowed:
+                selected.append(int(position))
+                next_allowed = int(position) + cfg.hold_bars
+        selected = np.asarray(selected, dtype=int)
+    else:
+        selected = candidates.astype(int, copy=False)
 
     columns = [
         "signal_time", "entry_time", "exit_time", "side", "signal_position",
         "entry_position", "exit_position", "entry_price", "exit_price",
         "gross_return", "cost", "net_return",
     ]
-    if not selected:
+    if selected.size == 0:
         return pd.DataFrame(columns=columns)
 
-    records = []
-    for signal_position in selected:
-        entry_position = signal_position + cfg.entry_delay_bars
-        exit_position = signal_position + cfg.hold_bars
-        entry_price = float(bars["open"].iloc[entry_position])
-        exit_price = float(bars["close"].iloc[exit_position])
-        if entry_price <= 0 or exit_price <= 0:
-            raise ValueError("entry and exit prices must be positive")
-        if cfg.side == "long":
-            gross_return = exit_price / entry_price - 1.0
-        elif cfg.short_return_convention == "inverse":
-            gross_return = entry_price / exit_price - 1.0
-        else:
-            gross_return = 1.0 - exit_price / entry_price
-        records.append({
-            "signal_time": bars[time_column].iloc[signal_position],
-            "entry_time": bars[time_column].iloc[entry_position],
-            "exit_time": bars[time_column].iloc[exit_position],
-            "side": cfg.side,
-            "signal_position": signal_position,
-            "entry_position": entry_position,
-            "exit_position": exit_position,
-            "entry_price": entry_price,
-            "exit_price": exit_price,
-            "gross_return": gross_return,
-            "cost": cfg.costs.round_trip,
-            "net_return": gross_return - cfg.costs.round_trip,
-        })
-    return pd.DataFrame.from_records(records, columns=columns)
+    entry_positions = selected + cfg.entry_delay_bars
+    exit_positions = selected + cfg.hold_bars
+    entry_prices = bars["open"].iloc[entry_positions].to_numpy(dtype=float)
+    exit_prices = bars["close"].iloc[exit_positions].to_numpy(dtype=float)
+    if (entry_prices <= 0).any() or (exit_prices <= 0).any():
+        raise ValueError("entry and exit prices must be positive")
+    if cfg.side == "long":
+        gross_returns = exit_prices / entry_prices - 1.0
+    elif cfg.short_return_convention == "inverse":
+        gross_returns = entry_prices / exit_prices - 1.0
+    else:
+        gross_returns = 1.0 - exit_prices / entry_prices
+    return pd.DataFrame({
+        "signal_time": bars[time_column].iloc[selected].to_numpy(),
+        "entry_time": bars[time_column].iloc[entry_positions].to_numpy(),
+        "exit_time": bars[time_column].iloc[exit_positions].to_numpy(),
+        "side": cfg.side,
+        "signal_position": selected,
+        "entry_position": entry_positions,
+        "exit_position": exit_positions,
+        "entry_price": entry_prices,
+        "exit_price": exit_prices,
+        "gross_return": gross_returns,
+        "cost": cfg.costs.round_trip,
+        "net_return": gross_returns - cfg.costs.round_trip,
+    }, columns=columns)

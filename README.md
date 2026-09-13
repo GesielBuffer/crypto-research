@@ -114,6 +114,12 @@ relatorio com parametros, commit do codigo e checksums de todos os arquivos de
 entrada. `PASS_REGRESSION` significa apenas que o resultado foi reproduzido; a
 decisao cientifica da C2 no holdout continua sendo `FAIL`.
 
+A familia exploratoria `MEDIUM_TREND_EVENT_V1` foi pre-registrada antes da
+execucao, usa entradas somente em `t+1` e tres divisoes temporais. Ela testou 16
+conjuntos e todos falharam; os resumos pequenos foram preservados em `results/`
+e nenhum parametro foi promovido. O motor de horizonte fixo foi vetorizado e
+continua coberto pelas mesmas regressões historicas.
+
 Antes do replay, o executor confere cada cache contra o manifesto versionado em
 `manifests/c2_candles.json`. O manifesto registra a origem publica, cobertura,
 numero de linhas, tamanho e SHA-256, sem enviar os candles ao Git. Para

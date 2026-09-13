@@ -1,0 +1,310 @@
+{
+  "candidates": [
+    {
+      "adx_threshold": 20,
+      "confirmation_profit_factor": 0.798987570871513,
+      "fast_span": 24,
+      "hold_bars": 48,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 96
+    },
+    {
+      "adx_threshold": 20,
+      "confirmation_profit_factor": 0.9979669844518315,
+      "fast_span": 24,
+      "hold_bars": 96,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 96
+    },
+    {
+      "adx_threshold": 25,
+      "confirmation_profit_factor": 0.8438417722696733,
+      "fast_span": 24,
+      "hold_bars": 48,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 96
+    },
+    {
+      "adx_threshold": 25,
+      "confirmation_profit_factor": 1.0034522133406771,
+      "fast_span": 24,
+      "hold_bars": 96,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 96
+    },
+    {
+      "adx_threshold": 20,
+      "confirmation_profit_factor": 0.8722122076823405,
+      "fast_span": 24,
+      "hold_bars": 48,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 192
+    },
+    {
+      "adx_threshold": 20,
+      "confirmation_profit_factor": 0.9818183225391466,
+      "fast_span": 24,
+      "hold_bars": 96,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 192
+    },
+    {
+      "adx_threshold": 25,
+      "confirmation_profit_factor": 0.9045360196489832,
+      "fast_span": 24,
+      "hold_bars": 48,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 192
+    },
+    {
+      "adx_threshold": 25,
+      "confirmation_profit_factor": 0.9541262833438748,
+      "fast_span": 24,
+      "hold_bars": 96,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 192
+    },
+    {
+      "adx_threshold": 20,
+      "confirmation_profit_factor": 0.8717843414262358,
+      "fast_span": 48,
+      "hold_bars": 48,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 96
+    },
+    {
+      "adx_threshold": 20,
+      "confirmation_profit_factor": 0.9356091333961354,
+      "fast_span": 48,
+      "hold_bars": 96,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 96
+    },
+    {
+      "adx_threshold": 25,
+      "confirmation_profit_factor": 0.8742878163903628,
+      "fast_span": 48,
+      "hold_bars": 48,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 96
+    },
+    {
+      "adx_threshold": 25,
+      "confirmation_profit_factor": 1.0434897836046235,
+      "fast_span": 48,
+      "hold_bars": 96,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 96
+    },
+    {
+      "adx_threshold": 20,
+      "confirmation_profit_factor": 0.9565483626675666,
+      "fast_span": 48,
+      "hold_bars": 48,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 192
+    },
+    {
+      "adx_threshold": 20,
+      "confirmation_profit_factor": 1.0766989164007423,
+      "fast_span": 48,
+      "hold_bars": 96,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 192
+    },
+    {
+      "adx_threshold": 25,
+      "confirmation_profit_factor": 0.9453902701427962,
+      "fast_span": 48,
+      "hold_bars": 48,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 192
+    },
+    {
+      "adx_threshold": 25,
+      "confirmation_profit_factor": 1.0108949439845691,
+      "fast_span": 48,
+      "hold_bars": 96,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ],
+      "slow_span": 192
+    }
+  ],
+  "decision": "FAIL",
+  "passing_parameter_sets": 0,
+  "selected": null,
+  "strategy_version": "MEDIUM_TREND_EVENT_V1",
+  "tested_parameter_sets": 16
+}

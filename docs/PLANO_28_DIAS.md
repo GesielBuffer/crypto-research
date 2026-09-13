@@ -56,3 +56,5 @@ fechados os gates de estrategia, holdout, paper, Testnet e adaptador real.
 A primeira nova familia foi pre-registrada em
 `experiments/medium_trend_v1.toml` antes da execucao. Ela limita a grade, separa
 desenvolvimento, validacao e confirmacao e exige robustez a 0,10% de custo.
+Sua execucao testou 16 conjuntos e resultou em FAIL; nenhum parametro foi
+promovido ou ajustado depois do resultado.
