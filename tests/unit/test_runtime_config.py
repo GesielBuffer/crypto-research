@@ -20,3 +20,19 @@ class RuntimeConfigTests(unittest.TestCase):
     def test_testnet_requires_dedicated_credentials(self):
         with self.assertRaisesRegex(ValueError, "testnet credentials"):
             RuntimeConfig.from_mapping({"BOT_MODE": "testnet"})
+
+    def test_generic_binance_credentials_are_not_accepted_for_testnet(self):
+        with self.assertRaisesRegex(ValueError, "testnet credentials"):
+            RuntimeConfig.from_mapping({
+                "BOT_MODE": "testnet",
+                "BINANCE_API_KEY": "possibly-real-key",
+                "BINANCE_API_SECRET": "possibly-real-secret",
+            })
+
+    def test_explicit_testnet_credentials_are_accepted(self):
+        config = RuntimeConfig.from_mapping({
+            "BOT_MODE": "testnet",
+            "BINANCE_TESTNET_API_KEY": "testnet-key",
+            "BINANCE_TESTNET_API_SECRET": "testnet-secret",
+        })
+        self.assertEqual(config.mode, "testnet")

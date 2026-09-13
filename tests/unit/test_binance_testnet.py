@@ -154,3 +154,32 @@ class BinanceTestnetTests(unittest.TestCase):
         self.assertEqual(session.calls[2][0:2], (
             "DELETE", TESTNET_BASE_URL + "/fapi/v1/algoOpenOrders"
         ))
+
+    def test_preflight_is_read_only_and_reports_dirty_account(self):
+        session = FakeSession([
+            FakeResponse(200, {"dualSidePosition": True}),
+            FakeResponse(200, [{"symbol": "BTCUSDT", "positionAmt": "0.001"}]),
+            FakeResponse(200, [{"clientOrderId": "old-order"}]),
+            FakeResponse(200, [{"clientAlgoId": "old-stop"}]),
+        ])
+        exchange = BinanceUsdMTestnetExchange(
+            "key", "secret", session=session, kill_switch=lambda: True
+        )
+        self.assertEqual(exchange.preflight_blockers(), [
+            "account_is_not_in_one_way_mode",
+            "account_has_open_positions",
+            "account_has_open_orders",
+            "account_has_open_algo_orders",
+            "kill_switch_is_active",
+        ])
+        self.assertTrue(all(call[0] == "GET" for call in session.calls))
+
+    def test_clean_testnet_account_passes_preflight(self):
+        session = FakeSession([
+            FakeResponse(200, {"dualSidePosition": False}),
+            FakeResponse(200, []),
+            FakeResponse(200, []),
+            FakeResponse(200, []),
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        self.assertEqual(exchange.preflight_blockers(), [])

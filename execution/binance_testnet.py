@@ -260,3 +260,22 @@ class BinanceUsdMTestnetExchange:
             ),
             kill_switch=bool(self.kill_switch()),
         )
+
+    def preflight_blockers(self) -> list[str]:
+        """Read-only account checks required before a Testnet execution trial."""
+        blockers = []
+        position_mode = self._signed_request("GET", "/fapi/v1/positionSide/dual")
+        if bool(position_mode.get("dualSidePosition")):
+            blockers.append("account_is_not_in_one_way_mode")
+        positions = self._signed_request("GET", "/fapi/v3/positionRisk")
+        if any(Decimal(str(row.get("positionAmt", "0"))) != 0 for row in positions):
+            blockers.append("account_has_open_positions")
+        orders = self._signed_request("GET", "/fapi/v1/openOrders")
+        if orders:
+            blockers.append("account_has_open_orders")
+        algo_orders = self._signed_request("GET", "/fapi/v1/openAlgoOrders")
+        if algo_orders:
+            blockers.append("account_has_open_algo_orders")
+        if self.kill_switch():
+            blockers.append("kill_switch_is_active")
+        return blockers

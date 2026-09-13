@@ -33,8 +33,8 @@ class RuntimeConfig:
             mode=mode,
             approved_strategy_id=values.get("APPROVED_STRATEGY_ID", "").strip(),
             real_trading_enabled=real_enabled,
-            binance_api_key=values.get("BINANCE_API_KEY", ""),
-            binance_api_secret=values.get("BINANCE_API_SECRET", ""),
+            binance_api_key=values.get("BINANCE_TESTNET_API_KEY", ""),
+            binance_api_secret=values.get("BINANCE_TESTNET_API_SECRET", ""),
         )
         if mode == "testnet" and (
             not config.binance_api_key or not config.binance_api_secret

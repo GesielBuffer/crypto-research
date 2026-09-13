@@ -158,6 +158,20 @@ fill, o runtime confirma as duas protecoes. Se a criacao ou consulta delas
 falhar, tenta zerar a posicao imediatamente com uma ordem reduce-only e registra
 o incidente no journal. Consulte o cronograma em `docs/PLANO_28_DIAS.md`.
 
+Para o preflight Testnet, crie chaves exclusivas da Testnet, preencha somente
+`BINANCE_TESTNET_API_KEY` e `BINANCE_TESTNET_API_SECRET`, e altere
+`BOT_MODE=testnet`. O comando abaixo faz apenas consultas GET: nao envia nem
+cancela ordens.
+
+```powershell
+.\.venv\Scripts\python.exe -m execution.testnet_preflight
+```
+
+O preflight exige modo de posicao one-way, conta sem posicoes, sem ordens
+comuns/condicionais pendentes e kill switch inativo. Nomes genericos de chaves
+Binance nao sao aceitos pelo novo runtime, reduzindo o risco de usar uma chave
+real por engano.
+
 ## Exemplos
 
 ### Baixar candles publicos
