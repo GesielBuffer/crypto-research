@@ -58,3 +58,10 @@ A primeira nova familia foi pre-registrada em
 desenvolvimento, validacao e confirmacao e exige robustez a 0,10% de custo.
 Sua execucao testou 16 conjuntos e resultou em FAIL; nenhum parametro foi
 promovido ou ajustado depois do resultado.
+
+Em 2026-09-20, o estudo `C2_EXIT_POLICY_V1` foi congelado no commit `d916347`
+antes da execucao. Ele avaliou oito regras de breakeven contra baselines
+pareados, sem usar agosto de 2026. Todas falharam os gates registrados. A regra
+isoladamente mais proxima de PF 1 na confirmacao nao resistiu ao custo de 0,10%
+nem ao split de validacao. Decisao: `FAIL`, sem tuning posterior e sem efeito de
+promocao.

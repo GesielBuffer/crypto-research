@@ -131,6 +131,13 @@ desenvolvimento; ele nao reabre o holdout de agosto nem pode promover a C2.
 .\.venv\Scripts\python.exe -m research.experiments.c2_exit_policy
 ```
 
+O protocolo foi congelado no commit `d916347` antes da primeira execucao. O
+resultado foi `FAIL`: nenhuma das oito regras de breakeven passou todos os
+gates pareados de validacao, confirmacao, custos e amplitude por ativo. O melhor
+caso isolado de confirmacao chegou a PF 1,002 com custo de 0,06%, mas caiu para
+0,845 com custo de 0,10% e havia degradado fortemente a validacao. Portanto,
+nenhum gatilho foi selecionado e a C2 continua reprovada.
+
 Antes do replay, o executor confere cada cache contra o manifesto versionado em
 `manifests/c2_candles.json`. O manifesto registra a origem publica, cobertura,
 numero de linhas, tamanho e SHA-256, sem enviar os candles ao Git. Para

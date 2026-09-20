@@ -1,3 +1,4 @@
+import json
 import unittest
 from pathlib import Path
 
@@ -68,6 +69,15 @@ class C2ExitPolicyTests(unittest.TestCase):
         failed = decide(self.protocol, summary, assets)
         self.assertEqual(failed["decision"], "FAIL")
         self.assertEqual(failed["passing_break_even_rules"], 0)
+
+    def test_frozen_result_rejects_every_break_even_rule(self):
+        path = ROOT / "results" / "c2_exit_policy_v1_decision.json"
+        decision = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(decision["decision"], "FAIL")
+        self.assertEqual(decision["tested_break_even_rules"], 8)
+        self.assertEqual(decision["passing_break_even_rules"], 0)
+        self.assertIsNone(decision["selected"])
+        self.assertEqual(decision["production_effect"], "NONE")
 
 
 if __name__ == "__main__":
