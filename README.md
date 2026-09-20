@@ -164,6 +164,43 @@ fill, o runtime confirma as duas protecoes. Se a criacao ou consulta delas
 falhar, tenta zerar a posicao imediatamente com uma ordem reduce-only e registra
 o incidente no journal. Consulte o cronograma em `docs/PLANO_28_DIAS.md`.
 
+O breakeven e opcional e nunca substitui o stop inicial. Quando habilitado, ele
+so avanca o stop depois do ganho atingir o multiplo de risco configurado. O
+preco protegido pode incluir uma estimativa explicita de taxas, slippage e
+funding (`cost_buffer_rate`). No Testnet, o novo stop e criado e confirmado
+antes do antigo ser cancelado, pois ordens condicionais Algo nao podem ser
+alteradas diretamente.
+
+```python
+from decimal import Decimal
+from execution.models import BreakEvenPolicy, PositionProtection
+
+protection = PositionProtection(
+    stop_loss_price=Decimal("49500"),
+    take_profit_price=Decimal("51000"),
+    break_even=BreakEvenPolicy(
+        enabled=True,
+        activation_r_multiple=Decimal("1"),
+        cost_buffer_rate=Decimal("0.001"),
+    ),
+)
+```
+
+Depois de confirmar a entrada e as protecoes, o supervisor de mercado pode
+entregar o mark price atual ao servico. A chamada e idempotente: antes do
+gatilho retorna `None`; depois de concluida retorna sempre a mesma protecao.
+
+```python
+receipt = service.advance_to_break_even(
+    intent,
+    mark_price=Decimal("50500"),
+)
+```
+
+Este metodo nao autoriza uma estrategia nem inicia um loop de trading. A fonte
+de mark price, arredondamento por tick size e o ciclo operacional Testnet ainda
+precisam ser integrados e validados antes de promocao.
+
 Para o preflight Testnet, crie chaves exclusivas da Testnet, preencha somente
 `BINANCE_TESTNET_API_KEY` e `BINANCE_TESTNET_API_SECRET`, e altere
 `BOT_MODE=testnet`. O comando abaixo faz apenas consultas GET: nao envia nem

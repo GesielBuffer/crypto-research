@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from decimal import Decimal
 from enum import Enum
@@ -23,9 +23,32 @@ def child_order_id(client_order_id: str, purpose: str) -> str:
 
 
 @dataclass(frozen=True)
+class BreakEvenPolicy:
+    """Optional rule for moving a protected position to economic break-even."""
+
+    enabled: bool = False
+    activation_r_multiple: Decimal = Decimal("1")
+    cost_buffer_rate: Decimal = Decimal("0")
+
+    def __post_init__(self) -> None:
+        if (
+            not self.activation_r_multiple.is_finite()
+            or self.activation_r_multiple <= 0
+        ):
+            raise ValueError("activation_r_multiple must be positive")
+        if (
+            not self.cost_buffer_rate.is_finite()
+            or self.cost_buffer_rate < 0
+            or self.cost_buffer_rate >= 1
+        ):
+            raise ValueError("cost_buffer_rate must be between zero and one")
+
+
+@dataclass(frozen=True)
 class PositionProtection:
     stop_loss_price: Decimal
     take_profit_price: Decimal
+    break_even: BreakEvenPolicy = field(default_factory=BreakEvenPolicy)
 
 
 @dataclass(frozen=True)
@@ -33,6 +56,8 @@ class ProtectionReceipt:
     entry_client_order_id: str
     stop_client_order_id: str
     take_profit_client_order_id: str
+    stop_price: Decimal
+    take_profit_price: Decimal
 
 
 @dataclass(frozen=True)

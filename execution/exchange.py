@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from decimal import Decimal
 from typing import Protocol
 
 from execution.models import Fill, OrderIntent, ProtectionReceipt
@@ -17,6 +18,14 @@ class Exchange(Protocol):
 
     def submit_protection(
         self, intent: OrderIntent, entry_fill: Fill
+    ) -> ProtectionReceipt: ...
+
+    def replace_stop(
+        self,
+        intent: OrderIntent,
+        entry_fill: Fill,
+        current: ProtectionReceipt,
+        new_stop_price: Decimal,
     ) -> ProtectionReceipt: ...
 
     def emergency_close(self, intent: OrderIntent, entry_fill: Fill) -> Fill: ...

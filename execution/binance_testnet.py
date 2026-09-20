@@ -117,11 +117,43 @@ class BinanceUsdMTestnetExchange:
         orders = self._signed_request(
             "GET", "/fapi/v1/openAlgoOrders", {"symbol": intent.symbol}
         )
-        open_ids = {row.get("clientAlgoId") for row in orders}
         stop_id = child_order_id(intent.client_order_id, "sl")
+        break_even_id = child_order_id(intent.client_order_id, "be")
         take_profit_id = child_order_id(intent.client_order_id, "tp")
-        if stop_id in open_ids and take_profit_id in open_ids:
-            return ProtectionReceipt(intent.client_order_id, stop_id, take_profit_id)
+        by_id = {row.get("clientAlgoId"): row for row in orders}
+        # Prefer the original while both exist so reconciliation retries finish
+        # cancelling it instead of silently accepting duplicate close triggers.
+        active_stop_id = (
+            stop_id
+            if stop_id in by_id
+            else break_even_id
+            if break_even_id in by_id
+            else None
+        )
+        if active_stop_id is not None and take_profit_id in by_id:
+            stop_price = Decimal(
+                str(
+                    by_id[active_stop_id].get(
+                        "triggerPrice",
+                        intent.protection.stop_loss_price,
+                    )
+                )
+            )
+            take_profit_price = Decimal(
+                str(
+                    by_id[take_profit_id].get(
+                        "triggerPrice",
+                        intent.protection.take_profit_price,
+                    )
+                )
+            )
+            return ProtectionReceipt(
+                intent.client_order_id,
+                active_stop_id,
+                take_profit_id,
+                stop_price,
+                take_profit_price,
+            )
         return None
 
     def submit_protection(
@@ -166,7 +198,88 @@ class BinanceUsdMTestnetExchange:
             or take_profit.get("clientAlgoId") != take_profit_id
         ):
             raise RuntimeError("testnet did not confirm both protection orders")
-        return ProtectionReceipt(intent.client_order_id, stop_id, take_profit_id)
+        return ProtectionReceipt(
+            intent.client_order_id,
+            stop_id,
+            take_profit_id,
+            intent.protection.stop_loss_price,
+            intent.protection.take_profit_price,
+        )
+
+    def replace_stop(
+        self,
+        intent: OrderIntent,
+        entry_fill: Fill,
+        current: ProtectionReceipt,
+        new_stop_price: Decimal,
+    ) -> ProtectionReceipt:
+        """Create and confirm the safer stop before cancelling the old one."""
+        orders = self._signed_request(
+            "GET", "/fapi/v1/openAlgoOrders", {"symbol": intent.symbol}
+        )
+        by_id = {row.get("clientAlgoId"): row for row in orders}
+        old_stop_id = child_order_id(intent.client_order_id, "sl")
+        break_even_id = child_order_id(intent.client_order_id, "be")
+        take_profit_id = child_order_id(intent.client_order_id, "tp")
+        if take_profit_id not in by_id or not (
+            old_stop_id in by_id or break_even_id in by_id
+        ):
+            raise RuntimeError("current protection is not fully open")
+
+        if break_even_id not in by_id:
+            created = self._signed_request(
+                "POST",
+                "/fapi/v1/algoOrder",
+                {
+                    "algoType": "CONDITIONAL",
+                    "symbol": intent.symbol,
+                    "side": entry_fill.side.opposite.value,
+                    "type": "STOP_MARKET",
+                    "triggerPrice": str(new_stop_price),
+                    "closePosition": "true",
+                    "workingType": "MARK_PRICE",
+                    "priceProtect": "TRUE",
+                    "clientAlgoId": break_even_id,
+                },
+            )
+            if created.get("clientAlgoId") != break_even_id:
+                raise RuntimeError("testnet did not confirm the break-even stop")
+
+        confirmed = self._signed_request(
+            "GET", "/fapi/v1/openAlgoOrders", {"symbol": intent.symbol}
+        )
+        confirmed_by_id = {row.get("clientAlgoId"): row for row in confirmed}
+        confirmed_ids = set(confirmed_by_id)
+        if not {break_even_id, take_profit_id}.issubset(confirmed_ids):
+            raise RuntimeError("new stop was not visible before cancellation")
+        confirmed_stop_price = Decimal(
+            str(confirmed_by_id[break_even_id].get("triggerPrice", "0"))
+        )
+        if confirmed_stop_price != new_stop_price:
+            raise RuntimeError("new stop price does not match the requested price")
+
+        if old_stop_id in confirmed_ids:
+            self._signed_request(
+                "DELETE",
+                "/fapi/v1/algoOrder",
+                {"symbol": intent.symbol, "clientAlgoId": old_stop_id},
+            )
+
+        final_orders = self._signed_request(
+            "GET", "/fapi/v1/openAlgoOrders", {"symbol": intent.symbol}
+        )
+        final_ids = {row.get("clientAlgoId") for row in final_orders}
+        if not {break_even_id, take_profit_id}.issubset(final_ids):
+            raise RuntimeError("break-even protection is incomplete after replacement")
+        if old_stop_id in final_ids:
+            raise RuntimeError("old stop cancellation is unresolved")
+        return ProtectionReceipt(
+            intent.client_order_id,
+            break_even_id,
+            take_profit_id,
+            new_stop_price,
+            current.take_profit_price,
+        )
 
     def emergency_close(self, intent: OrderIntent, entry_fill: Fill) -> Fill:
         exit_id = child_order_id(intent.client_order_id, "exit")

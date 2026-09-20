@@ -9,7 +9,14 @@ from execution.binance_testnet import (
     BinanceUsdMTestnetExchange,
     TESTNET_BASE_URL,
 )
-from execution.models import Fill, OrderIntent, PositionProtection, Side, child_order_id
+from execution.models import (
+    Fill,
+    OrderIntent,
+    PositionProtection,
+    ProtectionReceipt,
+    Side,
+    child_order_id,
+)
 
 
 class FakeResponse:
@@ -130,6 +137,94 @@ class BinanceTestnetTests(unittest.TestCase):
             session.calls[1][0:2],
             ("POST", TESTNET_BASE_URL + "/fapi/v1/algoOrder"),
         )
+
+    def test_break_even_stop_is_confirmed_before_old_stop_is_cancelled(self):
+        order = intent()
+        stop_id = child_order_id(order.client_order_id, "sl")
+        break_even_id = child_order_id(order.client_order_id, "be")
+        take_profit_id = child_order_id(order.client_order_id, "tp")
+        old_orders = [
+            {"clientAlgoId": stop_id, "triggerPrice": "49000"},
+            {"clientAlgoId": take_profit_id, "triggerPrice": "52000"},
+        ]
+        confirmed_orders = old_orders + [
+            {"clientAlgoId": break_even_id, "triggerPrice": "50050"}
+        ]
+        final_orders = [
+            {"clientAlgoId": break_even_id, "triggerPrice": "50050"},
+            {"clientAlgoId": take_profit_id, "triggerPrice": "52000"},
+        ]
+        session = FakeSession([
+            FakeResponse(200, old_orders),
+            FakeResponse(200, {"clientAlgoId": break_even_id}),
+            FakeResponse(200, confirmed_orders),
+            FakeResponse(200, {"code": 200, "msg": "success"}),
+            FakeResponse(200, final_orders),
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        current = ProtectionReceipt(
+            order.client_order_id,
+            stop_id,
+            take_profit_id,
+            Decimal("49000"),
+            Decimal("52000"),
+        )
+        receipt = exchange.replace_stop(
+            order, Fill.from_intent(order), current, Decimal("50050")
+        )
+        self.assertEqual(receipt.stop_client_order_id, break_even_id)
+        self.assertEqual(
+            [call[0] for call in session.calls],
+            ["GET", "POST", "GET", "DELETE", "GET"],
+        )
+        self.assertEqual(
+            session.calls[3][2]["params"]["clientAlgoId"], stop_id
+        )
+
+    def test_old_stop_is_not_cancelled_when_new_stop_cannot_be_confirmed(self):
+        order = intent()
+        stop_id = child_order_id(order.client_order_id, "sl")
+        break_even_id = child_order_id(order.client_order_id, "be")
+        take_profit_id = child_order_id(order.client_order_id, "tp")
+        old_orders = [
+            {"clientAlgoId": stop_id, "triggerPrice": "49000"},
+            {"clientAlgoId": take_profit_id, "triggerPrice": "52000"},
+        ]
+        session = FakeSession([
+            FakeResponse(200, old_orders),
+            FakeResponse(200, {"clientAlgoId": break_even_id}),
+            FakeResponse(200, old_orders),
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        current = ProtectionReceipt(
+            order.client_order_id,
+            stop_id,
+            take_profit_id,
+            Decimal("49000"),
+            Decimal("52000"),
+        )
+        with self.assertRaisesRegex(RuntimeError, "not visible"):
+            exchange.replace_stop(
+                order, Fill.from_intent(order), current, Decimal("50050")
+            )
+        self.assertEqual([call[0] for call in session.calls], ["GET", "POST", "GET"])
+
+    def test_reconciliation_prefers_old_stop_while_both_stops_are_open(self):
+        order = intent()
+        stop_id = child_order_id(order.client_order_id, "sl")
+        break_even_id = child_order_id(order.client_order_id, "be")
+        take_profit_id = child_order_id(order.client_order_id, "tp")
+        session = FakeSession([
+            FakeResponse(200, [
+                {"clientAlgoId": stop_id, "triggerPrice": "49000"},
+                {"clientAlgoId": break_even_id, "triggerPrice": "50050"},
+                {"clientAlgoId": take_profit_id, "triggerPrice": "52000"},
+            ])
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        receipt = exchange.find_protection(order)
+        self.assertEqual(receipt.stop_client_order_id, stop_id)
+        self.assertEqual(receipt.stop_price, Decimal("49000"))
 
     def test_emergency_close_is_reduce_only_and_cancels_triggers(self):
         entry_fill = Fill.from_intent(intent())

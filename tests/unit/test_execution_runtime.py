@@ -5,7 +5,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from execution.journal import JsonlOrderJournal
-from execution.models import OrderIntent, PositionProtection, Side
+from execution.models import BreakEvenPolicy, OrderIntent, PositionProtection, Side
 from execution.paper import PaperExchange
 from execution.risk import RiskEngine, RiskLimits, RiskRejected, RiskSnapshot
 from execution.service import (
@@ -74,6 +74,11 @@ class SlippedFillExchange(PaperExchange):
         return slipped
 
 
+class BreakEvenReplacementFailureExchange(PaperExchange):
+    def replace_stop(self, order_intent, entry_fill, current, new_stop_price):
+        raise TimeoutError("simulated stop replacement timeout")
+
+
 def intent(**overrides):
     values = {
         "strategy_id": "approved-v1",
@@ -107,6 +112,105 @@ class ExecutionRuntimeTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(self.exchange.snapshot().open_symbols, frozenset({"BTCUSDT"}))
         self.assertIsNotNone(self.exchange.find_protection(intent()))
+
+    def test_disabled_break_even_does_nothing(self):
+        order = intent()
+        self.service.execute(order, now=NOW)
+        self.assertIsNone(
+            self.service.advance_to_break_even(order, mark_price=Decimal("50500"))
+        )
+
+    def test_long_break_even_waits_for_trigger_then_moves_to_economic_price(self):
+        order = intent(
+            protection=PositionProtection(
+                stop_loss_price=Decimal("49500"),
+                take_profit_price=Decimal("51000"),
+                break_even=BreakEvenPolicy(
+                    enabled=True,
+                    activation_r_multiple=Decimal("1"),
+                    cost_buffer_rate=Decimal("0.001"),
+                ),
+            )
+        )
+        self.service.execute(order, now=NOW)
+        self.assertIsNone(
+            self.service.advance_to_break_even(order, mark_price=Decimal("50499"))
+        )
+        adjusted = self.service.advance_to_break_even(
+            order, mark_price=Decimal("50500")
+        )
+        self.assertEqual(adjusted.stop_price, Decimal("50050.000"))
+        self.assertEqual(
+            adjusted.stop_client_order_id,
+            self.service.advance_to_break_even(
+                order, mark_price=Decimal("50600")
+            ).stop_client_order_id,
+        )
+
+    def test_short_break_even_is_directionally_symmetric(self):
+        order = intent(
+            side=Side.SELL,
+            protection=PositionProtection(
+                stop_loss_price=Decimal("50500"),
+                take_profit_price=Decimal("49000"),
+                break_even=BreakEvenPolicy(
+                    enabled=True,
+                    activation_r_multiple=Decimal("1"),
+                    cost_buffer_rate=Decimal("0.001"),
+                ),
+            ),
+        )
+        self.service.execute(order, now=NOW)
+        adjusted = self.service.advance_to_break_even(
+            order, mark_price=Decimal("49500")
+        )
+        self.assertEqual(adjusted.stop_price, Decimal("49950.000"))
+
+    def test_break_even_failure_keeps_existing_protection_and_requires_reconciliation(self):
+        exchange = BreakEvenReplacementFailureExchange()
+        service = TradingService(
+            exchange,
+            RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+        )
+        order = intent(
+            protection=PositionProtection(
+                stop_loss_price=Decimal("49500"),
+                take_profit_price=Decimal("51000"),
+                break_even=BreakEvenPolicy(enabled=True),
+            )
+        )
+        service.execute(order, now=NOW)
+        with self.assertRaisesRegex(ReconciliationRequired, "prior protection remains"):
+            service.advance_to_break_even(order, mark_price=Decimal("50500"))
+        self.assertEqual(exchange.snapshot().open_symbols, frozenset({"BTCUSDT"}))
+        self.assertEqual(
+            exchange.find_protection(order).stop_price,
+            Decimal("49500"),
+        )
+
+    def test_break_even_adjustment_is_journaled_once(self):
+        with tempfile.TemporaryDirectory() as directory:
+            journal = JsonlOrderJournal(Path(directory) / "orders.jsonl")
+            service = TradingService(
+                self.exchange,
+                RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+                journal,
+            )
+            order = intent(
+                protection=PositionProtection(
+                    stop_loss_price=Decimal("49500"),
+                    take_profit_price=Decimal("51000"),
+                    break_even=BreakEvenPolicy(enabled=True),
+                )
+            )
+            service.execute(order, now=NOW)
+            service.advance_to_break_even(order, mark_price=Decimal("50500"))
+            service.advance_to_break_even(order, mark_price=Decimal("50600"))
+            adjustments = [
+                row for row in journal.records()
+                if row["event"] == "protection_adjustment"
+            ]
+            self.assertEqual(len(adjustments), 1)
 
     def test_long_requires_stop_below_and_target_above_entry(self):
         with self.assertRaisesRegex(RiskRejected, "bracket"):

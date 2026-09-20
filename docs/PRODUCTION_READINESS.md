@@ -19,6 +19,10 @@ conta real.
 - `execution/service.py`: unica porta para validacao e envio ao adaptador;
 - toda entrada exige stop-loss e take-profit; falha de protecao aciona
   fechamento emergencial e impede reutilizacao da entrada encerrada;
+- breakeven opcional por multiplo de R, com buffer economico explicito e
+  comportamento simetrico para long e short;
+- substituicao de stop sem janela desprotegida: cria e confirma o novo stop
+  antes de cancelar o anterior, com retry idempotente e reconciliacao;
 - `execution/journal.py`: journal append-only e deteccao de ordens interrompidas;
 - `execution/binance_testnet.py`: gateway USD-M assinado que rejeita qualquer host diferente do Testnet;
 - `execution/config.py`: configuracao fail-closed; variaveis de ambiente nao conseguem habilitar conta real;
@@ -65,8 +69,17 @@ Enquanto houver blockers, nenhum adaptador de conta real deve ser conectado ao
 - timestamps obsoletos ou no futuro sao recusados;
 - IDs fora do formato aceito pela Binance sao recusados;
 - o gateway implementado aceita somente `https://testnet.binancefuture.com`.
+- falha ao confirmar o novo stop preserva o stop antigo; estado ambiguo exige
+  reconciliacao, e ausencia confirmada de protecao aciona fechamento emergencial.
 
 O gateway testnet possui testes unitarios com transporte simulado, mas o gate
 `testnet_passed` permanece falso ate um ciclo real no ambiente de demonstracao,
 com credenciais exclusivas e sem permissao de saque. Nenhuma credencial foi
 lida ou usada durante esta implementacao.
+
+O breakeven tambem nao e um gate universal nem deve ser habilitado por intuicao.
+Cada estrategia deve pre-registrar `activation_r_multiple` e
+`cost_buffer_rate`, comparar o resultado com e sem a regra em dados de
+desenvolvimento e validar a escolha fora da amostra. O supervisor de mark price,
+o arredondamento pelas regras do simbolo e o ensaio completo no Testnet ainda
+sao pendencias operacionais.

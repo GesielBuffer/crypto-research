@@ -48,6 +48,10 @@ class JsonlOrderJournal:
         if receipt.entry_client_order_id not in self.protected_entry_ids():
             self._append("protection", asdict(receipt))
 
+    def record_protection_adjustment(self, receipt: ProtectionReceipt) -> None:
+        if receipt.stop_client_order_id not in self.adjusted_stop_ids():
+            self._append("protection_adjustment", asdict(receipt))
+
     def record_emergency_exit(self, fill: Fill) -> None:
         if fill.client_order_id not in self.emergency_exit_ids():
             self._append("emergency_exit", asdict(fill))
@@ -87,6 +91,13 @@ class JsonlOrderJournal:
             record["payload"]["client_order_id"]
             for record in self.records()
             if record["event"] == "emergency_exit"
+        }
+
+    def adjusted_stop_ids(self) -> set[str]:
+        return {
+            record["payload"]["stop_client_order_id"]
+            for record in self.records()
+            if record["event"] == "protection_adjustment"
         }
 
     def fill_for(self, client_order_id: str) -> Fill | None:

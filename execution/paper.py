@@ -60,6 +60,28 @@ class PaperExchange:
             entry_client_order_id=intent.client_order_id,
             stop_client_order_id=child_order_id(intent.client_order_id, "sl"),
             take_profit_client_order_id=child_order_id(intent.client_order_id, "tp"),
+            stop_price=intent.protection.stop_loss_price,
+            take_profit_price=intent.protection.take_profit_price,
+        )
+        self._protections[intent.client_order_id] = receipt
+        return receipt
+
+    def replace_stop(
+        self,
+        intent: OrderIntent,
+        entry_fill: Fill,
+        current: ProtectionReceipt,
+        new_stop_price: Decimal,
+    ) -> ProtectionReceipt:
+        existing = self.find_protection(intent)
+        if existing is None or existing != current:
+            raise RuntimeError("paper protection changed before stop replacement")
+        receipt = ProtectionReceipt(
+            entry_client_order_id=intent.client_order_id,
+            stop_client_order_id=child_order_id(intent.client_order_id, "be"),
+            take_profit_client_order_id=current.take_profit_client_order_id,
+            stop_price=new_stop_price,
+            take_profit_price=current.take_profit_price,
         )
         self._protections[intent.client_order_id] = receipt
         return receipt
