@@ -1,6 +1,7 @@
 import hashlib
 import hmac
 import unittest
+from dataclasses import replace
 from datetime import datetime, timezone
 from decimal import Decimal
 from urllib.parse import urlencode
@@ -55,6 +56,31 @@ def intent():
     )
 
 
+def exchange_info(tick_size="0.10"):
+    return {
+        "symbols": [
+            {
+                "symbol": "BTCUSDT",
+                "status": "TRADING",
+                "filters": [
+                    {
+                        "filterType": "PRICE_FILTER",
+                        "minPrice": "0.10",
+                        "maxPrice": "1000000",
+                        "tickSize": tick_size,
+                    },
+                    {
+                        "filterType": "MARKET_LOT_SIZE",
+                        "minQty": "0.001",
+                        "maxQty": "100",
+                        "stepSize": "0.001",
+                    },
+                ],
+            }
+        ]
+    }
+
+
 class BinanceTestnetTests(unittest.TestCase):
     def test_production_hostname_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "Testnet"):
@@ -71,12 +97,15 @@ class BinanceTestnetTests(unittest.TestCase):
             "avgPrice": "50001.5",
             "updateTime": 1789161600000,
         }
-        session = FakeSession([FakeResponse(200, body)])
+        session = FakeSession([
+            FakeResponse(200, exchange_info()),
+            FakeResponse(200, body),
+        ])
         exchange = BinanceUsdMTestnetExchange(
             "key", "secret", session=session, clock_ms=lambda: 1234567890
         )
         fill = exchange.submit_market(intent())
-        method, url, kwargs = session.calls[0]
+        method, url, kwargs = session.calls[1]
         self.assertEqual((method, url), ("POST", TESTNET_BASE_URL + "/fapi/v1/order"))
         self.assertEqual(kwargs["headers"], {"X-MBX-APIKEY": "key"})
         unsigned = dict(kwargs["params"])
@@ -87,12 +116,71 @@ class BinanceTestnetTests(unittest.TestCase):
         self.assertEqual(signature, expected)
         self.assertEqual(fill.price, Decimal("50001.5"))
 
+    def test_invalid_quantity_is_blocked_before_order_submission(self):
+        session = FakeSession([FakeResponse(200, exchange_info())])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        invalid = replace(intent(), quantity=Decimal("0.0015"))
+        with self.assertRaisesRegex(RuntimeError, "market lot"):
+            exchange.submit_market(invalid)
+        self.assertEqual(len(session.calls), 1)
+        self.assertTrue(session.calls[0][1].endswith("/fapi/v1/exchangeInfo"))
+
+    def test_invalid_initial_trigger_is_blocked_before_order_submission(self):
+        session = FakeSession([FakeResponse(200, exchange_info("0.10"))])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        invalid = replace(
+            intent(),
+            protection=PositionProtection(
+                stop_loss_price=Decimal("49000.05"),
+                take_profit_price=Decimal("52000"),
+            ),
+        )
+        with self.assertRaisesRegex(RuntimeError, "price filter"):
+            exchange.submit_market(invalid)
+        self.assertEqual(len(session.calls), 1)
+
     def test_unknown_order_returns_none_for_reconciliation(self):
         session = FakeSession([FakeResponse(400, {"code": -2013, "msg": "Order does not exist"})])
         exchange = BinanceUsdMTestnetExchange(
             "key", "secret", session=session, clock_ms=lambda: 1234567890
         )
         self.assertIsNone(exchange.find_fill(intent()))
+
+    def test_mark_price_is_read_from_public_testnet_endpoint(self):
+        timestamp = 1789161600000
+        session = FakeSession([
+            FakeResponse(200, {
+                "symbol": "BTCUSDT",
+                "markPrice": "50012.25",
+                "time": timestamp,
+            })
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        quote = exchange.get_mark_price("BTCUSDT")
+        self.assertEqual(quote.price, Decimal("50012.25"))
+        self.assertEqual(
+            quote.observed_at,
+            datetime.fromtimestamp(timestamp / 1000, tz=timezone.utc),
+        )
+        self.assertEqual(
+            session.calls[0][0:2],
+            ("GET", TESTNET_BASE_URL + "/fapi/v1/premiumIndex"),
+        )
+        self.assertNotIn("headers", session.calls[0][2])
+
+    def test_stop_price_uses_price_filter_not_display_precision(self):
+        session = FakeSession([FakeResponse(200, exchange_info("0.10"))])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        self.assertEqual(
+            exchange.normalize_stop_price(intent(), Decimal("50050.09")),
+            Decimal("50050.00"),
+        )
+        short_intent = replace(intent(), side=Side.SELL)
+        self.assertEqual(
+            exchange.normalize_stop_price(short_intent, Decimal("50050.01")),
+            Decimal("50050.10"),
+        )
+        self.assertEqual(len(session.calls), 1)
 
     def test_snapshot_includes_positions_income_and_kill_switch(self):
         session = FakeSession([
@@ -115,6 +203,7 @@ class BinanceTestnetTests(unittest.TestCase):
         take_profit_id = child_order_id(intent().client_order_id, "tp")
         session = FakeSession([
             FakeResponse(200, []),
+            FakeResponse(200, exchange_info()),
             FakeResponse(200, {"clientAlgoId": stop_id}),
             FakeResponse(200, {"clientAlgoId": take_profit_id}),
         ])
@@ -126,15 +215,15 @@ class BinanceTestnetTests(unittest.TestCase):
             session.calls[0][0:2],
             ("GET", TESTNET_BASE_URL + "/fapi/v1/openAlgoOrders"),
         )
-        stop_params = session.calls[1][2]["params"]
-        take_profit_params = session.calls[2][2]["params"]
+        stop_params = session.calls[2][2]["params"]
+        take_profit_params = session.calls[3][2]["params"]
         self.assertEqual(stop_params["type"], "STOP_MARKET")
         self.assertEqual(take_profit_params["type"], "TAKE_PROFIT_MARKET")
         self.assertEqual(stop_params["algoType"], "CONDITIONAL")
         self.assertEqual(stop_params["triggerPrice"], "49000")
         self.assertEqual(stop_params["closePosition"], "true")
         self.assertEqual(
-            session.calls[1][0:2],
+            session.calls[2][0:2],
             ("POST", TESTNET_BASE_URL + "/fapi/v1/algoOrder"),
         )
 
@@ -155,6 +244,7 @@ class BinanceTestnetTests(unittest.TestCase):
             {"clientAlgoId": take_profit_id, "triggerPrice": "52000"},
         ]
         session = FakeSession([
+            FakeResponse(200, exchange_info()),
             FakeResponse(200, old_orders),
             FakeResponse(200, {"clientAlgoId": break_even_id}),
             FakeResponse(200, confirmed_orders),
@@ -175,10 +265,10 @@ class BinanceTestnetTests(unittest.TestCase):
         self.assertEqual(receipt.stop_client_order_id, break_even_id)
         self.assertEqual(
             [call[0] for call in session.calls],
-            ["GET", "POST", "GET", "DELETE", "GET"],
+            ["GET", "GET", "POST", "GET", "DELETE", "GET"],
         )
         self.assertEqual(
-            session.calls[3][2]["params"]["clientAlgoId"], stop_id
+            session.calls[4][2]["params"]["clientAlgoId"], stop_id
         )
 
     def test_old_stop_is_not_cancelled_when_new_stop_cannot_be_confirmed(self):
@@ -191,6 +281,7 @@ class BinanceTestnetTests(unittest.TestCase):
             {"clientAlgoId": take_profit_id, "triggerPrice": "52000"},
         ]
         session = FakeSession([
+            FakeResponse(200, exchange_info()),
             FakeResponse(200, old_orders),
             FakeResponse(200, {"clientAlgoId": break_even_id}),
             FakeResponse(200, old_orders),
@@ -207,7 +298,10 @@ class BinanceTestnetTests(unittest.TestCase):
             exchange.replace_stop(
                 order, Fill.from_intent(order), current, Decimal("50050")
             )
-        self.assertEqual([call[0] for call in session.calls], ["GET", "POST", "GET"])
+        self.assertEqual(
+            [call[0] for call in session.calls],
+            ["GET", "GET", "POST", "GET"],
+        )
 
     def test_reconciliation_prefers_old_stop_while_both_stops_are_open(self):
         order = intent()

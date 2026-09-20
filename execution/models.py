@@ -61,6 +61,13 @@ class ProtectionReceipt:
 
 
 @dataclass(frozen=True)
+class MarkPrice:
+    symbol: str
+    price: Decimal
+    observed_at: datetime
+
+
+@dataclass(frozen=True)
 class OrderIntent:
     strategy_id: str
     symbol: str

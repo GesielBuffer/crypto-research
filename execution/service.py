@@ -36,6 +36,29 @@ class TradingService:
         self.risk = risk
         self.journal = journal
 
+    def supervise_position(
+        self,
+        intent: OrderIntent,
+        *,
+        now: datetime | None = None,
+    ) -> ProtectionReceipt | None:
+        """Run one read-only market observation and apply the configured policy."""
+        if not intent.protection.break_even.enabled:
+            return None
+        current_time = now or datetime.now(intent.market_data_time.tzinfo)
+        if current_time.tzinfo is None:
+            raise ValueError("current time must be timezone-aware")
+        quote = self.exchange.get_mark_price(intent.symbol)
+        if quote.symbol != intent.symbol:
+            raise ReconciliationRequired("mark price belongs to another symbol")
+        if quote.observed_at.tzinfo is None:
+            raise ReconciliationRequired("mark price timestamp is not timezone-aware")
+        if current_time - quote.observed_at > self.risk.limits.max_market_data_age:
+            raise ReconciliationRequired("mark price is stale")
+        if quote.observed_at - current_time > self.risk.limits.max_clock_skew:
+            raise ReconciliationRequired("mark price timestamp is in the future")
+        return self.advance_to_break_even(intent, mark_price=quote.price)
+
     def advance_to_break_even(
         self, intent: OrderIntent, *, mark_price: Decimal
     ) -> ProtectionReceipt | None:

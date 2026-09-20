@@ -120,6 +120,44 @@ class ExecutionRuntimeTests(unittest.TestCase):
             self.service.advance_to_break_even(order, mark_price=Decimal("50500"))
         )
 
+    def test_supervisor_reads_fresh_mark_price_and_advances_protection(self):
+        order = intent(
+            protection=PositionProtection(
+                stop_loss_price=Decimal("49500"),
+                take_profit_price=Decimal("51000"),
+                break_even=BreakEvenPolicy(enabled=True),
+            )
+        )
+        self.service.execute(order, now=NOW)
+        self.exchange.set_mark_price(
+            order.symbol,
+            Decimal("50500"),
+            observed_at=NOW,
+        )
+        adjusted = self.service.supervise_position(order, now=NOW)
+        self.assertEqual(adjusted.stop_price, Decimal("50000"))
+
+    def test_supervisor_rejects_stale_mark_price(self):
+        order = intent(
+            protection=PositionProtection(
+                stop_loss_price=Decimal("49500"),
+                take_profit_price=Decimal("51000"),
+                break_even=BreakEvenPolicy(enabled=True),
+            )
+        )
+        self.service.execute(order, now=NOW)
+        self.exchange.set_mark_price(
+            order.symbol,
+            Decimal("50500"),
+            observed_at=NOW - timedelta(seconds=31),
+        )
+        with self.assertRaisesRegex(ReconciliationRequired, "stale"):
+            self.service.supervise_position(order, now=NOW)
+        self.assertEqual(
+            self.exchange.find_protection(order).stop_price,
+            Decimal("49500"),
+        )
+
     def test_long_break_even_waits_for_trigger_then_moves_to_economic_price(self):
         order = intent(
             protection=PositionProtection(

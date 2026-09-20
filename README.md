@@ -187,19 +187,21 @@ protection = PositionProtection(
 ```
 
 Depois de confirmar a entrada e as protecoes, o supervisor de mercado pode
-entregar o mark price atual ao servico. A chamada e idempotente: antes do
-gatilho retorna `None`; depois de concluida retorna sempre a mesma protecao.
+consultar o mark price atual no adaptador e entregar uma observacao validada ao
+servico. A chamada e idempotente: antes do gatilho retorna `None`; depois de
+concluida retorna sempre a mesma protecao. Quotes obsoletos, futuros ou de outro
+simbolo sao recusados.
 
 ```python
-receipt = service.advance_to_break_even(
-    intent,
-    mark_price=Decimal("50500"),
-)
+receipt = service.supervise_position(intent)
 ```
 
 Este metodo nao autoriza uma estrategia nem inicia um loop de trading. A fonte
-de mark price, arredondamento por tick size e o ciclo operacional Testnet ainda
-precisam ser integrados e validados antes de promocao.
+de mark price da Testnet e o arredondamento por `tickSize` ja estao integrados.
+Antes de qualquer ordem de entrada, o adaptador tambem valida quantidade por
+`MARKET_LOT_SIZE` (ou `LOT_SIZE`) e valida stop/alvo por `PRICE_FILTER`. Ainda
+faltam o loop operacional supervisionado e o ensaio completo no Testnet antes
+de promocao.
 
 Para o preflight Testnet, crie chaves exclusivas da Testnet, preencha somente
 `BINANCE_TESTNET_API_KEY` e `BINANCE_TESTNET_API_SECRET`, e altere

@@ -23,6 +23,12 @@ conta real.
   comportamento simetrico para long e short;
 - substituicao de stop sem janela desprotegida: cria e confirma o novo stop
   antes de cancelar o anterior, com retry idempotente e reconciliacao;
+- supervisor de uma iteracao consulta mark price, exige timestamp recente e
+  recusa simbolo divergente antes de avaliar o gatilho;
+- filtros atuais do simbolo sao consultados no Testnet: quantidade invalida,
+  stop ou alvo fora do `PRICE_FILTER` bloqueiam a entrada antes do POST;
+- o stop de breakeven e arredondado conservadoramente pelo `tickSize`, para
+  baixo em long e para cima em short;
 - `execution/journal.py`: journal append-only e deteccao de ordens interrompidas;
 - `execution/binance_testnet.py`: gateway USD-M assinado que rejeita qualquer host diferente do Testnet;
 - `execution/config.py`: configuracao fail-closed; variaveis de ambiente nao conseguem habilitar conta real;
@@ -80,6 +86,6 @@ lida ou usada durante esta implementacao.
 O breakeven tambem nao e um gate universal nem deve ser habilitado por intuicao.
 Cada estrategia deve pre-registrar `activation_r_multiple` e
 `cost_buffer_rate`, comparar o resultado com e sem a regra em dados de
-desenvolvimento e validar a escolha fora da amostra. O supervisor de mark price,
-o arredondamento pelas regras do simbolo e o ensaio completo no Testnet ainda
+desenvolvimento e validar a escolha fora da amostra. O daemon/loop com backoff,
+heartbeat e encerramento controlado, alem do ensaio completo no Testnet, ainda
 sao pendencias operacionais.

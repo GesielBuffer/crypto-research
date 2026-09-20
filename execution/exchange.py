@@ -3,12 +3,14 @@ from __future__ import annotations
 from decimal import Decimal
 from typing import Protocol
 
-from execution.models import Fill, OrderIntent, ProtectionReceipt
+from execution.models import Fill, MarkPrice, OrderIntent, ProtectionReceipt
 from execution.risk import RiskSnapshot
 
 
 class Exchange(Protocol):
     def snapshot(self) -> RiskSnapshot: ...
+
+    def get_mark_price(self, symbol: str) -> MarkPrice: ...
 
     def find_fill(self, intent: OrderIntent) -> Fill | None: ...
 

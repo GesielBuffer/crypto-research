@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 from decimal import Decimal
+from datetime import datetime, timezone
 
 from execution.models import (
     Fill,
+    MarkPrice,
     OrderIntent,
     ProtectionReceipt,
     Side,
@@ -21,6 +23,7 @@ class PaperExchange:
         self._protections: dict[str, ProtectionReceipt] = {}
         self._realized_pnl_today = Decimal("0")
         self._kill_switch = False
+        self._mark_prices: dict[str, MarkPrice] = {}
 
     def snapshot(self) -> RiskSnapshot:
         return RiskSnapshot(
@@ -29,6 +32,25 @@ class PaperExchange:
             ),
             realized_pnl_today=self._realized_pnl_today,
             kill_switch=self._kill_switch,
+        )
+
+    def get_mark_price(self, symbol: str) -> MarkPrice:
+        quote = self._mark_prices.get(symbol)
+        if quote is None:
+            raise RuntimeError(f"paper mark price is not set for {symbol}")
+        return quote
+
+    def set_mark_price(
+        self,
+        symbol: str,
+        price: Decimal,
+        *,
+        observed_at: datetime | None = None,
+    ) -> None:
+        self._mark_prices[symbol] = MarkPrice(
+            symbol=symbol,
+            price=price,
+            observed_at=observed_at or datetime.now(timezone.utc),
         )
 
     def submit_market(self, intent: OrderIntent) -> Fill:
