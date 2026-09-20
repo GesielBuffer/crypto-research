@@ -7,6 +7,8 @@ Data da auditoria: 2026-09-11
 Os principais vazios identificados nesta auditoria ja comecaram a ser corrigidos:
 
 - `research/backtest.py` passou a ser a fonte canonica para custos aditivos e simulacao de horizonte fixo com entrada em `t+1`;
+- o mesmo motor agora modela stop, alvo, gaps e breakeven com uma politica
+  intrabar conservadora e explicitamente testada;
 - `research/signals.py` regenera os sinais congelados da C2 sem lookahead;
 - `research/metrics.py` centraliza as metricas basicas;
 - `experiments/registry.toml` registra os replays de desenvolvimento e holdout;

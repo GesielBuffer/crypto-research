@@ -120,6 +120,17 @@ conjuntos e todos falharam; os resumos pequenos foram preservados em `results/`
 e nenhum parametro foi promovido. O motor de horizonte fixo foi vetorizado e
 continua coberto pelas mesmas regressões historicas.
 
+O motor tambem possui simulacao intrabar OHLC para stop, alvo e breakeven. A
+convencao e deliberadamente conservadora: gaps saem no `open`, stop vence uma
+ambiguidade stop/alvo no mesmo candle e um gatilho de breakeven so altera o
+stop a partir do candle seguinte. O protocolo `C2_EXIT_POLICY_V1` compara regras
+de breakeven com o respectivo baseline sem breakeven apenas nos antigos dados de
+desenvolvimento; ele nao reabre o holdout de agosto nem pode promover a C2.
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.c2_exit_policy
+```
+
 Antes do replay, o executor confere cada cache contra o manifesto versionado em
 `manifests/c2_candles.json`. O manifesto registra a origem publica, cobertura,
 numero de linhas, tamanho e SHA-256, sem enviar os candles ao Git. Para

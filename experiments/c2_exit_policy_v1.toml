@@ -1,0 +1,49 @@
+[experiment]
+strategy_version = "C2_EXIT_POLICY_V1"
+hypothesis = "A delayed break-even stop can improve the net tail and profit factor of fixed C2 signals without degrading later development splits."
+registered_on = "2026-09-20"
+status = "PREREGISTERED"
+scope = "Exit-policy research only; cannot reverse the failed August 2026 holdout or promote C2."
+
+[data]
+symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT"]
+interval = "5m"
+start = "2024-01-01"
+end = "2026-08-01"
+manifest = "manifests/c2_candles.json"
+frozen_signals = "results/c2_canonical_trades.csv"
+
+[splits]
+development_start = "2024-01-01"
+development_end = "2025-01-01"
+validation_start = "2025-01-01"
+validation_end = "2026-01-01"
+confirmation_start = "2026-01-01"
+confirmation_end = "2026-08-01"
+
+[execution]
+entry_delay_bars = 1
+hold_bars = 6
+overlap = "allow"
+same_bar_policy = "adverse_first"
+break_even_effective = "next_bar"
+costs = [0.0006, 0.001]
+break_even_cost_buffer = 0.0006
+
+[grid]
+stop_loss_fractions = [0.005, 0.01]
+take_profit_r_multiples = [1.5, 2.0]
+break_even_activation_r_multiples = [0.75, 1.0]
+
+[selection]
+gated_splits = ["validation", "confirmation"]
+min_candidate_profit_factor = 1.0
+min_non_degraded_assets = 3
+require_mean_not_lower_than_baseline = true
+require_profit_factor_not_lower_than_baseline = true
+require_q10_not_lower_than_baseline = true
+require_both_cost_scenarios = true
+
+[decision]
+rule = "PASS_EXPLORATORY only if one break-even rule beats its paired no-break-even baseline on every registered gate."
+production_effect = "NONE; C2 remains rejected and a future strategy still requires a fresh untouched holdout."

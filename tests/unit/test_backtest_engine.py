@@ -7,8 +7,10 @@ import pandas as pd
 from research.backtest import (
     CostModel,
     FixedHorizonConfig,
+    IntrabarExitConfig,
     apply_costs,
     simulate_fixed_horizon,
+    simulate_intrabar_exits,
 )
 from research.metrics import summarize_returns
 from research.signals import C2SignalConfig, build_c2_signals
@@ -101,6 +103,166 @@ class FixedHorizonTests(unittest.TestCase):
     def test_same_candle_entry_is_rejected(self):
         with self.assertRaises(ValueError):
             FixedHorizonConfig(entry_delay_bars=0)
+
+
+class IntrabarExitTests(unittest.TestCase):
+    def bars(self, rows):
+        return pd.DataFrame({
+            "open_time": pd.date_range(
+                "2026-01-01", periods=len(rows), freq="5min", tz="UTC"
+            ),
+            "open": [row[0] for row in rows],
+            "high": [row[1] for row in rows],
+            "low": [row[2] for row in rows],
+            "close": [row[3] for row in rows],
+        })
+
+    def signal(self, length, *positions):
+        values = [False] * length
+        for position in positions:
+            values[position] = True
+        return pd.Series(values)
+
+    def config(self, **overrides):
+        values = {
+            "hold_bars": 4,
+            "stop_loss_fraction": 0.05,
+            "take_profit_fraction": 0.15,
+            "costs": CostModel(fees=0.0006),
+        }
+        values.update(overrides)
+        return IntrabarExitConfig(**values)
+
+    def test_stop_wins_when_stop_and_target_touch_in_same_candle(self):
+        bars = self.bars([
+            (100, 101, 99, 100),
+            (100, 116, 94, 105),
+            (105, 106, 104, 105),
+            (105, 106, 104, 105),
+            (105, 106, 104, 105),
+            (105, 106, 104, 105),
+        ])
+        trade = simulate_intrabar_exits(
+            bars, self.signal(len(bars), 0), self.config()
+        ).iloc[0]
+        self.assertEqual(trade.exit_reason, "stop_loss")
+        self.assertEqual(trade.exit_price, 95.0)
+        self.assertEqual(trade.exit_position, 1)
+
+    def test_stop_gap_uses_bar_open_instead_of_ideal_stop_price(self):
+        bars = self.bars([
+            (100, 101, 99, 100),
+            (100, 102, 99, 101),
+            (93, 96, 92, 95),
+            (95, 96, 94, 95),
+            (95, 96, 94, 95),
+            (95, 96, 94, 95),
+        ])
+        trade = simulate_intrabar_exits(
+            bars, self.signal(len(bars), 0), self.config()
+        ).iloc[0]
+        self.assertEqual(trade.exit_reason, "stop_loss")
+        self.assertEqual(trade.exit_price, 93.0)
+
+    def test_take_profit_exits_at_predefined_level(self):
+        bars = self.bars([
+            (100, 101, 99, 100),
+            (100, 116, 99, 115),
+            (115, 116, 114, 115),
+            (115, 116, 114, 115),
+            (115, 116, 114, 115),
+            (115, 116, 114, 115),
+        ])
+        trade = simulate_intrabar_exits(
+            bars, self.signal(len(bars), 0), self.config()
+        ).iloc[0]
+        self.assertEqual(trade.exit_reason, "take_profit")
+        self.assertAlmostEqual(trade.exit_price, 115.0)
+
+    def test_break_even_activation_only_changes_stop_on_next_candle(self):
+        bars = self.bars([
+            (100, 101, 99, 100),
+            (100, 106, 99, 105),
+            (101, 102, 99, 100),
+            (100, 101, 99, 100),
+            (100, 101, 99, 100),
+            (100, 101, 99, 100),
+        ])
+        trade = simulate_intrabar_exits(
+            bars,
+            self.signal(len(bars), 0),
+            self.config(break_even_activation_r_multiple=1.0),
+        ).iloc[0]
+        self.assertTrue(trade.break_even_activated)
+        self.assertEqual(trade.activation_position, 1)
+        self.assertEqual(trade.exit_position, 2)
+        self.assertEqual(trade.exit_reason, "break_even")
+        self.assertEqual(trade.exit_price, 100.0)
+
+    def test_short_break_even_is_symmetric(self):
+        bars = self.bars([
+            (100, 101, 99, 100),
+            (100, 101, 94, 95),
+            (99, 101, 98, 100),
+            (100, 101, 99, 100),
+            (100, 101, 99, 100),
+            (100, 101, 99, 100),
+        ])
+        trade = simulate_intrabar_exits(
+            bars,
+            self.signal(len(bars), 0),
+            self.config(side="short", break_even_activation_r_multiple=1.0),
+        ).iloc[0]
+        self.assertEqual(trade.exit_reason, "break_even")
+        self.assertEqual(trade.exit_price, 100.0)
+        self.assertEqual(trade.gross_return, 0.0)
+
+    def test_horizon_exit_and_cost_are_reported(self):
+        bars = self.bars([
+            (100, 101, 99, 100),
+            (100, 102, 99, 101),
+            (101, 103, 100, 102),
+            (102, 104, 101, 103),
+            (103, 105, 102, 104),
+            (104, 106, 103, 105),
+        ])
+        trade = simulate_intrabar_exits(
+            bars, self.signal(len(bars), 0), self.config()
+        ).iloc[0]
+        self.assertEqual(trade.exit_reason, "horizon")
+        self.assertEqual(trade.exit_price, 104.0)
+        self.assertAlmostEqual(trade.net_return, 0.04 - 0.0006)
+
+    def test_early_exit_allows_a_later_non_overlapping_signal(self):
+        bars = self.bars([
+            (100, 101, 99, 100),
+            (100, 101, 94, 95),
+            (100, 101, 99, 100),
+            (100, 102, 99, 101),
+            (101, 103, 100, 102),
+            (102, 104, 101, 103),
+            (103, 105, 102, 104),
+        ])
+        trades = simulate_intrabar_exits(
+            bars,
+            self.signal(len(bars), 0, 2),
+            self.config(hold_bars=3),
+        )
+        self.assertEqual(trades.signal_position.tolist(), [0, 2])
+
+    def test_invalid_ohlc_range_is_rejected(self):
+        bars = self.bars([
+            (100, 99, 98, 100),
+            (100, 101, 99, 100),
+            (100, 101, 99, 100),
+            (100, 101, 99, 100),
+            (100, 101, 99, 100),
+            (100, 101, 99, 100),
+        ])
+        with self.assertRaisesRegex(ValueError, "invalid price range"):
+            simulate_intrabar_exits(
+                bars, self.signal(len(bars), 0), self.config()
+            )
 
 
 class C2SignalTests(unittest.TestCase):
