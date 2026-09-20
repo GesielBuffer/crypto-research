@@ -200,8 +200,21 @@ Este metodo nao autoriza uma estrategia nem inicia um loop de trading. A fonte
 de mark price da Testnet e o arredondamento por `tickSize` ja estao integrados.
 Antes de qualquer ordem de entrada, o adaptador tambem valida quantidade por
 `MARKET_LOT_SIZE` (ou `LOT_SIZE`) e valida stop/alvo por `PRICE_FILTER`. Ainda
-faltam o loop operacional supervisionado e o ensaio completo no Testnet antes
-de promocao.
+falta o ensaio completo no Testnet antes de promocao.
+
+O loop reutilizavel em `execution/supervisor.py` supervisiona somente uma
+posicao ja aberta e protegida. Ele possui polling, backoff exponencial, limite
+de falhas transitorias, limite opcional de ciclos e encerramento cooperativo.
+Nao existe comando que o inicie automaticamente.
+
+```python
+from threading import Event
+from execution.supervisor import PositionSupervisor
+
+shutdown = Event()
+supervisor = PositionSupervisor(service)
+result = supervisor.run(intent, should_stop=shutdown.is_set)
+```
 
 Para o preflight Testnet, crie chaves exclusivas da Testnet, preencha somente
 `BINANCE_TESTNET_API_KEY` e `BINANCE_TESTNET_API_SECRET`, e altere

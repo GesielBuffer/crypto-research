@@ -29,6 +29,8 @@ conta real.
   stop ou alvo fora do `PRICE_FILTER` bloqueiam a entrada antes do POST;
 - o stop de breakeven e arredondado conservadoramente pelo `tickSize`, para
   baixo em long e para cima em short;
+- loop de supervisao com polling configuravel, backoff exponencial, limite de
+  falhas transitorias, execucao limitada para testes e encerramento cooperativo;
 - `execution/journal.py`: journal append-only e deteccao de ordens interrompidas;
 - `execution/binance_testnet.py`: gateway USD-M assinado que rejeita qualquer host diferente do Testnet;
 - `execution/config.py`: configuracao fail-closed; variaveis de ambiente nao conseguem habilitar conta real;
@@ -86,6 +88,6 @@ lida ou usada durante esta implementacao.
 O breakeven tambem nao e um gate universal nem deve ser habilitado por intuicao.
 Cada estrategia deve pre-registrar `activation_r_multiple` e
 `cost_buffer_rate`, comparar o resultado com e sem a regra em dados de
-desenvolvimento e validar a escolha fora da amostra. O daemon/loop com backoff,
-heartbeat e encerramento controlado, alem do ensaio completo no Testnet, ainda
+desenvolvimento e validar a escolha fora da amostra. Hospedagem do processo,
+heartbeat externo, alertas operacionais e o ensaio completo no Testnet ainda
 sao pendencias operacionais.
