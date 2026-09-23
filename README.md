@@ -188,6 +188,13 @@ um reinicio e gera um relatorio por entrada. A recuperacao consulta primeiro a
 exchange: pode restaurar protecoes de um fill confirmado, reconhecer uma
 posicao encerrada ou bloquear divergencias, mas nunca envia uma nova entrada.
 
+Execute o ensaio local, deterministico e sem credenciais para comprovar esses
+casos e atualizar a evidencia JSON versionada:
+
+```powershell
+.\.venv\Scripts\python.exe -m execution.recovery_rehearsal
+```
+
 Cada intencao tambem contem stop-loss e take-profit obrigatorios. Depois do
 fill, o runtime confirma as duas protecoes. Se a criacao ou consulta delas
 falhar, tenta zerar a posicao imediatamente com uma ordem reduce-only e registra

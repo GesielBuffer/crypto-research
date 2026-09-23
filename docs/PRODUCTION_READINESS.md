@@ -34,6 +34,8 @@ conta real.
 - `execution/journal.py`: journal append-only e deteccao de ordens interrompidas;
 - `execution/recovery.py`: recuperacao de reinicio orientada pelo journal, com
   relatorio estruturado e proibicao de reenviar entradas nao confirmadas;
+- `execution/recovery_rehearsal.py`: ensaio deterministico, sem rede ou
+  credenciais, dos cenarios de reinicio e divergencia;
 - `execution/binance_testnet.py`: gateway USD-M assinado que rejeita qualquer host diferente do Testnet;
 - `execution/config.py`: configuracao fail-closed; variaveis de ambiente nao conseguem habilitar conta real;
 - `execution/readiness.py`: gates objetivos de promocao;
@@ -69,6 +71,17 @@ Verifique o estado atual sem acessar exchange:
 
 Enquanto houver blockers, nenhum adaptador de conta real deve ser conectado ao
 `TradingService`.
+
+O ensaio local de recuperacao pode ser repetido com:
+
+```powershell
+.\.venv\Scripts\python.exe -m execution.recovery_rehearsal
+```
+
+Ele cobre resposta perdida depois do aceite, reinicio com protecao existente,
+encerramento pela exchange, envio inconclusivo e divergencia entre journal e
+exchange. Em todos os casos, o numero esperado de novas entradas durante a
+recuperacao e zero.
 
 ## Correcoes fail-closed
 
