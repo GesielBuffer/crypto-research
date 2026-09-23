@@ -32,6 +32,8 @@ conta real.
 - loop de supervisao com polling configuravel, backoff exponencial, limite de
   falhas transitorias, execucao limitada para testes e encerramento cooperativo;
 - `execution/journal.py`: journal append-only e deteccao de ordens interrompidas;
+- `execution/recovery.py`: recuperacao de reinicio orientada pelo journal, com
+  relatorio estruturado e proibicao de reenviar entradas nao confirmadas;
 - `execution/binance_testnet.py`: gateway USD-M assinado que rejeita qualquer host diferente do Testnet;
 - `execution/config.py`: configuracao fail-closed; variaveis de ambiente nao conseguem habilitar conta real;
 - `execution/readiness.py`: gates objetivos de promocao;

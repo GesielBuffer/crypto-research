@@ -183,6 +183,11 @@ nao recria protecoes. Ele remove apenas os IDs condicionais pertencentes aquela
 entrada, confirma a limpeza e registra o encerramento. Quantidade parcial,
 invertida ou multiplas linhas de posicao falham fechadas para revisao.
 
+`execution/recovery.py` reconstrui as intencoes completas do journal depois de
+um reinicio e gera um relatorio por entrada. A recuperacao consulta primeiro a
+exchange: pode restaurar protecoes de um fill confirmado, reconhecer uma
+posicao encerrada ou bloquear divergencias, mas nunca envia uma nova entrada.
+
 Cada intencao tambem contem stop-loss e take-profit obrigatorios. Depois do
 fill, o runtime confirma as duas protecoes. Se a criacao ou consulta delas
 falhar, tenta zerar a posicao imediatamente com uma ordem reduce-only e registra

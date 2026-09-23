@@ -7,7 +7,14 @@ from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 
-from execution.models import Fill, OrderIntent, ProtectionReceipt, Side
+from execution.models import (
+    BreakEvenPolicy,
+    Fill,
+    OrderIntent,
+    PositionProtection,
+    ProtectionReceipt,
+    Side,
+)
 
 
 def _json_value(value):
@@ -128,3 +135,48 @@ class JsonlOrderJournal:
                 filled_at=datetime.fromisoformat(payload["filled_at"]),
             )
         return None
+
+    def intent_for(self, client_order_id: str) -> OrderIntent | None:
+        for record in self.records():
+            payload = record["payload"]
+            if (
+                record["event"] != "intent"
+                or payload["client_order_id"] != client_order_id
+            ):
+                continue
+            protection_payload = payload["protection"]
+            break_even_payload = protection_payload.get("break_even", {})
+            return OrderIntent(
+                strategy_id=payload["strategy_id"],
+                symbol=payload["symbol"],
+                side=Side(payload["side"]),
+                quantity=Decimal(payload["quantity"]),
+                reference_price=Decimal(payload["reference_price"]),
+                leverage=int(payload["leverage"]),
+                client_order_id=payload["client_order_id"],
+                market_data_time=datetime.fromisoformat(payload["market_data_time"]),
+                protection=PositionProtection(
+                    stop_loss_price=Decimal(protection_payload["stop_loss_price"]),
+                    take_profit_price=Decimal(
+                        protection_payload["take_profit_price"]
+                    ),
+                    break_even=BreakEvenPolicy(
+                        enabled=bool(break_even_payload.get("enabled", False)),
+                        activation_r_multiple=Decimal(
+                            break_even_payload.get("activation_r_multiple", "1")
+                        ),
+                        cost_buffer_rate=Decimal(
+                            break_even_payload.get("cost_buffer_rate", "0")
+                        ),
+                    ),
+                ),
+            )
+        return None
+
+    def intents(self) -> list[OrderIntent]:
+        values = []
+        for client_order_id in sorted(self.intent_ids()):
+            intent = self.intent_for(client_order_id)
+            if intent is not None:
+                values.append(intent)
+        return values
