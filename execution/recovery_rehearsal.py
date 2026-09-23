@@ -138,7 +138,13 @@ def run_rehearsal(*, generated_at: datetime, implementation_commit: str) -> dict
 
 def _git_commit() -> str:
     return subprocess.run(
-        ["git", "rev-parse", "HEAD"],
+        [
+            "git",
+            "-c",
+            f"safe.directory={BASE_DIR.as_posix()}",
+            "rev-parse",
+            "HEAD",
+        ],
         cwd=BASE_DIR,
         check=True,
         capture_output=True,
