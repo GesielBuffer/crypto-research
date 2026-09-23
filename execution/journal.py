@@ -56,6 +56,13 @@ class JsonlOrderJournal:
         if fill.client_order_id not in self.emergency_exit_ids():
             self._append("emergency_exit", asdict(fill))
 
+    def record_position_closed(self, entry_client_order_id: str) -> None:
+        if entry_client_order_id not in self.closed_entry_ids():
+            self._append(
+                "position_closed",
+                {"entry_client_order_id": entry_client_order_id},
+            )
+
     def records(self) -> list[dict]:
         if not self.path.exists():
             return []
@@ -98,6 +105,13 @@ class JsonlOrderJournal:
             record["payload"]["stop_client_order_id"]
             for record in self.records()
             if record["event"] == "protection_adjustment"
+        }
+
+    def closed_entry_ids(self) -> set[str]:
+        return {
+            record["payload"]["entry_client_order_id"]
+            for record in self.records()
+            if record["event"] == "position_closed"
         }
 
     def fill_for(self, client_order_id: str) -> Fill | None:

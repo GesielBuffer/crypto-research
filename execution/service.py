@@ -25,6 +25,10 @@ class UnprotectedPositionEmergency(RuntimeError):
     pass
 
 
+class PositionAlreadyClosed(RuntimeError):
+    pass
+
+
 class TradingService:
     def __init__(
         self,
@@ -75,6 +79,7 @@ class TradingService:
         self._validate_existing_fill(intent, fill)
         if self.exchange.find_emergency_exit(intent) is not None:
             raise PositionProtectionFailed("entry is already closed")
+        self._require_expected_position(intent)
         current = self.exchange.find_protection(intent)
         if current is None:
             raise ReconciliationRequired("position protection is not confirmed")
@@ -158,6 +163,7 @@ class TradingService:
                 raise PositionProtectionFailed(
                     "entry was already closed after a protection failure"
                 )
+            self._require_expected_position(intent)
             self._ensure_protected(intent, remote_fill)
             return remote_fill
         if self.journal is not None:
@@ -201,6 +207,39 @@ class TradingService:
             ) from protection_error
         if self.journal is not None:
             self.journal.record_protection(protection)
+
+    def _require_expected_position(self, intent: OrderIntent) -> None:
+        expected = intent.quantity if intent.side is Side.BUY else -intent.quantity
+        try:
+            actual = self.exchange.position_quantity(intent.symbol)
+        except Exception as exc:
+            raise ReconciliationRequired(
+                "exchange position quantity cannot be confirmed"
+            ) from exc
+        if actual == expected:
+            return
+        if actual == 0:
+            try:
+                open_ids = self.exchange.open_protection_ids(intent)
+            except Exception as exc:
+                raise ReconciliationRequired(
+                    "position is flat but protection state cannot be confirmed"
+                ) from exc
+            if open_ids:
+                try:
+                    self.exchange.cancel_protection(intent)
+                except Exception as exc:
+                    raise ReconciliationRequired(
+                        "position is flat and orphan protection cancellation failed"
+                    ) from exc
+            if self.journal is not None:
+                self.journal.record_position_closed(intent.client_order_id)
+            raise PositionAlreadyClosed(
+                "entry fill exists but the exchange position is already closed"
+            )
+        raise ReconciliationRequired(
+            f"position quantity mismatch: expected {expected}, exchange reports {actual}"
+        )
 
     @staticmethod
     def _validate_existing_fill(intent: OrderIntent, fill: Fill) -> None:

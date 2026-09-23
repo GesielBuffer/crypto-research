@@ -34,6 +34,9 @@ class PaperExchange:
             kill_switch=self._kill_switch,
         )
 
+    def position_quantity(self, symbol: str) -> Decimal:
+        return self._positions.get(symbol, Decimal("0"))
+
     def get_mark_price(self, symbol: str) -> MarkPrice:
         quote = self._mark_prices.get(symbol)
         if quote is None:
@@ -71,6 +74,17 @@ class PaperExchange:
 
     def find_protection(self, intent: OrderIntent) -> ProtectionReceipt | None:
         return self._protections.get(intent.client_order_id)
+
+    def open_protection_ids(self, intent: OrderIntent) -> frozenset[str]:
+        receipt = self.find_protection(intent)
+        if receipt is None:
+            return frozenset()
+        return frozenset(
+            {receipt.stop_client_order_id, receipt.take_profit_client_order_id}
+        )
+
+    def cancel_protection(self, intent: OrderIntent) -> None:
+        self._protections.pop(intent.client_order_id, None)
 
     def submit_protection(
         self, intent: OrderIntent, entry_fill: Fill
@@ -135,3 +149,8 @@ class PaperExchange:
 
     def activate_kill_switch(self) -> None:
         self._kill_switch = True
+
+    def simulate_protection_fill(self, intent: OrderIntent) -> None:
+        """Settle a paper position as if an exchange-side trigger had filled."""
+        self._positions[intent.symbol] = Decimal("0")
+        self._protections.pop(intent.client_order_id, None)

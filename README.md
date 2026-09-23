@@ -177,6 +177,12 @@ existe adaptador de conta real habilitado enquanto os gates estiverem fechados.
 O gateway Binance disponivel e restrito estruturalmente ao Testnet e nao e
 instanciado pelo comando de readiness.
 
+Retries e reinicios reconciliam tambem a quantidade assinada da posicao. Se o
+fill historico existe mas a posicao ja esta zerada por stop ou alvo, o runtime
+nao recria protecoes. Ele remove apenas os IDs condicionais pertencentes aquela
+entrada, confirma a limpeza e registra o encerramento. Quantidade parcial,
+invertida ou multiplas linhas de posicao falham fechadas para revisao.
+
 Cada intencao tambem contem stop-loss e take-profit obrigatorios. Depois do
 fill, o runtime confirma as duas protecoes. Se a criacao ou consulta delas
 falhar, tenta zerar a posicao imediatamente com uma ordem reduce-only e registra

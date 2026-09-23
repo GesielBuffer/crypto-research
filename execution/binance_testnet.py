@@ -338,6 +338,33 @@ class BinanceUsdMTestnetExchange:
             )
         return None
 
+    def open_protection_ids(self, intent: OrderIntent) -> frozenset[str]:
+        orders = self._signed_request(
+            "GET", "/fapi/v1/openAlgoOrders", {"symbol": intent.symbol}
+        )
+        expected = {
+            child_order_id(intent.client_order_id, purpose)
+            for purpose in ("sl", "be", "tp")
+        }
+        return frozenset(
+            row.get("clientAlgoId")
+            for row in orders
+            if row.get("clientAlgoId") in expected
+        )
+
+    def cancel_protection(self, intent: OrderIntent) -> None:
+        for client_algo_id in sorted(self.open_protection_ids(intent)):
+            self._signed_request(
+                "DELETE",
+                "/fapi/v1/algoOrder",
+                {"symbol": intent.symbol, "clientAlgoId": client_algo_id},
+            )
+        remaining = self.open_protection_ids(intent)
+        if remaining:
+            raise RuntimeError(
+                f"orphan protection cancellation is unresolved: {sorted(remaining)}"
+            )
+
     def submit_protection(
         self, intent: OrderIntent, entry_fill: Fill
     ) -> ProtectionReceipt:
@@ -567,6 +594,22 @@ class BinanceUsdMTestnetExchange:
             ),
             kill_switch=bool(self.kill_switch()),
         )
+
+    def position_quantity(self, symbol: str) -> Decimal:
+        rows = self._signed_request(
+            "GET", "/fapi/v3/positionRisk", {"symbol": symbol}
+        )
+        if not isinstance(rows, list):
+            raise RuntimeError("testnet returned an invalid position response")
+        matches = [row for row in rows if row.get("symbol") == symbol]
+        if not matches:
+            return Decimal("0")
+        if len(matches) != 1:
+            raise RuntimeError("multiple position rows require manual reconciliation")
+        quantity = Decimal(str(matches[0].get("positionAmt", "0")))
+        if not quantity.is_finite():
+            raise RuntimeError("testnet returned an invalid position quantity")
+        return quantity
 
     def preflight_blockers(self) -> list[str]:
         """Read-only account checks required before a Testnet execution trial."""

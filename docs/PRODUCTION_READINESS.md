@@ -74,6 +74,12 @@ Enquanto houver blockers, nenhum adaptador de conta real deve ser conectado ao
 - timeout depois do aceite e reconciliado sem uma segunda ordem;
 - IDs reaproveitados para quantidade, ativo ou lado diferentes sao rejeitados;
 - journal e exchange divergentes exigem reconciliacao, sem retry cego;
+- fill antigo com posicao zerada e tratado como encerrado, nunca como motivo
+  para recriar stop e alvo;
+- ordens condicionais orfas sao identificadas pelos IDs daquela entrada,
+  canceladas de forma restrita e verificadas; ordens alheias nao sao tocadas;
+- quantidade parcial, invertida ou multiplas linhas de posicao bloqueiam a
+  automacao e exigem reconciliacao;
 - timestamps obsoletos ou no futuro sao recusados;
 - IDs fora do formato aceito pela Binance sao recusados;
 - o gateway implementado aceita somente `https://testnet.binancefuture.com`.

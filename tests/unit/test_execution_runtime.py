@@ -10,6 +10,7 @@ from execution.paper import PaperExchange
 from execution.risk import RiskEngine, RiskLimits, RiskRejected, RiskSnapshot
 from execution.service import (
     IdempotencyConflict,
+    PositionAlreadyClosed,
     PositionProtectionFailed,
     ReconciliationRequired,
     TradingService,
@@ -79,6 +80,20 @@ class BreakEvenReplacementFailureExchange(PaperExchange):
         raise TimeoutError("simulated stop replacement timeout")
 
 
+class ReportedPositionExchange(PaperExchange):
+    reported_quantity = None
+
+    def position_quantity(self, symbol):
+        if self.reported_quantity is not None:
+            return self.reported_quantity
+        return super().position_quantity(symbol)
+
+
+class OrphanCancellationFailureExchange(ReportedPositionExchange):
+    def cancel_protection(self, order_intent):
+        raise ConnectionError("simulated orphan cancellation failure")
+
+
 def intent(**overrides):
     values = {
         "strategy_id": "approved-v1",
@@ -112,6 +127,71 @@ class ExecutionRuntimeTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(self.exchange.snapshot().open_symbols, frozenset({"BTCUSDT"}))
         self.assertIsNotNone(self.exchange.find_protection(intent()))
+
+    def test_retry_does_not_recreate_protection_after_exchange_side_close(self):
+        order = intent()
+        self.service.execute(order, now=NOW)
+        self.exchange.simulate_protection_fill(order)
+        with self.assertRaisesRegex(PositionAlreadyClosed, "already closed"):
+            self.service.execute(order, now=NOW)
+        self.assertIsNone(self.exchange.find_protection(order))
+        self.assertEqual(self.exchange.position_quantity(order.symbol), Decimal("0"))
+
+    def test_flat_position_cancels_stale_protection_before_closing_state(self):
+        exchange = ReportedPositionExchange()
+        service = TradingService(
+            exchange,
+            RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+        )
+        order = intent()
+        service.execute(order, now=NOW)
+        exchange.reported_quantity = Decimal("0")
+        with self.assertRaisesRegex(PositionAlreadyClosed, "already closed"):
+            service.execute(order, now=NOW)
+        self.assertEqual(exchange.open_protection_ids(order), frozenset())
+
+    def test_orphan_cancellation_failure_requires_reconciliation(self):
+        exchange = OrphanCancellationFailureExchange()
+        service = TradingService(
+            exchange,
+            RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+        )
+        order = intent()
+        service.execute(order, now=NOW)
+        exchange.reported_quantity = Decimal("0")
+        with self.assertRaisesRegex(ReconciliationRequired, "cancellation failed"):
+            service.execute(order, now=NOW)
+        self.assertNotEqual(exchange.open_protection_ids(order), frozenset())
+
+    def test_partial_position_requires_reconciliation_without_new_orders(self):
+        exchange = ReportedPositionExchange()
+        service = TradingService(
+            exchange,
+            RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+        )
+        order = intent()
+        service.execute(order, now=NOW)
+        protection = exchange.find_protection(order)
+        exchange.reported_quantity = Decimal("0.0005")
+        with self.assertRaisesRegex(ReconciliationRequired, "quantity mismatch"):
+            service.execute(order, now=NOW)
+        self.assertEqual(exchange.find_protection(order), protection)
+
+    def test_exchange_side_close_is_journaled_once(self):
+        with tempfile.TemporaryDirectory() as directory:
+            journal = JsonlOrderJournal(Path(directory) / "orders.jsonl")
+            service = TradingService(
+                self.exchange,
+                RiskEngine(RiskLimits(approved_strategies=frozenset({"approved-v1"}))),
+                journal,
+            )
+            order = intent()
+            service.execute(order, now=NOW)
+            self.exchange.simulate_protection_fill(order)
+            for _ in range(2):
+                with self.assertRaises(PositionAlreadyClosed):
+                    service.execute(order, now=NOW)
+            self.assertEqual(journal.closed_entry_ids(), {order.client_order_id})
 
     def test_disabled_break_even_does_nothing(self):
         order = intent()

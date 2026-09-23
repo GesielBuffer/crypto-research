@@ -198,6 +198,31 @@ class BinanceTestnetTests(unittest.TestCase):
         self.assertEqual(snapshot.realized_pnl_today, Decimal("-2.25"))
         self.assertTrue(snapshot.kill_switch)
 
+    def test_position_quantity_reads_exact_one_way_position(self):
+        session = FakeSession([
+            FakeResponse(200, [{"symbol": "BTCUSDT", "positionAmt": "-0.003"}])
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        self.assertEqual(
+            exchange.position_quantity("BTCUSDT"),
+            Decimal("-0.003"),
+        )
+        self.assertEqual(
+            session.calls[0][0:2],
+            ("GET", TESTNET_BASE_URL + "/fapi/v3/positionRisk"),
+        )
+
+    def test_ambiguous_position_rows_fail_closed(self):
+        session = FakeSession([
+            FakeResponse(200, [
+                {"symbol": "BTCUSDT", "positionAmt": "0.001"},
+                {"symbol": "BTCUSDT", "positionAmt": "-0.001"},
+            ])
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        with self.assertRaisesRegex(RuntimeError, "manual reconciliation"):
+            exchange.position_quantity("BTCUSDT")
+
     def test_protection_uses_two_close_position_trigger_orders(self):
         stop_id = child_order_id(intent().client_order_id, "sl")
         take_profit_id = child_order_id(intent().client_order_id, "tp")
@@ -319,6 +344,30 @@ class BinanceTestnetTests(unittest.TestCase):
         receipt = exchange.find_protection(order)
         self.assertEqual(receipt.stop_client_order_id, stop_id)
         self.assertEqual(receipt.stop_price, Decimal("49000"))
+
+    def test_scoped_orphan_cancellation_removes_only_entry_protection(self):
+        order = intent()
+        stop_id = child_order_id(order.client_order_id, "sl")
+        take_profit_id = child_order_id(order.client_order_id, "tp")
+        unrelated_id = "unrelated-protection"
+        session = FakeSession([
+            FakeResponse(200, [
+                {"clientAlgoId": stop_id},
+                {"clientAlgoId": take_profit_id},
+                {"clientAlgoId": unrelated_id},
+            ]),
+            FakeResponse(200, {"code": 200, "msg": "success"}),
+            FakeResponse(200, {"code": 200, "msg": "success"}),
+            FakeResponse(200, [{"clientAlgoId": unrelated_id}]),
+        ])
+        exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
+        exchange.cancel_protection(order)
+        deleted = {
+            session.calls[1][2]["params"]["clientAlgoId"],
+            session.calls[2][2]["params"]["clientAlgoId"],
+        }
+        self.assertEqual(deleted, {stop_id, take_profit_id})
+        self.assertNotIn(unrelated_id, deleted)
 
     def test_emergency_close_is_reduce_only_and_cancels_triggers(self):
         entry_fill = Fill.from_intent(intent())
