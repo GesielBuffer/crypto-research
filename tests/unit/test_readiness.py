@@ -25,6 +25,7 @@ class ReadinessTests(unittest.TestCase):
                 "current_holdout_decision": "PASS",
                 "paper_report_sha256": "abc",
                 "testnet_report_sha256": "def",
+                "failure_recovery_report_sha256": "ghi",
                 "human_approval_ref": "approval-1",
             },
         }
@@ -40,3 +41,4 @@ class ReadinessTests(unittest.TestCase):
         self.assertIn("approved_strategy_id_is_missing", blockers)
         self.assertIn("holdout_evidence_is_not_pass", blockers)
         self.assertIn("paper_report_sha256_is_missing", blockers)
+        self.assertIn("failure_recovery_report_sha256_is_missing", blockers)

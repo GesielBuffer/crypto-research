@@ -81,7 +81,9 @@ O ensaio local de recuperacao pode ser repetido com:
 Ele cobre resposta perdida depois do aceite, reinicio com protecao existente,
 encerramento pela exchange, envio inconclusivo e divergencia entre journal e
 exchange. Em todos os casos, o numero esperado de novas entradas durante a
-recuperacao e zero.
+recuperacao e zero. O arquivo gerado e seu SHA-256 ficam registrados em
+`deployment/readiness.toml`; o gate nao depende apenas de uma declaracao
+booleana.
 
 ## Correcoes fail-closed
 

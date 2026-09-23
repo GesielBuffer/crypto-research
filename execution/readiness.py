@@ -40,6 +40,7 @@ def live_blockers(document: dict) -> list[str]:
     for gate, field in (
         ("paper_trading_passed", "paper_report_sha256"),
         ("testnet_passed", "testnet_report_sha256"),
+        ("failure_recovery_tested", "failure_recovery_report_sha256"),
         ("human_live_approval", "human_approval_ref"),
     ):
         if gates.get(gate) and not evidence.get(field):

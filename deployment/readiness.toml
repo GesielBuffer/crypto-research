@@ -23,4 +23,6 @@ current_holdout_decision = "FAIL"
 current_holdout_profit_factor = 0.7140796324534253
 position_protection_evidence = "tests/unit/test_execution_runtime.py"
 testnet_protection_evidence = "tests/unit/test_binance_testnet.py"
+failure_recovery_report = "results/operational_recovery_rehearsal.json"
+failure_recovery_report_sha256 = "160e7d074cf5a3690c53d42e600774b51ce953af7860bb07655b4dcf0de85e5f"
 note = "Engineering may advance in paper mode; real trading remains blocked."

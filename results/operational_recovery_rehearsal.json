@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-23T22:50:39.998152+00:00",
+  "implementation_commit": "d8a6d8661726b39d3835cea4777c5a4716050421",
+  "environment": "deterministic-paper-no-network-no-credentials",
+  "passed": true,
+  "scenario_count": 5,
+  "duplicate_entry_submissions": 0,
+  "scenarios": [
+    {
+      "name": "response_lost_after_accept",
+      "expected_status": "protected",
+      "actual_status": "protected",
+      "recovery_entry_submissions": 0,
+      "passed": true
+    },
+    {
+      "name": "already_protected_restart",
+      "expected_status": "protected",
+      "actual_status": "protected",
+      "recovery_entry_submissions": 0,
+      "passed": true
+    },
+    {
+      "name": "exchange_side_close",
+      "expected_status": "closed",
+      "actual_status": "closed",
+      "recovery_entry_submissions": 0,
+      "passed": true
+    },
+    {
+      "name": "unresolved_submission",
+      "expected_status": "unresolved",
+      "actual_status": "unresolved",
+      "recovery_entry_submissions": 0,
+      "passed": true
+    },
+    {
+      "name": "journal_exchange_divergence",
+      "expected_status": "divergence",
+      "actual_status": "divergence",
+      "recovery_entry_submissions": 0,
+      "passed": true
+    }
+  ]
+}
