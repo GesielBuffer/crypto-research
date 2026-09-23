@@ -369,9 +369,11 @@ class BinanceTestnetTests(unittest.TestCase):
         self.assertEqual(deleted, {stop_id, take_profit_id})
         self.assertNotIn(unrelated_id, deleted)
 
-    def test_emergency_close_is_reduce_only_and_cancels_triggers(self):
+    def test_emergency_close_is_reduce_only_and_cancels_only_owned_triggers(self):
         entry_fill = Fill.from_intent(intent())
         exit_id = child_order_id(intent().client_order_id, "exit")
+        stop_id = child_order_id(intent().client_order_id, "sl")
+        unrelated_id = "unrelated-protection"
         close_body = {
             "clientOrderId": exit_id,
             "symbol": "BTCUSDT",
@@ -383,15 +385,29 @@ class BinanceTestnetTests(unittest.TestCase):
         session = FakeSession([
             FakeResponse(400, {"code": -2013, "msg": "Order does not exist"}),
             FakeResponse(200, close_body),
+            FakeResponse(200, [
+                {"clientAlgoId": stop_id},
+                {"clientAlgoId": unrelated_id},
+            ]),
             FakeResponse(200, {"code": 200, "msg": "success"}),
+            FakeResponse(200, [{"clientAlgoId": unrelated_id}]),
         ])
         exchange = BinanceUsdMTestnetExchange("key", "secret", session=session)
         fill = exchange.emergency_close(intent(), entry_fill)
         self.assertEqual(fill.client_order_id, exit_id)
         self.assertEqual(session.calls[1][2]["params"]["reduceOnly"], "true")
-        self.assertEqual(session.calls[2][0:2], (
-            "DELETE", TESTNET_BASE_URL + "/fapi/v1/algoOpenOrders"
-        ))
+        self.assertEqual(
+            session.calls[3][0:2],
+            ("DELETE", TESTNET_BASE_URL + "/fapi/v1/algoOrder"),
+        )
+        self.assertEqual(session.calls[3][2]["params"]["clientAlgoId"], stop_id)
+        self.assertTrue(
+            all(
+                call[2]["params"].get("clientAlgoId") != unrelated_id
+                for call in session.calls
+                if call[0] == "DELETE"
+            )
+        )
 
     def test_preflight_is_read_only_and_reports_dirty_account(self):
         session = FakeSession([

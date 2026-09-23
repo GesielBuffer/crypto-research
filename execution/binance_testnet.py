@@ -529,9 +529,7 @@ class BinanceUsdMTestnetExchange:
             existing = self._fill_from_response(body)
             if existing is None:
                 raise RuntimeError("testnet emergency close did not return an execution")
-        self._signed_request(
-            "DELETE", "/fapi/v1/algoOpenOrders", {"symbol": intent.symbol}
-        )
+        self.cancel_protection(intent)
         return existing
 
     def find_emergency_exit(self, intent: OrderIntent) -> Fill | None:

@@ -78,6 +78,8 @@ Enquanto houver blockers, nenhum adaptador de conta real deve ser conectado ao
   para recriar stop e alvo;
 - ordens condicionais orfas sao identificadas pelos IDs daquela entrada,
   canceladas de forma restrita e verificadas; ordens alheias nao sao tocadas;
+- o fechamento emergencial tambem usa cancelamento restrito por ID e nunca o
+  endpoint de cancelamento global do simbolo;
 - quantidade parcial, invertida ou multiplas linhas de posicao bloqueiam a
   automacao e exigem reconciliacao;
 - timestamps obsoletos ou no futuro sao recusados;
