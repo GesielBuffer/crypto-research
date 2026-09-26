@@ -18,6 +18,13 @@ o corte absoluto gerou cinco operacoes na validacao e zero na confirmacao. A
 decisao foi `FAIL`; a evidencia orienta uma familia adaptativa nova, sem alterar
 retroativamente o protocolo testado.
 
+O V2 adaptativo compara a media recente de funding com um percentil calculado
+exclusivamente em observacoes anteriores. A descoberta nao le o holdout:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.adaptive_carry
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
