@@ -79,6 +79,13 @@ perfil-base teve PF minimo de 1,121, PF agregado de 1,205 e drawdown de 14,5%;
 faltaram robustez ao custo de estresse na confirmacao e amplitude por ativo.
 Isso autoriza uma V2 pre-registrada, nao paper trading nem ordem real.
 
+O V2 mantem o sinal 3/3 escolhido e testa somente histerese de saida ate a
+mediana, acrescentando bootstrap em blocos:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.cross_sectional_funding_carry_v2
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
