@@ -1,5 +1,10 @@
 # Crypto Research
 
+O programa atual de descoberta, suas fontes e as quatro familias priorizadas
+estao documentados em `docs/PROGRAMA_ESTRATEGIAS.md`. O projeto registra tambem
+todas as tentativas em `experiments/TRIAL_LEDGER.md`, evitando apagar resultados
+negativos ou subestimar selecao multipla.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

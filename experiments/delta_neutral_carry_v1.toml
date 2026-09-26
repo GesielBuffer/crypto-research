@@ -1,0 +1,61 @@
+[experiment]
+strategy_version = "DELTA_NEUTRAL_CARRY_V1"
+hypothesis = "Known positive perpetual funding can compensate a delta-neutral long-spot/short-perpetual position after basis movement and two-leg costs."
+registered_on = "2026-09-26"
+status = "PREREGISTERED"
+family = "structural_carry"
+
+[data]
+symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT"]
+start = "2024-01-01"
+end = "2026-08-01"
+perpetual_interval = "5m"
+spot_interval = "5m"
+manifest = "manifests/structural_carry_data.json"
+
+[splits]
+development_start = "2024-01-01"
+development_end = "2025-01-01"
+validation_start = "2025-01-01"
+validation_end = "2026-01-01"
+confirmation_start = "2026-01-01"
+confirmation_end = "2026-08-01"
+
+[signal]
+observation = "immediately after a settled funding record"
+entry = "first complete 5m spot and perpetual open strictly after observation"
+trailing_funding_records = 21
+annualization_periods = 1095
+require_positive_current_funding = true
+require_nonnegative_entry_basis = true
+max_entry_basis = 0.02
+negative_funding_trade = false
+
+[execution]
+legs = ["long_spot", "short_linear_usdm_perpetual"]
+capital_convention = "return on unlevered gross capital, half allocated to each leg"
+overlap = "single_position_per_symbol"
+hold_funding_periods = [21, 42]
+min_trailing_annualized_funding = [0.10, 0.20]
+portfolio_round_trip_costs = [0.0015, 0.0025]
+funding_accounting = "realized future funding received by the short perpetual leg, divided by two under gross-capital convention"
+price_accounting = "half spot long return plus half linear perpetual short return; basis convergence is therefore explicit"
+
+[selection]
+development_min_samples = 20
+validation_min_samples = 20
+confirmation_min_samples = 12
+development_min_profit_factor = 1.15
+validation_min_profit_factor = 1.10
+confirmation_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+min_profitable_assets_per_split = 3
+max_split_drawdown = 0.10
+
+[decision]
+rule = "PASS only if one fixed threshold and holding period clears every split, stress-cost, breadth and drawdown gate."
+tie_break = "highest minimum base-cost PF, then shorter holding period, then higher funding threshold"
+august_2026_role = "excluded; previously opened data cannot be a fresh holdout"
+september_2026_role = "untouched; may be opened only after a candidate passes and is frozen"
+production_effect = "PASS freezes a research candidate only; spot execution, paper, Testnet and a fresh holdout remain mandatory."
+
