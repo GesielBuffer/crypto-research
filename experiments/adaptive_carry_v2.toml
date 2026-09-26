@@ -1,0 +1,58 @@
+[experiment]
+strategy_version = "ADAPTIVE_CARRY_V2"
+hypothesis = "A trailing funding percentile identifies relative carry opportunities despite non-stationary absolute funding levels."
+registered_on = "2026-09-26"
+status = "PREREGISTERED"
+family = "structural_carry_adaptive"
+motivation = "V1 documented a large decline in absolute funding levels; V2 changes the signal family and requires a new untouched holdout."
+
+[discovery_data]
+symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT"]
+start = "2024-01-01"
+end = "2026-08-01"
+perpetual_manifest = "manifests/c2_candles.json"
+structural_manifest = "manifests/structural_carry_data.json"
+role = "discovery and walk-forward only; all periods are considered opened after V1"
+
+[signal]
+trailing_funding_records = 21
+percentile_history_records = 180
+entry_percentiles = [0.75, 0.90]
+require_positive_current_funding = true
+require_nonnegative_entry_basis = true
+max_entry_basis = 0.02
+entry = "first complete common 5m open strictly after the observed funding record"
+
+[execution]
+legs = ["long_spot", "short_linear_usdm_perpetual"]
+capital_convention = "unlevered gross capital, half allocated to each leg"
+hold_funding_periods = [21, 42]
+portfolio_round_trip_costs = [0.0015, 0.0025]
+overlap = "single_position_per_symbol"
+
+[discovery_selection]
+calendar_segments = [2024, 2025, 2026]
+min_samples_per_full_year = 20
+min_samples_2026_partial = 12
+min_profit_factor_each_segment = 1.05
+stress_cost_min_profit_factor = 1.00
+min_profitable_assets_pooled = 3
+max_pooled_drawdown = 0.10
+tie_break = "highest minimum segment PF, then shorter holding period, then higher percentile"
+
+[fresh_holdout]
+start = "2026-09-01"
+end = "2026-10-01"
+not_before = "2026-10-01"
+status = "UNOPENED"
+minimum_trades = 8
+base_cost_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+max_drawdown = 0.05
+rule = "No parameter, threshold, asset or cost change is allowed after discovery candidate freeze."
+
+[decision]
+discovery_effect = "At most one fixed configuration may be frozen. Discovery PASS does not approve trading."
+holdout_effect = "Only a fresh-holdout PASS can advance the candidate to shadow and paper evaluation."
+production_effect = "None until paper, Testnet, operational and human gates also pass."
+
