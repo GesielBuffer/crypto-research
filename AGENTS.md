@@ -4,6 +4,9 @@
 
 Transformar este laboratorio em um sistema de pesquisa quantitativa reproduzivel e, somente depois de validacao fora da amostra, em um bot de cripto seguro. O objetivo do agente nao e maximizar um backtest isolado; e encontrar evidencias robustas que sobrevivam a custos, ativos, periodos e dados nunca usados no desenvolvimento.
 
+Na retomada, leia `docs/CONTEXTO_ATUAL.md` depois deste arquivo. Ele e o indice
+canonico do estado, das evidencias e do proximo passo do projeto.
+
 ## Regra de seguranca inegociavel
 
 - Nunca execute `main.py`, envie ordens, altere `DRY_RUN` para `False` ou use a conta real sem autorizacao explicita do usuario para aquela execucao.

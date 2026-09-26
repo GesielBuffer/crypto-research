@@ -1,5 +1,8 @@
 # Crypto Research
 
+Para retomar o projeto sem reler todo o historico, comece pelo indice
+[`docs/CONTEXTO_ATUAL.md`](docs/CONTEXTO_ATUAL.md).
+
 O programa atual de descoberta, suas fontes e as quatro familias priorizadas
 estao documentados em `docs/PROGRAMA_ESTRATEGIAS.md`. O projeto registra tambem
 todas as tentativas em `experiments/TRIAL_LEDGER.md`, evitando apagar resultados
