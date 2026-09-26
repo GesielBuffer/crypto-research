@@ -1,0 +1,21 @@
+{
+  "decision": "REJECT",
+  "holdout_status": "UNOPENED",
+  "minimum_split_profit_factor": 1.1868164162706787,
+  "pooled_drawdown": 0.11343233040502887,
+  "pooled_mean_ci_high": 0.0014563423740911743,
+  "pooled_mean_ci_low": 0.0003632043680923344,
+  "pooled_probability_positive": 0.9995,
+  "pooled_profit_factor": 1.339409200476775,
+  "positive_symbols": 7,
+  "promotion_reasons": [
+    "confirmation_bootstrap",
+    "development_bootstrap",
+    "symbol_breadth"
+  ],
+  "research_reasons": [
+    "symbol_breadth"
+  ],
+  "stage": "DISCOVERY",
+  "strategy_version": "CROSS_SECTIONAL_FUNDING_CARRY_V2"
+}

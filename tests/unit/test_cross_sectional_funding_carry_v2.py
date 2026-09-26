@@ -1,4 +1,6 @@
+import json
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
@@ -9,6 +11,13 @@ from research.experiments.cross_sectional_funding_carry_v2 import (
 
 
 class CrossSectionalFundingCarryV2Tests(unittest.TestCase):
+    def test_frozen_v2_preserves_original_rejection(self):
+        path = Path(__file__).parents[2] / "results" / "cross_sectional_funding_carry_v2_decision.json"
+        report = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(report["decision"], "REJECT")
+        self.assertEqual(report["holdout_status"], "UNOPENED")
+        self.assertIn("symbol_breadth", report["research_reasons"])
+
     def test_hysteresis_retains_positions_until_median_cross(self):
         ranking = pd.Series({f"S{i:02d}": float(i) for i in range(16)})
         longs, shorts = hysteresis_membership(

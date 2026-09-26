@@ -66,3 +66,17 @@ antes da promocao.
 O V2 de carry transversal inaugura o bootstrap em blocos como metrica adicional.
 Ele reportara a probabilidade empirica de retorno medio liquido positivo, com
 semente, tamanho de bloco e numero de reamostragens congelados no protocolo.
+
+### Correcao prospectiva apos o V2
+
+O V2 mostrou PF-base minimo de 1,187, PF agregado 1,339, drawdown 11,3% e
+probabilidade bootstrap agregada de 99,95%, mas foi rejeitado porque somente 7
+ativos tiveram contribuicao liquida positiva e dois splits ficaram abaixo de
+95% no bootstrap. A contagem de ativos positivos e inadequada para valor
+relativo: ativos podem ser perdedores persistentes e ainda diversificar o risco.
+
+O diagnostico leave-one-asset-out manteve PF entre 1,209 e 1,419 ao remover
+qualquer ativo. A V3 substitui a contagem por esse teste de dependencia e evita
+duplicar o gate temporal: exige PF e stress por split, bootstrap agregado forte
+e probabilidade minima moderada por split. Isso nao altera retroativamente o
+V2. A mesma estrategia sera congelada e julgada em setembro nunca usado.

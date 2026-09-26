@@ -2,7 +2,7 @@
 strategy_version = "CROSS_SECTIONAL_FUNDING_CARRY_V2"
 hypothesis = "Median-exit hysteresis preserves the V1 funding-spread signal while reducing turnover and broadening contribution enough to survive stress costs."
 registered_on = "2026-09-26"
-status = "PREREGISTERED"
+status = "REJECT"
 family = "cross_sectional_funding_carry_hysteresis"
 parent = "CROSS_SECTIONAL_FUNDING_CARRY_V1"
 change_from_parent = "Portfolio membership only; signal, universe, periods, costs and gates remain fixed."
@@ -74,3 +74,4 @@ rule = "Only HOLDOUT_READY may open this interval; RESEARCH_CANDIDATE remains di
 [decision]
 levels = ["REJECT", "RESEARCH_CANDIDATE", "HOLDOUT_READY"]
 production_effect = "None until fresh holdout, paper, Testnet, operational and human gates also pass."
+observed = "Portfolio metrics improved materially, but the preregistered positive-symbol count and per-split bootstrap gates rejected V2."

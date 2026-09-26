@@ -86,6 +86,12 @@ mediana, acrescentando bootstrap em blocos:
 .\.venv\Scripts\python.exe -m research.experiments.cross_sectional_funding_carry_v2
 ```
 
+O V2 obteve PF agregado 1,339, PF minimo por split 1,187, drawdown 11,3% e
+bootstrap agregado de 99,95%, mas foi `REJECT` pelas regras congeladas de
+contagem de ativos e bootstrap por split. O leave-one-asset-out mostrou que
+nenhum ativo sustenta sozinho o resultado. A mesma estrategia, sem retuning,
+segue congelada para uma V3 e para o holdout realmente novo de setembro.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
