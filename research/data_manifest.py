@@ -38,16 +38,24 @@ def _relative_path(path: Path, root: Path) -> str:
 
 
 def describe_candle_file(path: Path, root: Path = BASE_DIR) -> dict:
-    """Return content identity and temporal coverage for one candle CSV."""
+    """Return content identity and temporal coverage for one market-data CSV."""
 
     if not path.exists():
         raise FileNotFoundError(f"missing dataset file: {path}")
-    times = pd.read_csv(path, usecols=["open_time"])["open_time"]
-    parsed = pd.to_datetime(times, utc=True, errors="raise")
+    columns = pd.read_csv(path, nrows=0).columns
+    time_column = next(
+        (name for name in ("open_time", "fundingTime") if name in columns),
+        None,
+    )
+    if time_column is None:
+        raise ValueError(f"dataset has no supported time column: {path}")
+    times = pd.read_csv(path, usecols=[time_column])[time_column]
+    parsed = pd.to_datetime(times, utc=True, errors="raise", format="mixed")
     return {
         "path": _relative_path(path, root),
         "bytes": path.stat().st_size,
         "rows": len(parsed),
+        "time_column": time_column,
         "first_open_time": parsed.min().isoformat() if len(parsed) else None,
         "last_open_time": parsed.max().isoformat() if len(parsed) else None,
         "sha256": file_sha256(path),

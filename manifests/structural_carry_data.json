@@ -1,0 +1,83 @@
+{
+  "dataset_id": "structural-carry-spot-funding-2024-01_2026-08",
+  "files": [
+    {
+      "bytes": 176485,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-07-31T16:00:00+00:00",
+      "path": "data/BNBUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "sha256": "8b01c64fb00bc17ca38380f036a5a66ed3a94a85e881b02eab4a534613277d66",
+      "time_column": "fundingTime"
+    },
+    {
+      "bytes": 26961769,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-07-31T23:55:00+00:00",
+      "path": "data/BNBUSDT_spot_5m_2024-01-01_2026-08-01.csv",
+      "rows": 271584,
+      "sha256": "9d813dffbfc7803cc5095e3ccd9070650873d01a886acbf6e76be77e3e0a658c",
+      "time_column": "open_time"
+    },
+    {
+      "bytes": 187645,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-07-31T16:00:00+00:00",
+      "path": "data/BTCUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "sha256": "ac978b47aa3059c8d83af87b3a531fcc910a81efdb694efcd1470a4938965c97",
+      "time_column": "fundingTime"
+    },
+    {
+      "bytes": 32030337,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-07-31T23:55:00+00:00",
+      "path": "data/BTCUSDT_spot_5m_2024-01-01_2026-08-01.csv",
+      "rows": 271584,
+      "sha256": "5adf5fb54afd0f3ebd7469c45eee18f2176230c16f8ee8072a1f769a78d89909",
+      "time_column": "open_time"
+    },
+    {
+      "bytes": 185775,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-07-31T16:00:00+00:00",
+      "path": "data/ETHUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "sha256": "8e2a3e6beeb81d3ff3dc3cfffbb3299fdcff4cd678d056cf940508c9d0c05958",
+      "time_column": "fundingTime"
+    },
+    {
+      "bytes": 30223604,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-07-31T23:55:00+00:00",
+      "path": "data/ETHUSDT_spot_5m_2024-01-01_2026-08-01.csv",
+      "rows": 271584,
+      "sha256": "750772bccca7fd6e5cfa971fda06028bf531008ceb368128ebea35c53fd36bcc",
+      "time_column": "open_time"
+    },
+    {
+      "bytes": 183565,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-07-31T16:00:00+00:00",
+      "path": "data/SOLUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "sha256": "b77ad8d95417f1974b8ab0d24833b84e97c21e31f3be9c8511814a859f170b53",
+      "time_column": "fundingTime"
+    },
+    {
+      "bytes": 28026900,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-07-31T23:55:00+00:00",
+      "path": "data/SOLUSDT_spot_5m_2024-01-01_2026-08-01.csv",
+      "rows": 271584,
+      "sha256": "b036cdce96a9a8a716cbef7bbba3c0c11510782d6171134aa4acd9a13f2951d6",
+      "time_column": "open_time"
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "endpoint": "https://fapi.binance.com/fapi/v1/klines",
+    "market": "USD-M Futures",
+    "provider": "Binance"
+  }
+}

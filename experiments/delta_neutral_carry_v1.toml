@@ -11,7 +11,8 @@ start = "2024-01-01"
 end = "2026-08-01"
 perpetual_interval = "5m"
 spot_interval = "5m"
-manifest = "manifests/structural_carry_data.json"
+perpetual_manifest = "manifests/c2_candles.json"
+structural_manifest = "manifests/structural_carry_data.json"
 
 [splits]
 development_start = "2024-01-01"
@@ -58,4 +59,3 @@ tie_break = "highest minimum base-cost PF, then shorter holding period, then hig
 august_2026_role = "excluded; previously opened data cannot be a fresh holdout"
 september_2026_role = "untouched; may be opened only after a candidate passes and is frozen"
 production_effect = "PASS freezes a research candidate only; spot execution, paper, Testnet and a fresh holdout remain mandatory."
-

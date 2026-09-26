@@ -52,3 +52,14 @@ class DataManifestTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(ValueError, "absent from data manifest"):
             verify_manifest(self.manifest_path, [self.candles], root=self.root)
+
+    def test_funding_time_is_supported(self):
+        funding = self.data / "BTCUSDT_funding_sample.csv"
+        funding.write_text(
+            "symbol,fundingTime,fundingRate\n"
+            "BTCUSDT,2026-01-01T00:00:00Z,0.0001\n",
+            encoding="utf-8",
+        )
+        manifest = build_manifest([funding], dataset_id="funding", root=self.root)
+        self.assertEqual(manifest["files"][0]["time_column"], "fundingTime")
+        self.assertEqual(manifest["files"][0]["rows"], 1)
