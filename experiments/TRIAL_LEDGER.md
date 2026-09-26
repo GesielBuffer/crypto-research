@@ -12,6 +12,7 @@ que a selecao futura nao trate o melhor backtest como uma descoberta isolada.
 | HOURLY_BREAKOUT_V1 | 8 | FAIL | breakout horario |
 | DELTA_NEUTRAL_CARRY_V1 | 4 | FAIL: quebra de regime e amostra OOS insuficiente | carry estrutural delta-neutro |
 | ADAPTIVE_CARRY_V2 | 4 | FAIL_DISCOVERY: nenhum conjunto passou 2024/2025/2026 | carry relativo; holdout de setembro permaneceu fechado |
+| CROSS_SECTIONAL_MOMENTUM_V1 | 4 | PREREGISTERED | momentum relativo em universo ampliado |
 
 O numero total de configuracoes e familias sera usado nas correcoes de selecao
 quando houver uma candidata com serie de retornos de portfolio suficiente.

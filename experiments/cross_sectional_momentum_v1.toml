@@ -1,0 +1,79 @@
+[experiment]
+strategy_version = "CROSS_SECTIONAL_MOMENTUM_V1"
+hypothesis = "Relative momentum among liquid crypto perpetuals persists after market-neutral construction, volatility scaling and realistic turnover costs."
+registered_on = "2026-09-26"
+status = "PREREGISTERED"
+family = "cross_sectional_momentum"
+
+[data]
+source = "Binance USD-M public klines"
+interval = "4h"
+start = "2024-01-01"
+discovery_end = "2026-08-01"
+candidate_symbols = [
+  "BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT", "ADAUSDT",
+  "DOGEUSDT", "LINKUSDT", "AVAXUSDT", "DOTUSDT", "LTCUSDT", "BCHUSDT",
+  "TRXUSDT", "ETCUSDT", "ATOMUSDT", "UNIUSDT", "FILUSDT", "NEARUSDT",
+  "APTUSDT", "ARBUSDT", "OPUSDT", "INJUSDT", "XLMUSDT", "AAVEUSDT",
+]
+
+[universe]
+formation_start = "2024-01-01"
+formation_end = "2024-04-01"
+selection = "top 16 by median daily quote volume during formation"
+minimum_daily_coverage = 0.90
+freeze_after_formation = true
+known_limitation = "Fixed mature candidate list avoids outcome-based additions but cannot fully remove exchange-survivorship bias."
+
+[signal]
+lookback_days = [7, 28]
+rebalance_days = [1, 7]
+skip_hours = 24
+score = "return from t-lookback to t-skip divided by trailing 28-day realized volatility, all from completed 4h closes"
+long_fraction = 0.25
+short_fraction = 0.25
+entry = "next 4h open after the UTC rebalance timestamp"
+
+[portfolio]
+gross_exposure = 1.0
+long_gross = 0.5
+short_gross = 0.5
+weighting = "inverse trailing 28-day volatility within each side, normalized and capped at 15 percent gross per asset"
+overlap = "one portfolio held until the next rebalance"
+funding = "excluded in V1; base and stress cost gates must pass before funding-sensitive confirmation"
+round_trip_costs = [0.0006, 0.0014]
+cost_application = "charged per absolute change in portfolio weight, including opening, rebalancing and final close"
+
+[splits]
+development = ["2024-04-01", "2025-01-01"]
+validation = ["2025-01-01", "2026-01-01"]
+confirmation = ["2026-01-01", "2026-08-01"]
+
+[selection]
+minimum_rebalances_each_full_split = 35
+minimum_rebalances_confirmation = 20
+base_cost_min_profit_factor_each_split = 1.10
+stress_cost_min_profit_factor_each_split = 1.00
+minimum_positive_symbols = 10
+max_pooled_drawdown = 0.15
+tie_break = "highest minimum base-cost split profit factor, then lower turnover, then longer lookback"
+
+[fresh_holdout]
+start = "2026-09-01"
+end = "2026-09-26"
+status = "UNOPENED"
+minimum_rebalances = 3
+base_cost_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+max_drawdown = 0.08
+rule = "Open only after exactly one discovery configuration and its universe are frozen; no asset, score or parameter changes afterward."
+
+[opened_stress]
+start = "2026-08-01"
+end = "2026-09-01"
+role = "secondary stress only because August outcomes were opened by prior research"
+
+[decision]
+discovery_effect = "At most one fixed configuration may advance; discovery PASS does not approve trading."
+holdout_effect = "Only a fresh-holdout PASS may advance to shadow and paper evaluation."
+production_effect = "None until paper, Testnet, operational and human gates also pass."

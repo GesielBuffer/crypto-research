@@ -46,6 +46,12 @@ perdedores com neutralizacao de beta e volatilidade. Quatro ativos sao
 insuficientes para uma ordenacao transversal robusta; antes do teste, o universo
 deve ser ampliado por regra de liquidez definida sem olhar retornos futuros.
 
+O protocolo `CROSS_SECTIONAL_MOMENTUM_V1` foi congelado antes da aquisicao dos
+novos dados. Ele parte de 24 contratos maduros, seleciona 16 apenas pela liquidez
+de janeiro a marco de 2024 e testa quatro combinacoes de lookback/rebalance. A
+carteira e long/short, com exposicao bruta simetrica, pesos por volatilidade e
+custo aplicado ao turnover real.
+
 ### 3. Trend following lento e multivelocidade
 
 Combinar sinais de semanas, nao breakouts horarios, com dimensionamento por
