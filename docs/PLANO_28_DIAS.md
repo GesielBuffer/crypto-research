@@ -65,3 +65,11 @@ pareados, sem usar agosto de 2026. Todas falharam os gates registrados. A regra
 isoladamente mais proxima de PF 1 na confirmacao nao resistiu ao custo de 0,10%
 nem ao split de validacao. Decisao: `FAIL`, sem tuning posterior e sem efeito de
 promocao.
+
+Em 2026-09-26, como nenhuma familia anterior podia ser promovida, foi registrada
+`HOURLY_BREAKOUT_V1`. A familia reduz giro com candles de uma hora, exige
+breakout confirmado na direcao da tendencia, entra somente no candle seguinte e
+usa stop por ATR e alvo em R. A grade, os tres splits e os gates foram congelados
+antes da primeira execucao. Agosto continua excluido como holdout ja aberto e
+setembro permanece intocado ate que exista uma candidata aprovada nos tres
+splits anteriores.

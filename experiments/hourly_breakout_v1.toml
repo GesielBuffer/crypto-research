@@ -1,0 +1,57 @@
+[experiment]
+strategy_version = "HOURLY_BREAKOUT_V1"
+hypothesis = "Low-turnover hourly Donchian breakouts aligned with a slow trend can survive realistic futures costs across assets and non-overlapping time splits."
+registered_on = "2026-09-26"
+status = "PREREGISTERED"
+
+[data]
+symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT"]
+source_interval = "5m"
+research_interval = "1h"
+start = "2024-01-01"
+end = "2026-08-01"
+manifest = "manifests/c2_candles.json"
+
+[splits]
+development_start = "2024-01-01"
+development_end = "2025-01-01"
+validation_start = "2025-01-01"
+validation_end = "2026-01-01"
+confirmation_start = "2026-01-01"
+confirmation_end = "2026-08-01"
+
+[execution]
+entry_delay_bars = 1
+overlap = "single_position_per_symbol"
+same_bar_policy = "adverse_first"
+atr_period = 24
+reward_r_multiple = 2.5
+max_hold_bars = 120
+min_atr_fraction = 0.002
+max_atr_fraction = 0.04
+costs = [0.0006, 0.0010, 0.0014]
+cost_interpretation = "Round-trip fee plus slippage and funding proxy; 0.0014 is the promotion stress."
+break_even = false
+
+[grid]
+breakout_windows = [24, 72]
+trend_ema_spans = [100, 200]
+stop_atr_multiples = [1.5, 2.0]
+sides = ["long", "short"]
+
+[selection]
+development_min_samples = 40
+validation_min_samples = 40
+confirmation_min_samples = 25
+development_min_profit_factor = 1.15
+validation_min_profit_factor = 1.10
+confirmation_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+min_profitable_assets_per_split = 3
+max_split_drawdown = 0.20
+
+[decision]
+rule = "PASS only if one unchanged parameter set clears sample, base PF, 0.14% stress cost, asset breadth and drawdown gates in every split."
+august_2026_role = "excluded; previously opened data cannot be a fresh holdout"
+september_2026_role = "untouched future holdout; do not download or inspect before a candidate is frozen"
+production_effect = "A development PASS only freezes one candidate; it does not authorize paper, Testnet or live trading."
