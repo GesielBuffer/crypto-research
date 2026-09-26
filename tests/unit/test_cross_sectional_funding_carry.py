@@ -3,6 +3,7 @@ import unittest
 import pandas as pd
 
 from research.experiments.cross_sectional_funding_carry import (
+    fetch_funding,
     funding_between,
     period_return,
     trailing_funding_matrix,
@@ -10,6 +11,25 @@ from research.experiments.cross_sectional_funding_carry import (
 
 
 class CrossSectionalFundingCarryTests(unittest.TestCase):
+    def test_fetch_accepts_api_symbol_field(self):
+        class Response:
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return [{"symbol": "BTCUSDT", "fundingTime": 1704067200000, "fundingRate": "0.0001"}]
+
+        import unittest.mock
+        protocol = {"data": {
+            "start": "2024-01-01",
+            "discovery_end": "2024-01-02",
+            "funding_endpoint": "https://example.invalid/funding",
+        }}
+        with unittest.mock.patch("research.experiments.cross_sectional_funding_carry.requests.get", return_value=Response()):
+            frame = fetch_funding("BTCUSDT", protocol)
+        self.assertEqual(frame.iloc[0]["symbol"], "BTCUSDT")
+        self.assertAlmostEqual(frame.iloc[0]["fundingRate"], 0.0001)
+
     def test_positive_funding_is_received_by_short_and_paid_by_long(self):
         weights = pd.Series({"LONG": 0.5, "SHORT": -0.5})
         entry = pd.Series({"LONG": 100.0, "SHORT": 100.0})

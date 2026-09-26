@@ -81,7 +81,7 @@ def fetch_funding(symbol: str, protocol: dict) -> pd.DataFrame:
         raise RuntimeError(f"no public funding returned for {symbol}")
     frame["fundingTime"] = pd.to_datetime(frame["fundingTime"], unit="ms", utc=True)
     frame["fundingRate"] = pd.to_numeric(frame["fundingRate"], errors="raise")
-    frame.insert(0, "symbol", symbol)
+    frame["symbol"] = symbol
     return frame[["symbol", "fundingTime", "fundingRate"]].drop_duplicates("fundingTime").sort_values("fundingTime")
 
 
