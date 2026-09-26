@@ -24,6 +24,7 @@ confirmation_end = "2026-08-01"
 entry_delay_bars = 1
 overlap = "single_position_per_symbol"
 same_bar_policy = "adverse_first"
+short_return_convention = "linear_usdm"
 atr_period = 24
 reward_r_multiple = 2.5
 max_hold_bars = 120
@@ -52,6 +53,7 @@ max_split_drawdown = 0.20
 
 [decision]
 rule = "PASS only if one unchanged parameter set clears sample, base PF, 0.14% stress cost, asset breadth and drawdown gates in every split."
+tie_break = "highest minimum base-cost PF across the three splits, then smallest grid values lexicographically"
 august_2026_role = "excluded; previously opened data cannot be a fresh holdout"
 september_2026_role = "untouched future holdout; do not download or inspect before a candidate is frozen"
 production_effect = "A development PASS only freezes one candidate; it does not authorize paper, Testnet or live trading."
