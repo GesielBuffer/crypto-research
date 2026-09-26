@@ -74,6 +74,11 @@ funding; ele baixa apenas dados publicos e mantem agosto/setembro fechados:
 .\.venv\Scripts\python.exe -m research.experiments.cross_sectional_funding_carry --download
 ```
 
+O V1 encontrou tres `RESEARCH_CANDIDATE`, mas nenhum `HOLDOUT_READY`. O melhor
+perfil-base teve PF minimo de 1,121, PF agregado de 1,205 e drawdown de 14,5%;
+faltaram robustez ao custo de estresse na confirmacao e amplitude por ativo.
+Isso autoriza uma V2 pre-registrada, nao paper trading nem ordem real.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

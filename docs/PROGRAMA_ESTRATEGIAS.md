@@ -106,6 +106,12 @@ continuidade de pesquisa e promocao. O segundo ciclo comeca por
 nos de maior funding, com preco, funding e turnover contabilizados em carteira
 equilibrada. O protocolo foi congelado antes da aquisicao do funding ampliado.
 
+Resultado V1: `RESEARCH_CANDIDATE`. Tres dos quatro conjuntos passaram o nivel
+de continuidade cientifica e nenhum passou `HOLDOUT_READY`. O conjunto 3/3 teve
+PF-base 1,121 / 1,320 / 1,138, PF agregado 1,205 e drawdown de 14,5%, mas falhou
+no custo de estresse da confirmacao e teve somente 8 ativos positivos. Setembro
+permaneceu fechado.
+
 ## Arquitetura final pretendida
 
 Os motores aprovados nao serao somados por retorno historico maximo. O portfolio

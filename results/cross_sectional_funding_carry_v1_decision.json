@@ -1,0 +1,87 @@
+{
+  "candidates": [
+    {
+      "level": "REJECT",
+      "minimum_split_profit_factor": 1.0397521622408117,
+      "pooled_drawdown": 0.15457604407779146,
+      "pooled_profit_factor": 1.077007881702634,
+      "positive_symbols": 10,
+      "promotion_reasons": [
+        "confirmation_base",
+        "confirmation_stress",
+        "development_base",
+        "development_stress",
+        "drawdown",
+        "validation_stress"
+      ],
+      "rebalance_funding_periods": 1,
+      "research_reasons": [
+        "pooled_profit_factor"
+      ],
+      "trailing_funding_records": 3
+    },
+    {
+      "level": "RESEARCH_CANDIDATE",
+      "minimum_split_profit_factor": 1.1214105173514721,
+      "pooled_drawdown": 0.1447958691817801,
+      "pooled_profit_factor": 1.204714943159763,
+      "positive_symbols": 8,
+      "promotion_reasons": [
+        "confirmation_stress",
+        "symbol_breadth"
+      ],
+      "rebalance_funding_periods": 3,
+      "research_reasons": [],
+      "trailing_funding_records": 3
+    },
+    {
+      "level": "RESEARCH_CANDIDATE",
+      "minimum_split_profit_factor": 1.0812811571966532,
+      "pooled_drawdown": 0.14335466035610112,
+      "pooled_profit_factor": 1.1384865344296973,
+      "positive_symbols": 10,
+      "promotion_reasons": [
+        "validation_base"
+      ],
+      "rebalance_funding_periods": 1,
+      "research_reasons": [],
+      "trailing_funding_records": 21
+    },
+    {
+      "level": "RESEARCH_CANDIDATE",
+      "minimum_split_profit_factor": 1.0775057089973061,
+      "pooled_drawdown": 0.1659673727000095,
+      "pooled_profit_factor": 1.184925952601002,
+      "positive_symbols": 9,
+      "promotion_reasons": [
+        "drawdown",
+        "symbol_breadth",
+        "validation_base"
+      ],
+      "rebalance_funding_periods": 3,
+      "research_reasons": [],
+      "trailing_funding_records": 21
+    }
+  ],
+  "decision": "RESEARCH_CANDIDATE",
+  "holdout_ready_parameter_sets": 0,
+  "holdout_status": "UNOPENED",
+  "research_candidate_parameter_sets": 3,
+  "selected": {
+    "level": "RESEARCH_CANDIDATE",
+    "minimum_split_profit_factor": 1.1214105173514721,
+    "pooled_drawdown": 0.1447958691817801,
+    "pooled_profit_factor": 1.204714943159763,
+    "positive_symbols": 8,
+    "promotion_reasons": [
+      "confirmation_stress",
+      "symbol_breadth"
+    ],
+    "rebalance_funding_periods": 3,
+    "research_reasons": [],
+    "trailing_funding_records": 3
+  },
+  "stage": "DISCOVERY",
+  "strategy_version": "CROSS_SECTIONAL_FUNDING_CARRY_V1",
+  "tested_parameter_sets": 4
+}

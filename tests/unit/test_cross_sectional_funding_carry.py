@@ -1,4 +1,6 @@
+import json
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
@@ -11,6 +13,14 @@ from research.experiments.cross_sectional_funding_carry import (
 
 
 class CrossSectionalFundingCarryTests(unittest.TestCase):
+    def test_frozen_result_is_research_only_and_keeps_holdout_closed(self):
+        path = Path(__file__).parents[2] / "results" / "cross_sectional_funding_carry_v1_decision.json"
+        report = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(report["decision"], "RESEARCH_CANDIDATE")
+        self.assertEqual(report["research_candidate_parameter_sets"], 3)
+        self.assertEqual(report["holdout_ready_parameter_sets"], 0)
+        self.assertEqual(report["holdout_status"], "UNOPENED")
+
     def test_fetch_accepts_api_symbol_field(self):
         class Response:
             def raise_for_status(self):

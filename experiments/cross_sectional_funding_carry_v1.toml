@@ -2,7 +2,7 @@
 strategy_version = "CROSS_SECTIONAL_FUNDING_CARRY_V1"
 hypothesis = "A market-balanced portfolio that is long the lowest-funding perpetuals and short the highest-funding perpetuals captures a persistent cross-sectional funding spread after price moves, turnover and costs."
 registered_on = "2026-09-26"
-status = "PREREGISTERED"
+status = "RESEARCH_CANDIDATE"
 family = "cross_sectional_funding_carry"
 
 [data]
@@ -72,3 +72,4 @@ role = "secondary stress only because August outcomes were opened by prior resea
 [decision]
 levels = ["REJECT", "RESEARCH_CANDIDATE", "HOLDOUT_READY"]
 production_effect = "None until fresh holdout, paper, Testnet, operational and human gates also pass."
+observed = "Three configurations qualified for continued research, none qualified to open the holdout."

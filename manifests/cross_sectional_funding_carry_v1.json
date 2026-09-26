@@ -1,0 +1,153 @@
+{
+  "dataset_id": "cross-sectional-funding-carry-v1-public-usdm",
+  "source": "https://fapi.binance.com/fapi/v1/fundingRate",
+  "requested_start": "2024-01-01",
+  "requested_end_exclusive": "2026-08-01",
+  "holdout_included": false,
+  "files": [
+    {
+      "symbol": "BTCUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/BTCUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 132393,
+      "sha256": "1f00515f32791dca0cd95ba2267d804ce2c17d3defd92349648aa0183593145a"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/ETHUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 132494,
+      "sha256": "788ee5133b9bb650c8a79175bc417f09fcd27e7581e74f36a7895ac86172a365"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/SOLUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 133134,
+      "sha256": "2ea766f98530542dc09f3f06812f11e289cc3d6767571d8f0b146c12098b7391"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/XRPUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 132296,
+      "sha256": "4878c57bfb709a79a81b10db32123eb8ce59e6b27dcc91cdb654fcf3a7798f8c"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/DOGEUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 135024,
+      "sha256": "95a1bcb7f9ed5f6d2c8b4a5ce41cd567132e6e33db08987590685dabff04584e"
+    },
+    {
+      "symbol": "BNBUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/BNBUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 125107,
+      "sha256": "3019649f5a9a9aea5c107bfc44f38867c850da9ab76c127c40c9ead200bdd374"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/AVAXUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 135609,
+      "sha256": "c55ecf941449904ee64be0a2aec2fec8b5cd6314c10ba1bce470a92865aafe1e"
+    },
+    {
+      "symbol": "ARBUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/ARBUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 131586,
+      "sha256": "b8812523157fec6aa7c983b3de658ef03cf10a68b7a2a8d3b5a1cfe8b4b76fd5"
+    },
+    {
+      "symbol": "FILUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/FILUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 131242,
+      "sha256": "3e1d65d2e1ff62b8f992bb7eec501a8c9314bc542af8fd1305c3f46e9ac6af9a"
+    },
+    {
+      "symbol": "LINKUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/LINKUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 134115,
+      "sha256": "42868f5e27b5fbc6008c7eb58003a753ab07f3dceae02f94e166625ca2d926d5"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/ADAUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 131557,
+      "sha256": "9bdb94175217b680a14e693c5709b164713b2f07810b911d95fbce070ff32507"
+    },
+    {
+      "symbol": "OPUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/OPUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 128869,
+      "sha256": "23a6822ffd7698e8dc61945e09aa7c4e7152addded4936c3139ac2ddbe3dd7d4"
+    },
+    {
+      "symbol": "LTCUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/LTCUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 131696,
+      "sha256": "8fd6b424d6c6544583dc04049427a7348dbb455cd3c1bdb51d78ec8d0bfe8b0d"
+    },
+    {
+      "symbol": "INJUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/INJUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 132802,
+      "sha256": "d2cac5c8edc5b2a4c8444ed8e2e297de18b2b878e74cf5b3b818f12fedc915dc"
+    },
+    {
+      "symbol": "ETCUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/ETCUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 131312,
+      "sha256": "5fed8c27380e5975d79d5078ae195a9739933539aeea4be51a8979075f2654e7"
+    },
+    {
+      "symbol": "NEARUSDT",
+      "path": "data/cross_sectional_funding_carry_v1/NEARUSDT_funding_2024-01-01_2026-08-01.csv",
+      "rows": 2829,
+      "first_funding_time": "2024-01-01T00:00:00+00:00",
+      "last_funding_time": "2026-07-31T16:00:00+00:00",
+      "bytes": 134286,
+      "sha256": "733aefbe7ff9712eb2c99006a884b598c43f4361d026e1ee27baefc29191d01f"
+    }
+  ]
+}
