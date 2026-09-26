@@ -161,6 +161,18 @@ trend-short usa explicitamente a convencao historica de retorno short inverso,
 e o motor reproduz as 144 linhas detalhadas e as seis faixas de custo sem
 divergencias. A decisao permanece `FAIL_COST_ROBUSTNESS`.
 
+A familia `HOURLY_BREAKOUT_V1` foi pre-registrada em
+`experiments/hourly_breakout_v1.toml` antes da primeira execucao. Ela agrega
+somente horas completas, confirma o breakout no fechamento, entra na abertura
+seguinte e simula stop por ATR e alvo em R com empate intrabar adverso:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.hourly_breakout
+```
+
+Setembro de 2026 nao faz parte desse comando e permanece reservado para um
+holdout futuro somente se um conjunto fixo passar nos tres splits anteriores.
+
 ### Runtime operacional seguro
 
 O novo runtime e separado de `main.py` e nasce em modo `paper`. Consulte
