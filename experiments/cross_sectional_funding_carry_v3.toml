@@ -2,7 +2,7 @@
 strategy_version = "CROSS_SECTIONAL_FUNDING_CARRY_V3"
 hypothesis = "The unchanged V2 hysteresis portfolio is robust to asset removal and persists in the untouched September holdout."
 registered_on = "2026-09-26"
-status = "FROZEN_CANDIDATE"
+status = "FAIL_HOLDOUT"
 family = "cross_sectional_funding_carry_hysteresis"
 parent = "CROSS_SECTIONAL_FUNDING_CARRY_V2"
 strategy_change_from_parent = "none"
@@ -44,7 +44,7 @@ role = "diagnostic only; August outcomes were opened by earlier research"
 [fresh_holdout]
 start = "2026-09-01"
 end = "2026-09-26"
-status = "UNOPENED"
+status = "OPENED_ONCE_FAIL"
 minimum_periods = 8
 base_cost_min_profit_factor = 1.10
 stress_cost_min_profit_factor = 1.00
@@ -55,3 +55,4 @@ rule = "No strategy, universe, parameter, cost or decision threshold may change 
 [promotion]
 holdout_pass_effect = "Advance to shadow/paper preparation only; no real order permission."
 holdout_fail_effect = "Reject the frozen candidate without retuning September."
+observed = "September produced PF 0.992 at base cost and 0.930 at stress cost; mean base return was negative."

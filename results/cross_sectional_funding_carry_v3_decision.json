@@ -1,0 +1,117 @@
+{
+  "august": [
+    {
+      "best_trade": 0.024630289498895376,
+      "cost": 0.0006,
+      "max_compounded_drawdown": 0.028565669546921302,
+      "max_losing_streak": 3,
+      "mean_funding_component": 5.621773293650794e-05,
+      "mean_price_component": 0.0006454519839234234,
+      "mean_return": 0.0004884316216218363,
+      "mean_turnover": 0.7107936507936508,
+      "median_return": 0.00048431273850180456,
+      "profit_factor": 1.1946437113329527,
+      "q10": -0.007114253098969663,
+      "q90": 0.008957874381959012,
+      "samples": 30,
+      "win_rate": 0.5666666666666667,
+      "worst_trade": -0.02236755231493389
+    },
+    {
+      "best_trade": 0.02396362283222871,
+      "cost": 0.0014,
+      "max_compounded_drawdown": 0.02979665360093764,
+      "max_losing_streak": 3,
+      "mean_funding_component": 5.621773293650794e-05,
+      "mean_price_component": 0.0006454519839234234,
+      "mean_return": 0.00020411416130437576,
+      "mean_turnover": 0.7107936507936508,
+      "median_return": 0.0003601896428923644,
+      "profit_factor": 1.0779128707531656,
+      "q10": -0.007411586432302998,
+      "q90": 0.008609874381959013,
+      "samples": 30,
+      "win_rate": 0.5333333333333333,
+      "worst_trade": -0.022641838029219607
+    }
+  ],
+  "august_role": "OPENED_STRESS_ONLY",
+  "decision": "FAIL",
+  "discovery_evidence": {
+    "leave_one_out_max_drawdown": 0.16268604132074316,
+    "leave_one_out_min_profit_factor": 1.2093066211606398,
+    "pooled_bootstrap_probability_positive": 0.9995,
+    "pooled_drawdown": 0.11343233040502887,
+    "reasons": [],
+    "splits": [
+      {
+        "base_pf": 1.204167180800435,
+        "bootstrap_probability_positive": 0.8825,
+        "split": "development",
+        "stress_pf": 1.1103075918897618
+      },
+      {
+        "base_pf": 1.5371413469576851,
+        "bootstrap_probability_positive": 0.997,
+        "split": "validation",
+        "stress_pf": 1.4084566209180216
+      },
+      {
+        "base_pf": 1.1875165264323861,
+        "bootstrap_probability_positive": 0.85,
+        "split": "confirmation",
+        "stress_pf": 1.0601585487433454
+      }
+    ]
+  },
+  "discovery_ready": true,
+  "holdout": [
+    {
+      "best_trade": 0.02505145102704906,
+      "cost": 0.0006,
+      "max_compounded_drawdown": 0.048242227282706995,
+      "max_losing_streak": 2,
+      "mean_funding_component": 4.926039087301587e-05,
+      "mean_price_component": 0.00015371244962019293,
+      "mean_return": -4.31581118877436e-05,
+      "mean_turnover": 0.8204365079365079,
+      "median_return": 0.004638470797565304,
+      "profit_factor": 0.991604061448304,
+      "q10": -0.019333425670503772,
+      "q90": 0.010243973483609985,
+      "samples": 24,
+      "win_rate": 0.625,
+      "worst_trade": -0.03243160096377179
+    },
+    {
+      "best_trade": 0.024718117693715725,
+      "cost": 0.0014,
+      "max_compounded_drawdown": 0.049846626016083584,
+      "max_losing_streak": 2,
+      "mean_funding_component": 4.926039087301587e-05,
+      "mean_price_component": 0.00015371244962019293,
+      "mean_return": -0.000371332715062347,
+      "mean_turnover": 0.8204365079365079,
+      "median_return": 0.004233937356234538,
+      "profit_factor": 0.9296395601034728,
+      "q10": -0.01957342567050377,
+      "q90": 0.009971973483609984,
+      "samples": 24,
+      "win_rate": 0.625,
+      "worst_trade": -0.032645886678057505
+    }
+  ],
+  "holdout_period": [
+    "2026-09-01",
+    "2026-09-26"
+  ],
+  "holdout_status": "OPENED_ONCE",
+  "promotion_effect": "NONE",
+  "reasons": [
+    "base_profit_factor",
+    "stress_profit_factor",
+    "mean_return"
+  ],
+  "strategy_changed_from_v2": false,
+  "strategy_version": "CROSS_SECTIONAL_FUNDING_CARRY_V3"
+}

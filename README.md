@@ -99,6 +99,11 @@ uma unica vez:
 .\.venv\Scripts\python.exe -m research.experiments.cross_sectional_funding_carry_v3 --download
 ```
 
+O holdout foi aberto uma vez. Agosto passou como estresse, mas setembro obteve
+PF 0,992 no custo-base, 0,930 no custo de estresse e media liquida negativa em
+24 periodos. A decisao V3 e `FAIL_HOLDOUT`; setembro nao pode ser retunado e
+nenhuma estrategia esta aprovada para operar.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

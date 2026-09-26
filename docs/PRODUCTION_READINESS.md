@@ -3,8 +3,9 @@
 ## Estado executivo
 
 O runtime de execucao foi separado do laboratorio, mas trading real esta
-tecnicamente bloqueado. Isso e intencional: a unica candidata congelada, C2,
-falhou no holdout de agosto de 2026 com profit factor aproximado de 0,714.
+tecnicamente bloqueado. Isso e intencional: a candidata C2 falhou no holdout de
+agosto de 2026 com PF aproximado de 0,714; depois, o carry transversal V3 tambem
+falhou no holdout de setembro, com PF 0,992 base e 0,930 stress.
 
 O termo "producao" neste repositorio passa a significar um processo observavel,
 reproduzivel e protegido. Nao significa colocar uma hipotese reprovada em uma

@@ -112,6 +112,12 @@ PF-base 1,121 / 1,320 / 1,138, PF agregado 1,205 e drawdown de 14,5%, mas falhou
 no custo de estresse da confirmacao e teve somente 8 ativos positivos. Setembro
 permaneceu fechado.
 
+O V2 adicionou histerese sem mudar o sinal e melhorou PF agregado para 1,339,
+drawdown para 11,3% e bootstrap agregado para 99,95%. Depois da auditoria do
+gate de amplitude, a mesma estrategia foi congelada como V3, sem retuning. Em
+agosto ela teve PF 1,195 base / 1,078 stress; no holdout de setembro teve PF
+0,992 base / 0,930 stress e media liquida negativa. Decisao: `FAIL_HOLDOUT`.
+
 ## Arquitetura final pretendida
 
 Os motores aprovados nao serao somados por retorno historico maximo. O portfolio

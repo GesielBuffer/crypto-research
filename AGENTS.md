@@ -47,3 +47,4 @@ Transformar este laboratorio em um sistema de pesquisa quantitativa reproduzivel
 - A estrategia C2 teve desempenho positivo no conjunto de desenvolvimento, mas falhou no holdout de agosto de 2026 (PF aproximado de 0,71 com custo de 0,06%).
 - Ela nao esta aprovada para producao nem paper trading como estrategia vencedora.
 - Experimentos posteriores devem ser tratados como descoberta exploratoria ate passarem por um novo protocolo de validacao sem contaminacao.
+- O carry transversal V3 passou os gates revisados de descoberta, mas falhou no holdout de setembro de 2026 (PF 0,992 base e 0,930 stress em 24 periodos). Setembro foi aberto uma vez e nao pode ser usado para retuning.

@@ -17,7 +17,7 @@ que a selecao futura nao trate o melhor backtest como uma descoberta isolada.
 | RESIDUAL_VALUE_V1 | 4 | FAIL_DISCOVERY: reversao apareceu so em 2025 | valor relativo; holdout de setembro permaneceu fechado |
 | CROSS_SECTIONAL_FUNDING_CARRY_V1 | 4 | RESEARCH_CANDIDATE: 3 conjuntos; 0 holdout-ready | spread transversal de funding; setembro fechado |
 | CROSS_SECTIONAL_FUNDING_CARRY_V2 | 1 | REJECT pelo protocolo; candidato congelado para V3 | PF 1,339, DD 11,3%; breadth por contagem inadequada |
-| CROSS_SECTIONAL_FUNDING_CARRY_V3 | 1 | PREREGISTERED/FROZEN | mesma V2; concentracao leave-one-out e holdout setembro |
+| CROSS_SECTIONAL_FUNDING_CARRY_V3 | 1 | FAIL no holdout: PF 0,992 base / 0,930 stress | V2 inalterada; setembro aberto uma vez |
 
 O numero total de configuracoes e familias sera usado nas correcoes de selecao
 quando houver uma candidata com serie de retornos de portfolio suficiente.

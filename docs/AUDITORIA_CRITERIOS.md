@@ -80,3 +80,12 @@ qualquer ativo. A V3 substitui a contagem por esse teste de dependencia e evita
 duplicar o gate temporal: exige PF e stress por split, bootstrap agregado forte
 e probabilidade minima moderada por split. Isso nao altera retroativamente o
 V2. A mesma estrategia sera congelada e julgada em setembro nunca usado.
+
+## Veredito do holdout V3
+
+Os gates revisados aprovaram a descoberta da V3 sem alterar a estrategia V2.
+Agosto, usado apenas como estresse aberto, teve PF 1,195 no custo-base e 1,078
+no custo de estresse. Setembro foi aberto uma vez e falhou: 24 periodos, PF
+0,992 base, PF 0,930 stress e retorno medio liquido negativo. Portanto, a
+auditoria melhorou a classificacao da evidencia, mas nao mudou a decisao de
+capital: a candidata nao esta aprovada para paper ou producao.

@@ -1,0 +1,328 @@
+{
+  "dataset_id": "cross-sectional-funding-carry-v3-extension",
+  "requested_start": "2026-08-01",
+  "requested_end_exclusive": "2026-09-26",
+  "contains_fresh_holdout": true,
+  "files": [
+    {
+      "symbol": "BTCUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/BTCUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 51331,
+      "sha256": "2b5cb6a1822a08f7df830a06c9d124adef669c5a9d072327c2bbf0ac53905d54"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/BTCUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8052,
+      "sha256": "367f88601b9a3722753f9ccc34ad4dfc3170463aee3b9e2e89ecc075e9629eb0"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/ETHUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 52345,
+      "sha256": "5e270969f27c168d61d87f2e8f128bbf50dbd221dbb15a602423fda837c65bf4"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/ETHUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8074,
+      "sha256": "a2c9fc605bf9ed98bdbf0f514ccff30389b7081f0fc95adc1c6b342869736076"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/SOLUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 49803,
+      "sha256": "bf4a96f6abf9e8e7f032acb9b0406e93eef72fda1f58609973523589fbd915df"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/SOLUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8015,
+      "sha256": "72af9658c15a8ebd82df81506fc8fc42880698640c80f45395fc964eccd73f11"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/XRPUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 50660,
+      "sha256": "f0d287582e32fdd2b246865e1ee7cbecef6eeb1671790b669273bc76f29118b4"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/XRPUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8031,
+      "sha256": "9f895e0a2fc9dce1ae1bdc691b81acc78cd0be8cb44568936de9a8cb07339f62"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/DOGEUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 51222,
+      "sha256": "0c3f0fffce927e48d96d31a9687c98d944aa2d6a8e0fcc0d5be9aa5e087b29de"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/DOGEUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8092,
+      "sha256": "9a82861aa7f6ac7d82a6de35ccb54231ebe56a93f8712fd6114f684f68fffbb8"
+    },
+    {
+      "symbol": "BNBUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/BNBUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 48433,
+      "sha256": "9b3b7220fd95445ed6c4b7f0d1a3550ae485127d6cfe0def8ffbddcb755b02bd"
+    },
+    {
+      "symbol": "BNBUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/BNBUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 7836,
+      "sha256": "aa06277cc8d02c05bbd6e46a37f69732bc49c0670bb2adcf929a2202a308c2ef"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/AVAXUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 45030,
+      "sha256": "dfc2970edd37c80717fdcb72b1bb870501356318ce061f22e053c3bd02398cf8"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/AVAXUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8134,
+      "sha256": "c0a6a3f9e55b8060e5df3bae4336d9a17da3b41610ec0e3a04b3fb7206675cd4"
+    },
+    {
+      "symbol": "ARBUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/ARBUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 52049,
+      "sha256": "771b2c15f8973e7e68946f29cd1abc5d32f4e2c76abca57a08f3838c3450441e"
+    },
+    {
+      "symbol": "ARBUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/ARBUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8049,
+      "sha256": "d5ab22fa5b8cc1675b25dae7c987b3c3245af9c1a4262975df6f0e6d86b791e7"
+    },
+    {
+      "symbol": "FILUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/FILUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 50030,
+      "sha256": "b94b3134dc64a8a5e9b7e3ef293d0910ec4e7194f81ab52e230981a228d78ec7"
+    },
+    {
+      "symbol": "FILUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/FILUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 7939,
+      "sha256": "2b754f222f5afd04ec10b10e1aabdb1e1c454018c3615569394f1c8d5133f69e"
+    },
+    {
+      "symbol": "LINKUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/LINKUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 49076,
+      "sha256": "c5805ade9b61205f3962c6e5741f912260a0546a9f294dfcc4781a9600b18274"
+    },
+    {
+      "symbol": "LINKUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/LINKUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8094,
+      "sha256": "43fae34c13c8b7bf203b8f725ec4c8dd0d9cb53a52906b9c545fbc42b8bd3172"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/ADAUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 48364,
+      "sha256": "5219e5b98ded0471c42cead35eb632ebf080658ce0952554536771ec0e6c74c6"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/ADAUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 7938,
+      "sha256": "53021778a051e719aed2061ee4f59bca84ed2929dc9f1ceb475fc4e07926ecc7"
+    },
+    {
+      "symbol": "OPUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/OPUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 51307,
+      "sha256": "8be97e0a30db2cb18696d80a66b51d6305da1a5b536276db7ce239080adda1ec"
+    },
+    {
+      "symbol": "OPUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/OPUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 7787,
+      "sha256": "ae32e73c2f94405b6eee3de3ca3734db37cf3fe40e559f4d814118814b756a18"
+    },
+    {
+      "symbol": "LTCUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/LTCUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 47766,
+      "sha256": "aac315b489dedd94eecb5774c624fb3fd8a60faf7c16f0066d8dd98fa128f591"
+    },
+    {
+      "symbol": "LTCUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/LTCUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 7974,
+      "sha256": "0a4d8941859c21ab3958bc032c807077de48f021808dc19a1f1e17eb9826b361"
+    },
+    {
+      "symbol": "INJUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/INJUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 47216,
+      "sha256": "b927d9e63859e6c097ed8d111ed3754f294605600c0257fae9f072aac32d2249"
+    },
+    {
+      "symbol": "INJUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/INJUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8069,
+      "sha256": "8d0bb752d9cd4929abce03a58c2a20b565bc7ca1c808a454aa7ae570d660821e"
+    },
+    {
+      "symbol": "ETCUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/ETCUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 47053,
+      "sha256": "f7be93fa2426ece021a53283c2735b583fe72fca43b6c0d019af0d40eb8b813f"
+    },
+    {
+      "symbol": "ETCUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/ETCUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 7875,
+      "sha256": "a5b881ecf5e2e64294fee0261674578cba4ac3d12b4ce2442e99c554429aebac"
+    },
+    {
+      "symbol": "NEARUSDT",
+      "kind": "price",
+      "path": "data/cross_sectional_funding_carry_v3/NEARUSDT_4h_2026-08-01_2026-09-26.csv",
+      "rows": 337,
+      "first_time": "2026-08-01T00:00:00+00:00",
+      "last_time": "2026-09-26T00:00:00+00:00",
+      "bytes": 45693,
+      "sha256": "911c7bf4b2ba963f20e675f0e075c95a1375ffcd57e1fb6e8f024211eb74c642"
+    },
+    {
+      "symbol": "NEARUSDT",
+      "kind": "funding",
+      "path": "data/cross_sectional_funding_carry_v3/NEARUSDT_funding_2026-08-01_2026-09-26.csv",
+      "rows": 168,
+      "first_time": "2026-08-01T00:00:00.001000+00:00",
+      "last_time": "2026-09-25T16:00:00.002000+00:00",
+      "bytes": 8057,
+      "sha256": "8708079c5d8ba6c0306dceab80c11af9f6926c311c33f14666b92c7467166aa5"
+    }
+  ]
+}
