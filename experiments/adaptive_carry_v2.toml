@@ -2,6 +2,8 @@
 strategy_version = "ADAPTIVE_CARRY_V2"
 hypothesis = "A trailing funding percentile identifies relative carry opportunities despite non-stationary absolute funding levels."
 registered_on = "2026-09-26"
+amended_on = "2026-09-26"
+amendment = "Holdout cutoff accelerated to the last complete UTC day at the user's request, before any post-July structural data was downloaded."
 status = "PREREGISTERED"
 family = "structural_carry_adaptive"
 motivation = "V1 documented a large decline in absolute funding levels; V2 changes the signal family and requires a new untouched holdout."
@@ -12,6 +14,8 @@ start = "2024-01-01"
 end = "2026-08-01"
 perpetual_manifest = "manifests/c2_candles.json"
 structural_manifest = "manifests/structural_carry_data.json"
+perpetual_interval = "5m"
+spot_interval = "5m"
 role = "discovery and walk-forward only; all periods are considered opened after V1"
 
 [signal]
@@ -42,8 +46,8 @@ tie_break = "highest minimum segment PF, then shorter holding period, then highe
 
 [fresh_holdout]
 start = "2026-09-01"
-end = "2026-10-01"
-not_before = "2026-10-01"
+end = "2026-09-26"
+not_before = "2026-09-26"
 status = "UNOPENED"
 minimum_trades = 8
 base_cost_min_profit_factor = 1.10
@@ -51,8 +55,12 @@ stress_cost_min_profit_factor = 1.00
 max_drawdown = 0.05
 rule = "No parameter, threshold, asset or cost change is allowed after discovery candidate freeze."
 
+[opened_stress]
+start = "2026-08-01"
+end = "2026-09-01"
+role = "secondary stress only because August price outcomes were opened by prior C2 research"
+
 [decision]
 discovery_effect = "At most one fixed configuration may be frozen. Discovery PASS does not approve trading."
 holdout_effect = "Only a fresh-holdout PASS can advance the candidate to shadow and paper evaluation."
 production_effect = "None until paper, Testnet, operational and human gates also pass."
-
