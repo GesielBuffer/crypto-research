@@ -105,8 +105,8 @@ def acquire(protocol: dict, *, refresh: bool = False) -> dict:
             "symbol": symbol,
             "path": path.relative_to(BASE_DIR).as_posix(),
             "rows": len(frame),
-            "first_funding_time": pd.to_datetime(frame["fundingTime"], utc=True).min().isoformat(),
-            "last_funding_time": pd.to_datetime(frame["fundingTime"], utc=True).max().isoformat(),
+            "first_funding_time": pd.to_datetime(frame["fundingTime"], utc=True, format="mixed").min().isoformat(),
+            "last_funding_time": pd.to_datetime(frame["fundingTime"], utc=True, format="mixed").max().isoformat(),
             "bytes": path.stat().st_size,
             "sha256": _sha256(path),
         })
@@ -130,7 +130,7 @@ def load_funding(protocol: dict) -> dict[str, pd.DataFrame]:
         if not path.exists():
             raise FileNotFoundError(f"missing {path}; run with --download")
         frame = pd.read_csv(path)
-        frame["fundingTime"] = pd.to_datetime(frame["fundingTime"], utc=True)
+        frame["fundingTime"] = pd.to_datetime(frame["fundingTime"], utc=True, format="mixed")
         frame["fundingRate"] = pd.to_numeric(frame["fundingRate"], errors="raise")
         result[symbol] = frame.sort_values("fundingTime").drop_duplicates("fundingTime")
     return result

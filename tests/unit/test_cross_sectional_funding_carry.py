@@ -45,6 +45,14 @@ class CrossSectionalFundingCarryTests(unittest.TestCase):
         frame = pd.DataFrame({"fundingTime": times, "fundingRate": [1.0, 2.0, 3.0, 4.0]})
         self.assertEqual(funding_between(frame, times[0], times[2]), 5.0)
 
+    def test_mixed_fractional_funding_timestamps_are_supported(self):
+        values = pd.to_datetime(
+            ["2024-01-01 00:00:00+00:00", "2024-01-05 00:00:00.001000+00:00"],
+            utc=True,
+            format="mixed",
+        )
+        self.assertEqual(values[1].microsecond, 1000)
+
     def test_trailing_matrix_uses_only_current_and_past_records(self):
         times = pd.date_range("2026-01-01", periods=4, freq="8h", tz="UTC")
         funding = {
