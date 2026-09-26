@@ -2,6 +2,8 @@
 strategy_version = "CROSS_SECTIONAL_MOMENTUM_V1"
 hypothesis = "Relative momentum among liquid crypto perpetuals persists after market-neutral construction, volatility scaling and realistic turnover costs."
 registered_on = "2026-09-26"
+amended_on = "2026-09-26"
+amendment = "Clarified before data acquisition that each one-way absolute weight change pays half the registered round-trip rate."
 status = "PREREGISTERED"
 family = "cross_sectional_momentum"
 
@@ -42,7 +44,7 @@ weighting = "inverse trailing 28-day volatility within each side, normalized and
 overlap = "one portfolio held until the next rebalance"
 funding = "excluded in V1; base and stress cost gates must pass before funding-sensitive confirmation"
 round_trip_costs = [0.0006, 0.0014]
-cost_application = "charged per absolute change in portfolio weight, including opening, rebalancing and final close"
+cost_application = "round_trip_cost divided by two, charged per absolute change in signed portfolio weight, including opening, rebalancing and final close"
 
 [splits]
 development = ["2024-04-01", "2025-01-01"]
