@@ -62,3 +62,7 @@ devem mostrar retorno medio e mediano, turnover, drawdown, estabilidade temporal
 amplitude por ativo e exposicao ao fator de mercado. Quando houver uma candidata,
 bootstrap, Deflated Sharpe Ratio e inventario total de tentativas serao usados
 antes da promocao.
+
+O V2 de carry transversal inaugura o bootstrap em blocos como metrica adicional.
+Ele reportara a probabilidade empirica de retorno medio liquido positivo, com
+semente, tamanho de bloco e numero de reamostragens congelados no protocolo.
