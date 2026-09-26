@@ -66,6 +66,11 @@ estatisticamente diferente. O baseline sem sinal e com a mesma volatilidade sera
 obrigatorio, pois parte do resultado atribuido a trend pode vir do volatility
 scaling.
 
+O protocolo `SLOW_TREND_V1` reutiliza o universo de 16 ativos congelado por
+liquidez antes de seus retornos serem avaliados. Quatro conjuntos de velocidades
+entre 1 e 12 semanas serao comparados, com rebalance diario, pesos por
+volatilidade, limite por ativo e custo sobre o turnover efetivo.
+
 ### 4. Valor relativo residual
 
 Remover o fator comum de mercado e negociar apenas desvios residuais entre

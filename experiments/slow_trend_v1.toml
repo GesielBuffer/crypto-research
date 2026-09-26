@@ -1,0 +1,62 @@
+[experiment]
+strategy_version = "SLOW_TREND_V1"
+hypothesis = "Diversified time-series momentum over multi-week horizons persists in liquid crypto perpetuals after volatility scaling and turnover costs."
+registered_on = "2026-09-26"
+status = "PREREGISTERED"
+family = "slow_time_series_trend"
+
+[data]
+source_manifest = "manifests/cross_sectional_momentum_v1.json"
+interval = "4h"
+start = "2024-01-01"
+discovery_end = "2026-08-01"
+universe_source = "results/cross_sectional_momentum_v1_universe.csv"
+universe_rule = "the 16 contracts frozen by first-quarter-2024 liquidity before momentum returns were evaluated"
+
+[signal]
+speed_sets = [[7, 28], [14, 56], [7, 28, 56], [28, 56, 84]]
+rebalance_days = 1
+score = "mean sign of trailing returns for the registered speeds, using only completed 4h closes"
+entry = "next 4h open after the UTC rebalance timestamp"
+
+[portfolio]
+gross_exposure = 1.0
+weighting = "absolute trend score divided by trailing 28-day volatility, normalized across assets and capped at 10 percent gross per asset"
+weight_cap = 0.10
+round_trip_costs = [0.0006, 0.0014]
+cost_application = "round_trip_cost divided by two, charged per absolute change in signed weight, including opening, rebalancing and final close"
+funding = "excluded in V1; base and stress cost gates must pass before funding-sensitive confirmation"
+
+[splits]
+development = ["2024-04-01", "2025-01-01"]
+validation = ["2025-01-01", "2026-01-01"]
+confirmation = ["2026-01-01", "2026-08-01"]
+
+[selection]
+minimum_rebalances_each_full_split = 250
+minimum_rebalances_confirmation = 180
+base_cost_min_profit_factor_each_split = 1.10
+stress_cost_min_profit_factor_each_split = 1.00
+minimum_positive_symbols = 10
+max_pooled_drawdown = 0.15
+tie_break = "highest minimum base-cost split profit factor, then lowest turnover, then fewer speeds"
+
+[fresh_holdout]
+start = "2026-09-01"
+end = "2026-09-26"
+status = "UNOPENED"
+minimum_rebalances = 20
+base_cost_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+max_drawdown = 0.08
+rule = "Open only after exactly one discovery configuration is frozen; no speed, asset or risk change afterward."
+
+[opened_stress]
+start = "2026-08-01"
+end = "2026-09-01"
+role = "secondary stress only because August outcomes were opened by prior research"
+
+[decision]
+discovery_effect = "At most one fixed speed set may advance; discovery PASS does not approve trading."
+holdout_effect = "Only a fresh-holdout PASS may advance to shadow and paper evaluation."
+production_effect = "None until paper, Testnet, operational and human gates also pass."
