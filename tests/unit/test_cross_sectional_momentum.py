@@ -1,4 +1,6 @@
+import json
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
@@ -10,6 +12,14 @@ from research.experiments.cross_sectional_momentum import (
 
 
 class CrossSectionalMomentumTests(unittest.TestCase):
+    def test_frozen_discovery_result_keeps_holdout_closed(self):
+        path = Path(__file__).parents[2] / "results" / "cross_sectional_momentum_v1_decision.json"
+        report = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(report["decision"], "FAIL_DISCOVERY")
+        self.assertEqual(report["passing_parameter_sets"], 0)
+        self.assertIsNone(report["selected"])
+        self.assertEqual(report["holdout_status"], "UNOPENED")
+
     def test_inverse_vol_weights_respect_cap_and_gross(self):
         vol = pd.Series({"A": 0.1, "B": 0.2, "C": 0.3, "D": 0.4})
         weights = _capped_inverse_vol(vol, gross=0.5, cap=0.15)

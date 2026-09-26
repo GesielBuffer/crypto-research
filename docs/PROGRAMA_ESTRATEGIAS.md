@@ -52,6 +52,11 @@ de janeiro a marco de 2024 e testa quatro combinacoes de lookback/rebalance. A
 carteira e long/short, com exposicao bruta simetrica, pesos por volatilidade e
 custo aplicado ao turnover real.
 
+Resultado: `FAIL_DISCOVERY`. O melhor perfil temporal foi lookback de 28 dias
+com rebalance diario, mas os PFs de 1,108 / 1,093 / 1,052 ficaram abaixo dos
+gates em desenvolvimento, validacao e confirmacao, e o drawdown agregado foi
+17,7%. Nenhuma configuracao foi congelada e setembro nao foi aberto.
+
 ### 3. Trend following lento e multivelocidade
 
 Combinar sinais de semanas, nao breakouts horarios, com dimensionamento por

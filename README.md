@@ -39,6 +39,11 @@ somente a descoberta ate julho de 2026:
 .\.venv\Scripts\python.exe -m research.experiments.cross_sectional_momentum --download
 ```
 
+O V1 transversal terminou em `FAIL_DISCOVERY`: nenhuma das quatro configuracoes
+passou simultaneamente estabilidade temporal, custo, amplitude e drawdown. O
+manifesto preserva os hashes dos 24 caches publicos; o holdout de setembro nao
+foi aberto.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

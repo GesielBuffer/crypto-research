@@ -4,7 +4,7 @@ hypothesis = "Relative momentum among liquid crypto perpetuals persists after ma
 registered_on = "2026-09-26"
 amended_on = "2026-09-26"
 amendment = "Clarified before data acquisition that each one-way absolute weight change pays half the registered round-trip rate."
-status = "PREREGISTERED"
+status = "FAIL_DISCOVERY"
 family = "cross_sectional_momentum"
 
 [data]
@@ -79,3 +79,4 @@ role = "secondary stress only because August outcomes were opened by prior resea
 discovery_effect = "At most one fixed configuration may advance; discovery PASS does not approve trading."
 holdout_effect = "Only a fresh-holdout PASS may advance to shadow and paper evaluation."
 production_effect = "None until paper, Testnet, operational and human gates also pass."
+observed = "No configuration passed all discovery gates; September remained unopened and no candidate was selected."

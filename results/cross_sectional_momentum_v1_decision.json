@@ -1,0 +1,70 @@
+{
+  "candidates": [
+    {
+      "lookback_days": 7,
+      "minimum_split_profit_factor": 0.7487222692626323,
+      "pass": false,
+      "pooled_drawdown": 0.5257363901913052,
+      "positive_symbols": 6,
+      "reasons": [
+        "development_base",
+        "development_stress",
+        "drawdown",
+        "symbol_breadth",
+        "validation_base",
+        "validation_stress"
+      ],
+      "rebalance_days": 1
+    },
+    {
+      "lookback_days": 7,
+      "minimum_split_profit_factor": 0.9295230237600912,
+      "pass": false,
+      "pooled_drawdown": 0.3333186082455749,
+      "positive_symbols": 8,
+      "reasons": [
+        "development_base",
+        "development_stress",
+        "drawdown",
+        "symbol_breadth"
+      ],
+      "rebalance_days": 7
+    },
+    {
+      "lookback_days": 28,
+      "minimum_split_profit_factor": 1.0517418434313774,
+      "pass": false,
+      "pooled_drawdown": 0.17743408917281445,
+      "positive_symbols": 10,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_stress",
+        "drawdown",
+        "validation_base"
+      ],
+      "rebalance_days": 1
+    },
+    {
+      "lookback_days": 28,
+      "minimum_split_profit_factor": 0.7306532991588783,
+      "pass": false,
+      "pooled_drawdown": 0.2321576859124046,
+      "positive_symbols": 11,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_stress",
+        "development_base",
+        "development_stress",
+        "drawdown"
+      ],
+      "rebalance_days": 7
+    }
+  ],
+  "decision": "FAIL_DISCOVERY",
+  "holdout_status": "UNOPENED",
+  "passing_parameter_sets": 0,
+  "selected": null,
+  "stage": "DISCOVERY",
+  "strategy_version": "CROSS_SECTIONAL_MOMENTUM_V1",
+  "tested_parameter_sets": 4
+}

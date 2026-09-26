@@ -1,0 +1,226 @@
+{
+  "dataset_id": "cross-sectional-momentum-v1-public-usdm-4h",
+  "source": "https://fapi.binance.com/fapi/v1/klines",
+  "interval": "4h",
+  "requested_start": "2024-01-01",
+  "requested_end_exclusive": "2026-08-01",
+  "holdout_included": false,
+  "files": [
+    {
+      "symbol": "BTCUSDT",
+      "path": "data/cross_sectional_momentum_v1/BTCUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 870937,
+      "sha256": "ed7bd5ed24eaa53c20a79da95279e342fd921eb59e09b8911b2581ca60181116"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "path": "data/cross_sectional_momentum_v1/ETHUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 879577,
+      "sha256": "bddb95b59526ec618873a26c0c9e4e9583e07312ca475b09e5037e2831898e86"
+    },
+    {
+      "symbol": "BNBUSDT",
+      "path": "data/cross_sectional_momentum_v1/BNBUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 816510,
+      "sha256": "a55eb2e6942ee11b42da186c6e2731d6e027b71a156c5bb619dc15235c7326cc"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "path": "data/cross_sectional_momentum_v1/SOLUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 832271,
+      "sha256": "839ac65de33b5e0e25a6679e7a0f4864d49ebcad8438f19800bb1313a19b5118"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "path": "data/cross_sectional_momentum_v1/XRPUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 848797,
+      "sha256": "fb1fc2d10711660ff21c3b5bfa7de9782cf25719051f160028023fda58ff3c1c"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "path": "data/cross_sectional_momentum_v1/ADAUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 812325,
+      "sha256": "6fc4281954f4d68ba714ae4973e2861552a2fb63d932ca3334ab23b00c7e4165"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "path": "data/cross_sectional_momentum_v1/DOGEUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 863983,
+      "sha256": "9afd7ca0f60308cf79db6fe6da0b3697b4283fefa32bd3b3b714d5c70a3fc4f7"
+    },
+    {
+      "symbol": "LINKUSDT",
+      "path": "data/cross_sectional_momentum_v1/LINKUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 828674,
+      "sha256": "33bcc5b9b09066078611727cd4078d71e3c2770321ce18384d11d3e1fe5bf594"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "path": "data/cross_sectional_momentum_v1/AVAXUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 777018,
+      "sha256": "86f07a0c6e445e082783b68123edc99c8436d9f52f0b5a5a387b469897418031"
+    },
+    {
+      "symbol": "DOTUSDT",
+      "path": "data/cross_sectional_momentum_v1/DOTUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 788161,
+      "sha256": "0a77045a01ce95dec7b9035be67bfcca6eb856f8e5b23d319a263e713e32525c"
+    },
+    {
+      "symbol": "LTCUSDT",
+      "path": "data/cross_sectional_momentum_v1/LTCUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 813752,
+      "sha256": "d8b625dc49ac23282b190911d2e2a5f009cdc954593df4d01067dff97eb1dc96"
+    },
+    {
+      "symbol": "BCHUSDT",
+      "path": "data/cross_sectional_momentum_v1/BCHUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 822507,
+      "sha256": "fc1d62f2f5b1b2ab3cd21fa3baa7ef380498b916fee44f06681f8f4c12af181c"
+    },
+    {
+      "symbol": "TRXUSDT",
+      "path": "data/cross_sectional_momentum_v1/TRXUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 828905,
+      "sha256": "592eb3b62d960cfe447b87b4e77be0542330c173154a278d622c209c23069114"
+    },
+    {
+      "symbol": "ETCUSDT",
+      "path": "data/cross_sectional_momentum_v1/ETCUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 814168,
+      "sha256": "c0c7cd18f6d98bd30c47836de3279c9a7ad8c56f19589710258d7c221af6c7d9"
+    },
+    {
+      "symbol": "ATOMUSDT",
+      "path": "data/cross_sectional_momentum_v1/ATOMUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 799592,
+      "sha256": "3a2c8319e3edc441fb8c191a41a4e77f68b0ea82a5b7f8b17e0e7160e8b40afb"
+    },
+    {
+      "symbol": "UNIUSDT",
+      "path": "data/cross_sectional_momentum_v1/UNIUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 758631,
+      "sha256": "edf86f1fee4afdfc200621461acf7d1e21c2ade97261c8f84ae662559bdbbad5"
+    },
+    {
+      "symbol": "FILUSDT",
+      "path": "data/cross_sectional_momentum_v1/FILUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 791296,
+      "sha256": "900803b8bd9a6d427f69fa83285394a7eb96d0445f645064ddd375745598f4b5"
+    },
+    {
+      "symbol": "NEARUSDT",
+      "path": "data/cross_sectional_momentum_v1/NEARUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 761946,
+      "sha256": "8e783224f81fabc769ca1eba6be8fa9d33d99bde4da44150782abada24a953b5"
+    },
+    {
+      "symbol": "APTUSDT",
+      "path": "data/cross_sectional_momentum_v1/APTUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 818237,
+      "sha256": "9aecd090fc508aa051b6cbad9d60a3e509e6fa167e5f86522c51b83954b8e815"
+    },
+    {
+      "symbol": "ARBUSDT",
+      "path": "data/cross_sectional_momentum_v1/ARBUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 842884,
+      "sha256": "bb6522790d487b058ace6454b7e63067906cb7bfe703059cc99ff76c2920f3ad"
+    },
+    {
+      "symbol": "OPUSDT",
+      "path": "data/cross_sectional_momentum_v1/OPUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 842910,
+      "sha256": "e1feef8005d4b744e9aafa33159088d9ace08b3801aa16fe6b3f7d4c13323d0b"
+    },
+    {
+      "symbol": "INJUSDT",
+      "path": "data/cross_sectional_momentum_v1/INJUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 807370,
+      "sha256": "16a5b72d91a5d81e10e4fa0822b7a3d9806fc997d9ddc1746e349fefc4280ce8"
+    },
+    {
+      "symbol": "XLMUSDT",
+      "path": "data/cross_sectional_momentum_v1/XLMUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 828977,
+      "sha256": "3fb0849fdac1787516f32cdd5ab5369d530033c83ca37fd16bed855225318563"
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "path": "data/cross_sectional_momentum_v1/AAVEUSDT_4h_2024-01-01_2026-08-01.csv",
+      "rows": 5659,
+      "first_open_time": "2024-01-01T00:00:00+00:00",
+      "last_open_time": "2026-08-01T00:00:00+00:00",
+      "bytes": 780036,
+      "sha256": "d7d26365d7e80530d09949b3dac566b38fe1c90cc5aca38e6a5153c5431705cc"
+    }
+  ]
+}

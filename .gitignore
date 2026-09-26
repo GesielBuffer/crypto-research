@@ -29,6 +29,7 @@ data/
 # Resultados brutos por evento podem ultrapassar o limite do GitHub.
 # Resumos, decisoes, estabilidade e curvas menores continuam versionados.
 results/*events*.csv
+results/*contributions*.csv
 
 # Logs e artefatos temporarios
 *.log
