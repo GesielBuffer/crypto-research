@@ -93,10 +93,13 @@ def simulate(
     opens: pd.DataFrame,
     funding: dict[str, pd.DataFrame],
     protocol: dict,
+    *,
+    start: str = "2024-04-01",
+    end: str = "2026-08-01",
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     signal = protocol["signal"]
     matrix = trailing_funding_matrix(funding, signal["trailing_funding_records"])
-    matrix = matrix[(matrix.index >= pd.Timestamp("2024-04-01", tz="UTC")) & (matrix.index < pd.Timestamp("2026-08-01", tz="UTC"))]
+    matrix = matrix[(matrix.index >= pd.Timestamp(start, tz="UTC")) & (matrix.index < pd.Timestamp(end, tz="UTC"))]
     timestamps = matrix.index
     step = signal["rebalance_funding_periods"]
     previous_weights = pd.Series(0.0, index=matrix.columns)

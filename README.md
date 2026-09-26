@@ -92,6 +92,13 @@ contagem de ativos e bootstrap por split. O leave-one-asset-out mostrou que
 nenhum ativo sustenta sozinho o resultado. A mesma estrategia, sem retuning,
 segue congelada para uma V3 e para o holdout realmente novo de setembro.
 
+Depois do commit de congelamento, a V3 baixa a extensao publica e abre setembro
+uma unica vez:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.cross_sectional_funding_carry_v3 --download
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
