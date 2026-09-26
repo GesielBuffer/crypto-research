@@ -1,0 +1,65 @@
+[experiment]
+strategy_version = "RESIDUAL_VALUE_V1"
+hypothesis = "Short-horizon idiosyncratic crypto moves mean-revert after removing each asset's rolling exposure to BTC, while a balanced long-short portfolio survives costs."
+registered_on = "2026-09-26"
+status = "PREREGISTERED"
+family = "residual_relative_value"
+
+[data]
+source_manifest = "manifests/cross_sectional_momentum_v1.json"
+interval = "4h"
+start = "2024-01-01"
+discovery_end = "2026-08-01"
+universe_source = "results/cross_sectional_momentum_v1_universe.csv"
+market_factor = "BTCUSDT"
+
+[signal]
+beta_window_days = [28, 56]
+residual_lookback_days = [1, 3]
+rebalance_days = 1
+score = "cumulative residual return after rolling no-intercept beta to BTC, using only completed 4h returns"
+direction = "long lowest residual quartile and short highest residual quartile"
+entry = "next 4h open after the UTC rebalance timestamp"
+
+[portfolio]
+gross_exposure = 1.0
+long_gross = 0.5
+short_gross = 0.5
+weighting = "equal weight within each residual quartile"
+round_trip_costs = [0.0006, 0.0014]
+cost_application = "round_trip_cost divided by two, charged per absolute change in signed weight, including opening, rebalancing and final close"
+funding = "excluded in V1; base and stress cost gates must pass before funding-sensitive confirmation"
+
+[splits]
+development = ["2024-04-01", "2025-01-01"]
+validation = ["2025-01-01", "2026-01-01"]
+confirmation = ["2026-01-01", "2026-08-01"]
+
+[selection]
+minimum_rebalances_each_full_split = 250
+minimum_rebalances_confirmation = 180
+base_cost_min_profit_factor_each_split = 1.10
+stress_cost_min_profit_factor_each_split = 1.00
+minimum_positive_symbols = 10
+max_pooled_drawdown = 0.15
+tie_break = "highest minimum base-cost split profit factor, then lower turnover, then longer beta window"
+
+[fresh_holdout]
+start = "2026-09-01"
+end = "2026-09-26"
+status = "UNOPENED"
+minimum_rebalances = 20
+base_cost_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+max_drawdown = 0.08
+rule = "Open only after exactly one discovery configuration is frozen; no factor, window, asset or direction change afterward."
+
+[opened_stress]
+start = "2026-08-01"
+end = "2026-09-01"
+role = "secondary stress only because August outcomes were opened by prior research"
+
+[decision]
+discovery_effect = "At most one fixed residual configuration may advance; discovery PASS does not approve trading."
+holdout_effect = "Only a fresh-holdout PASS may advance to shadow and paper evaluation."
+production_effect = "None until paper, Testnet, operational and human gates also pass."

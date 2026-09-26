@@ -14,6 +14,7 @@ que a selecao futura nao trate o melhor backtest como uma descoberta isolada.
 | ADAPTIVE_CARRY_V2 | 4 | FAIL_DISCOVERY: nenhum conjunto passou 2024/2025/2026 | carry relativo; holdout de setembro permaneceu fechado |
 | CROSS_SECTIONAL_MOMENTUM_V1 | 4 | FAIL_DISCOVERY: instabilidade temporal e drawdown | momentum relativo; holdout de setembro permaneceu fechado |
 | SLOW_TREND_V1 | 4 | FAIL_DISCOVERY: PF instavel e drawdown de 44%-61% | trend following; holdout de setembro permaneceu fechado |
+| RESIDUAL_VALUE_V1 | 4 | PREREGISTERED | reversao residual long/short apos remover fator BTC |
 
 O numero total de configuracoes e familias sera usado nas correcoes de selecao
 quando houver uma candidata com serie de retornos de portfolio suficiente.

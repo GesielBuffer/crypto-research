@@ -82,6 +82,11 @@ ativos cointegrados ou exposicoes spot/perpetuo. A composicao dos pares deve ser
 formada somente no treino e testada em walk-forward. Redes neurais e
 reinforcement learning nao entram antes de um baseline linear superar custos.
 
+O protocolo `RESIDUAL_VALUE_V1` usa um baseline linear auditavel: beta movel
+sem intercepto contra BTC, residual acumulado de 1 ou 3 dias e carteira
+long/short dos quartis extremos. As janelas e gates foram congelados antes da
+execucao.
+
 ## Arquitetura final pretendida
 
 Os motores aprovados nao serao somados por retorno historico maximo. O portfolio
