@@ -71,6 +71,10 @@ liquidez antes de seus retornos serem avaliados. Quatro conjuntos de velocidades
 entre 1 e 12 semanas serao comparados, com rebalance diario, pesos por
 volatilidade, limite por ativo e custo sobre o turnover efetivo.
 
+Resultado: `FAIL_DISCOVERY`. Nenhum conjunto passou os tres periodos; os
+drawdowns agregados ficaram entre 43,9% e 61,4%, contra limite de 15%. Setembro
+permaneceu fechado e a familia nao foi ajustada depois do resultado.
+
 ### 4. Valor relativo residual
 
 Remover o fator comum de mercado e negociar apenas desvios residuais entre

@@ -1,0 +1,70 @@
+{
+  "candidates": [
+    {
+      "minimum_split_profit_factor": 1.0152656428734714,
+      "pass": false,
+      "pooled_drawdown": 0.5531207733880906,
+      "positive_symbols": 12,
+      "reasons": [
+        "development_base",
+        "drawdown",
+        "validation_base"
+      ],
+      "speed_set": "14_56"
+    },
+    {
+      "minimum_split_profit_factor": 0.962659294605166,
+      "pass": false,
+      "pooled_drawdown": 0.4388653724532652,
+      "positive_symbols": 12,
+      "reasons": [
+        "development_base",
+        "development_stress",
+        "drawdown",
+        "validation_base"
+      ],
+      "speed_set": "28_56_84"
+    },
+    {
+      "minimum_split_profit_factor": 0.9302767555959722,
+      "pass": false,
+      "pooled_drawdown": 0.5782359510767052,
+      "positive_symbols": 5,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_stress",
+        "development_base",
+        "development_stress",
+        "drawdown",
+        "symbol_breadth",
+        "validation_base",
+        "validation_stress"
+      ],
+      "speed_set": "7_28"
+    },
+    {
+      "minimum_split_profit_factor": 0.9484236014572622,
+      "pass": false,
+      "pooled_drawdown": 0.6140392822104788,
+      "positive_symbols": 7,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_stress",
+        "development_base",
+        "development_stress",
+        "drawdown",
+        "symbol_breadth",
+        "validation_base",
+        "validation_stress"
+      ],
+      "speed_set": "7_28_56"
+    }
+  ],
+  "decision": "FAIL_DISCOVERY",
+  "holdout_status": "UNOPENED",
+  "passing_parameter_sets": 0,
+  "selected": null,
+  "stage": "DISCOVERY",
+  "strategy_version": "SLOW_TREND_V1",
+  "tested_parameter_sets": 4
+}

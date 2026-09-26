@@ -13,7 +13,7 @@ que a selecao futura nao trate o melhor backtest como uma descoberta isolada.
 | DELTA_NEUTRAL_CARRY_V1 | 4 | FAIL: quebra de regime e amostra OOS insuficiente | carry estrutural delta-neutro |
 | ADAPTIVE_CARRY_V2 | 4 | FAIL_DISCOVERY: nenhum conjunto passou 2024/2025/2026 | carry relativo; holdout de setembro permaneceu fechado |
 | CROSS_SECTIONAL_MOMENTUM_V1 | 4 | FAIL_DISCOVERY: instabilidade temporal e drawdown | momentum relativo; holdout de setembro permaneceu fechado |
-| SLOW_TREND_V1 | 4 | PREREGISTERED | trend following multivelocidade em 16 ativos |
+| SLOW_TREND_V1 | 4 | FAIL_DISCOVERY: PF instavel e drawdown de 44%-61% | trend following; holdout de setembro permaneceu fechado |
 
 O numero total de configuracoes e familias sera usado nas correcoes de selecao
 quando houver uma candidata com serie de retornos de portfolio suficiente.
@@ -33,3 +33,7 @@ do primeiro trimestre de 2024. Nenhuma das quatro configuracoes passou todos os
 splits. O caso mais proximo, lookback de 28 dias e rebalance diario, teve PF
 1,108 no desenvolvimento, 1,093 na validacao e 1,052 na confirmacao ao custo
 base, abaixo dos gates e com drawdown agregado de 17,7%.
+
+O trend lento V1 tambem nao avancou. Os conjuntos mais lentos melhoraram em
+2025/2026, mas falharam no desenvolvimento; os drawdowns agregados ficaram
+entre 43,9% e 61,4%, muito acima do limite pre-registrado de 15%.

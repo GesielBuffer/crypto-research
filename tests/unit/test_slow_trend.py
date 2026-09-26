@@ -1,4 +1,6 @@
+import json
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
@@ -6,6 +8,14 @@ from research.experiments.slow_trend import _capped_signed_weights, simulate
 
 
 class SlowTrendTests(unittest.TestCase):
+    def test_frozen_discovery_result_keeps_holdout_closed(self):
+        path = Path(__file__).parents[2] / "results" / "slow_trend_v1_decision.json"
+        report = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(report["decision"], "FAIL_DISCOVERY")
+        self.assertEqual(report["passing_parameter_sets"], 0)
+        self.assertIsNone(report["selected"])
+        self.assertEqual(report["holdout_status"], "UNOPENED")
+
     def test_signed_weights_respect_cap_and_gross(self):
         raw = pd.Series({f"S{i}": (-1 if i % 2 else 1) / (i + 1) for i in range(16)})
         weights = _capped_signed_weights(raw, gross=1.0, cap=0.10)

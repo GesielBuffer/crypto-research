@@ -2,7 +2,7 @@
 strategy_version = "SLOW_TREND_V1"
 hypothesis = "Diversified time-series momentum over multi-week horizons persists in liquid crypto perpetuals after volatility scaling and turnover costs."
 registered_on = "2026-09-26"
-status = "PREREGISTERED"
+status = "FAIL_DISCOVERY"
 family = "slow_time_series_trend"
 
 [data]
@@ -60,3 +60,4 @@ role = "secondary stress only because August outcomes were opened by prior resea
 discovery_effect = "At most one fixed speed set may advance; discovery PASS does not approve trading."
 holdout_effect = "Only a fresh-holdout PASS may advance to shadow and paper evaluation."
 production_effect = "None until paper, Testnet, operational and human gates also pass."
+observed = "No speed set passed all discovery gates; directional drawdown was excessive and September remained unopened."

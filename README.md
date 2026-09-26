@@ -51,6 +51,10 @@ reutilizando os mesmos dados e o universo ja congelado:
 .\.venv\Scripts\python.exe -m research.experiments.slow_trend
 ```
 
+O `SLOW_TREND_V1` terminou em `FAIL_DISCOVERY`: apesar de alguns periodos com
+PF acima de 1, nenhum conjunto foi estavel e os drawdowns direcionais excederam
+amplamente o limite. Nenhuma configuracao abriu o holdout.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
