@@ -2,7 +2,7 @@
 strategy_version = "RESIDUAL_VALUE_V1"
 hypothesis = "Short-horizon idiosyncratic crypto moves mean-revert after removing each asset's rolling exposure to BTC, while a balanced long-short portfolio survives costs."
 registered_on = "2026-09-26"
-status = "PREREGISTERED"
+status = "FAIL_DISCOVERY"
 family = "residual_relative_value"
 
 [data]
@@ -63,3 +63,4 @@ role = "secondary stress only because August outcomes were opened by prior resea
 discovery_effect = "At most one fixed residual configuration may advance; discovery PASS does not approve trading."
 holdout_effect = "Only a fresh-holdout PASS may advance to shadow and paper evaluation."
 production_effect = "None until paper, Testnet, operational and human gates also pass."
+observed = "No residual configuration passed all discovery gates; September remained unopened and no candidate was selected."

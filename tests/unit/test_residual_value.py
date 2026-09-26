@@ -1,4 +1,6 @@
+import json
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
@@ -6,6 +8,14 @@ from research.experiments.residual_value import residual_scores, simulate
 
 
 class ResidualValueTests(unittest.TestCase):
+    def test_frozen_discovery_result_keeps_holdout_closed(self):
+        path = Path(__file__).parents[2] / "results" / "residual_value_v1_decision.json"
+        report = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(report["decision"], "FAIL_DISCOVERY")
+        self.assertEqual(report["passing_parameter_sets"], 0)
+        self.assertIsNone(report["selected"])
+        self.assertEqual(report["holdout_status"], "UNOPENED")
+
     def test_exact_factor_multiple_has_zero_residual(self):
         index = pd.date_range("2024-01-01", periods=400, freq="4h", tz="UTC")
         btc = pd.Series(100.0 * (1.001 ** pd.Series(range(len(index)), index=index)), index=index)

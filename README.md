@@ -61,6 +61,11 @@ O quarto motor remove o fator BTC antes de classificar desvios residuais:
 .\.venv\Scripts\python.exe -m research.experiments.residual_value
 ```
 
+O `RESIDUAL_VALUE_V1` terminou em `FAIL_DISCOVERY`: a reversao observada em
+2025 nao persistiu em 2024/2026, e o drawdown excedeu o gate. Com isso, as
+quatro familias do primeiro programa independente foram executadas e nenhuma
+foi promovida; setembro continua sendo um holdout intacto.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

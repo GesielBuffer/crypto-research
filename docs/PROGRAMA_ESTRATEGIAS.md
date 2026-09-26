@@ -87,6 +87,19 @@ sem intercepto contra BTC, residual acumulado de 1 ou 3 dias e carteira
 long/short dos quartis extremos. As janelas e gates foram congelados antes da
 execucao.
 
+Resultado: `FAIL_DISCOVERY`. A reversao apareceu em 2025, mas nao em 2024 nem
+na confirmacao de 2026. Os drawdowns agregados ficaram entre 28,2% e 47,5%; o
+holdout de setembro permaneceu fechado.
+
+## Resultado do primeiro ciclo independente
+
+As quatro familias priorizadas foram executadas sob protocolos congelados:
+carry absoluto/adaptativo, momentum transversal, trend lento e valor residual.
+Nenhuma passou todos os gates. A conclusao operacional permanece objetiva:
+nao ha estrategia autorizada para paper trading ou capital real. O proximo
+ciclo deve atacar as falhas observadas com uma hipotese nova e pre-registrada,
+sem retirar ativos, inverter sinais ou relaxar gates depois dos resultados.
+
 ## Arquitetura final pretendida
 
 Os motores aprovados nao serao somados por retorno historico maximo. O portfolio
