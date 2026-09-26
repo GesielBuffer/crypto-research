@@ -172,6 +172,10 @@ seguinte e simula stop por ATR e alvo em R com empate intrabar adverso:
 
 Setembro de 2026 nao faz parte desse comando e permanece reservado para um
 holdout futuro somente se um conjunto fixo passar nos tres splits anteriores.
+Na primeira execucao congelada, nenhum dos oito conjuntos passou. O melhor
+minimo entre os splits teve PF 0,995 a 0,06%; no custo de estresse de 0,14%,
+teve PF 1,022 no desenvolvimento, 0,939 na validacao e 0,984 na confirmacao.
+A decisao e `FAIL`, sem abertura de setembro e sem efeito de promocao.
 
 ### Runtime operacional seguro
 

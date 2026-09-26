@@ -1,0 +1,165 @@
+{
+  "candidates": [
+    {
+      "breakout_window": 24,
+      "minimum_base_profit_factor": 0.9246983604238402,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_drawdown",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ],
+      "stop_atr_multiple": 1.5,
+      "trend_ema_span": 100
+    },
+    {
+      "breakout_window": 24,
+      "minimum_base_profit_factor": 0.9945941938803495,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "development_base",
+        "development_drawdown",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ],
+      "stop_atr_multiple": 2.0,
+      "trend_ema_span": 100
+    },
+    {
+      "breakout_window": 24,
+      "minimum_base_profit_factor": 0.9424452905015566,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_drawdown",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ],
+      "stop_atr_multiple": 1.5,
+      "trend_ema_span": 200
+    },
+    {
+      "breakout_window": 24,
+      "minimum_base_profit_factor": 0.9645505349762494,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_drawdown",
+        "development_base",
+        "development_breadth",
+        "development_drawdown",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ],
+      "stop_atr_multiple": 2.0,
+      "trend_ema_span": 200
+    },
+    {
+      "breakout_window": 72,
+      "minimum_base_profit_factor": 0.889499639748238,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "development_base",
+        "development_breadth",
+        "development_drawdown",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ],
+      "stop_atr_multiple": 1.5,
+      "trend_ema_span": 100
+    },
+    {
+      "breakout_window": 72,
+      "minimum_base_profit_factor": 0.9509126912784188,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "development_base",
+        "development_drawdown",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ],
+      "stop_atr_multiple": 2.0,
+      "trend_ema_span": 100
+    },
+    {
+      "breakout_window": 72,
+      "minimum_base_profit_factor": 0.8791849933617145,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "development_base",
+        "development_drawdown",
+        "development_stress",
+        "validation_base",
+        "validation_drawdown",
+        "validation_stress"
+      ],
+      "stop_atr_multiple": 1.5,
+      "trend_ema_span": 200
+    },
+    {
+      "breakout_window": 72,
+      "minimum_base_profit_factor": 0.9907072924469597,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "development_base",
+        "development_drawdown",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ],
+      "stop_atr_multiple": 2.0,
+      "trend_ema_span": 200
+    }
+  ],
+  "decision": "FAIL",
+  "passing_parameter_sets": 0,
+  "selected": null,
+  "strategy_version": "HOURLY_BREAKOUT_V1",
+  "tested_parameter_sets": 8
+}

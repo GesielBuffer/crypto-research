@@ -18,11 +18,16 @@ live_adapter_reviewed = false
 human_live_approval = false
 
 [evidence]
-current_candidate = "C2_FROZEN_DEV_2026_08_27"
+current_candidate = ""
 current_holdout_decision = "FAIL"
 current_holdout_profit_factor = 0.7140796324534253
+last_holdout_candidate = "C2_FROZEN_DEV_2026_08_27"
+latest_research_family = "HOURLY_BREAKOUT_V1"
+latest_research_decision = "FAIL"
+latest_research_report = "results/hourly_breakout_v1_decision.json"
+latest_research_report_sha256 = "9748394df0ca5b9b7fdfb2d360cda65ec6c76c66bb8c3afad4541e921d0cc89b"
 position_protection_evidence = "tests/unit/test_execution_runtime.py"
 testnet_protection_evidence = "tests/unit/test_binance_testnet.py"
 failure_recovery_report = "results/operational_recovery_rehearsal.json"
 failure_recovery_report_sha256 = "160e7d074cf5a3690c53d42e600774b51ce953af7860bb07655b4dcf0de85e5f"
-note = "Engineering may advance in paper mode; real trading remains blocked."
+note = "No strategy is approved. Engineering may advance, but paper promotion and real trading remain blocked."

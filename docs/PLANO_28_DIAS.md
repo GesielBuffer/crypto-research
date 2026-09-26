@@ -73,3 +73,9 @@ usa stop por ATR e alvo em R. A grade, os tres splits e os gates foram congelado
 antes da primeira execucao. Agosto continua excluido como holdout ja aberto e
 setembro permanece intocado ate que exista uma candidata aprovada nos tres
 splits anteriores.
+
+A execucao congelada de `HOURLY_BREAKOUT_V1` avaliou oito conjuntos e resultou
+em `FAIL`. Nenhum conjunto passou todos os gates. O conjunto com melhor PF
+minimo teve 1,078 no desenvolvimento, 0,995 na validacao e 1,052 na confirmacao
+com custo de 0,06%; sob 0,14%, os valores foram 1,022, 0,939 e 0,984. A familia
+foi encerrada sem ajuste posterior, e setembro nao foi aberto.

@@ -12,6 +12,7 @@ conjunto de desenvolvimento e nao altera parametros.
 | low24h reversal 60m | 8.899 amostras e PF global 1,110 | PF abaixo de 1 em 2025 e 2026; IC bootstrap inclui 1 | rejeitar |
 | ATR contracting short | PF mediano 1,028 a 0,06% | somente 50% das janelas positivas; julho PF 0,220 | rejeitar |
 | medium trend event V1 | grade pre-registrada, tres splits e 16 conjuntos | melhor minimo entre splits foi PF 0,899 a 0,06% | rejeitar |
+| hourly breakout V1 | baixo giro, stop ATR, tres splits e custos ate 0,14% | melhor minimo foi PF 0,995 a 0,06%; validacao e estresse falharam | rejeitar |
 
 ## Consequencia para o plano
 
@@ -31,3 +32,7 @@ alteracao da grade. Nenhum dos 16 conjuntos passou. O conjunto menos fraco
 (EMA 24/192, ADX 20, hold 96 barras) apresentou PF 0,900 no desenvolvimento,
 0,899 na validacao e 0,982 na confirmacao, todos com custo de 0,06%. A familia
 foi encerrada sem tuning adicional.
+
+`HOURLY_BREAKOUT_V1` tambem foi registrada e versionada antes do calculo. Os
+oito conjuntos falharam sem que setembro de 2026 fosse lido. A familia foi
+encerrada; seus resultados negativos permanecem versionados como evidencia.
