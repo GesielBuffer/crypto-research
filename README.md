@@ -5,6 +5,14 @@ estao documentados em `docs/PROGRAMA_ESTRATEGIAS.md`. O projeto registra tambem
 todas as tentativas em `experiments/TRIAL_LEDGER.md`, evitando apagar resultados
 negativos ou subestimar selecao multipla.
 
+O primeiro motor estrutural e `DELTA_NEUTRAL_CARRY_V1`. Ele mede separadamente
+spot, short perp, funding, basis e custo das duas pernas, entrando apenas depois
+do funding observado:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.delta_neutral_carry
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
