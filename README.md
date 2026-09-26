@@ -31,6 +31,14 @@ permaneceu fechado. A proxima familia independente e momentum transversal com
 universo ampliado; retirar apenas o ativo perdedor depois deste resultado nao e
 evidencia valida.
 
+O protocolo seguinte amplia o universo para momentum transversal. O mesmo
+comando adquire candles publicos de 4h, grava um manifesto com SHA-256 e executa
+somente a descoberta ate julho de 2026:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.cross_sectional_momentum --download
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
