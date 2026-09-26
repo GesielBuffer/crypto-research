@@ -29,6 +29,13 @@ e reduz exposicao direcional.
 Dados locais prontos: spot, perpetuo, funding, premium, mark e index para BTC,
 ETH, BNB e SOL.
 
+O primeiro protocolo, `DELTA_NEUTRAL_CARRY_V1`, confirmou carry liquido no
+desenvolvimento, mas falhou por quebra de regime: o limiar anualizado absoluto
+de 10% produziu apenas cinco operacoes na validacao e nenhuma na confirmacao.
+A mediana movel de funding anualizado caiu de 8,58% em 2024 para 3,00% em 2025
+e 1,05% em 2026. A proxima hipotese de carry devera usar estado relativo
+calculado apenas com janela passada, e nao um corte absoluto reajustado.
+
 ### 2. Momentum transversal em universo ampliado
 
 Classificar um universo liquido de perpetuos, comprar vencedores e vender
@@ -97,4 +104,3 @@ risco, mas nunca transformar uma estrategia reprovada em aprovada.
 
 As fontes incluem resultados favoraveis e criticas. Essa oposicao e
 intencional: o projeto deve testar o mecanismo e tambem a explicacao alternativa.
-

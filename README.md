@@ -13,6 +13,11 @@ do funding observado:
 .\.venv\Scripts\python.exe -m research.experiments.delta_neutral_carry
 ```
 
+O V1 encontrou carry liquido no desenvolvimento, mas o funding mudou de regime:
+o corte absoluto gerou cinco operacoes na validacao e zero na confirmacao. A
+decisao foi `FAIL`; a evidencia orienta uma familia adaptativa nova, sem alterar
+retroativamente o protocolo testado.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

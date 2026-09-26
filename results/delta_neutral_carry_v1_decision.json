@@ -1,0 +1,72 @@
+{
+  "candidates": [
+    {
+      "hold_funding_periods": 21,
+      "min_trailing_annualized_funding": 0.1,
+      "minimum_base_profit_factor": 0.0,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "development_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ]
+    },
+    {
+      "hold_funding_periods": 21,
+      "min_trailing_annualized_funding": 0.2,
+      "minimum_base_profit_factor": 16.042085181678267,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ]
+    },
+    {
+      "hold_funding_periods": 42,
+      "min_trailing_annualized_funding": 0.1,
+      "minimum_base_profit_factor": 6.923708235533808,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_stress"
+      ]
+    },
+    {
+      "hold_funding_periods": 42,
+      "min_trailing_annualized_funding": 0.2,
+      "minimum_base_profit_factor": 132.90411708239876,
+      "pass": false,
+      "reasons": [
+        "confirmation_base",
+        "confirmation_breadth",
+        "confirmation_drawdown",
+        "confirmation_stress",
+        "validation_base",
+        "validation_breadth",
+        "validation_drawdown",
+        "validation_stress"
+      ]
+    }
+  ],
+  "decision": "FAIL",
+  "passing_parameter_sets": 0,
+  "selected": null,
+  "strategy_version": "DELTA_NEUTRAL_CARRY_V1",
+  "tested_parameter_sets": 4
+}

@@ -1,4 +1,6 @@
+import json
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
@@ -6,6 +8,18 @@ from research.experiments.delta_neutral_carry import simulate_symbol
 
 
 class DeltaNeutralCarryTests(unittest.TestCase):
+    def test_frozen_v1_result_is_not_promoted(self):
+        root = Path(__file__).resolve().parents[2]
+        decision = json.loads(
+            (root / "results" / "delta_neutral_carry_v1_decision.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(decision["decision"], "FAIL")
+        self.assertEqual(decision["tested_parameter_sets"], 4)
+        self.assertEqual(decision["passing_parameter_sets"], 0)
+        self.assertIsNone(decision["selected"])
+
     def test_entry_is_strictly_after_known_funding_and_accounting_is_explicit(self):
         times = pd.date_range("2026-01-01", periods=145, freq="5min", tz="UTC")
         prices = pd.DataFrame({
