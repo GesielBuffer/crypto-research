@@ -55,6 +55,12 @@ O `SLOW_TREND_V1` terminou em `FAIL_DISCOVERY`: apesar de alguns periodos com
 PF acima de 1, nenhum conjunto foi estavel e os drawdowns direcionais excederam
 amplamente o limite. Nenhuma configuracao abriu o holdout.
 
+O quarto motor remove o fator BTC antes de classificar desvios residuais:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.residual_value
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
