@@ -37,11 +37,12 @@ def load_protocol(path: Path = DEFAULT_PROTOCOL) -> dict:
 def _capped_signed_weights(raw: pd.Series, gross: float, cap: float) -> pd.Series:
     raw = raw.replace([np.inf, -np.inf], np.nan).dropna()
     raw = raw[raw != 0]
-    if raw.empty or len(raw) * cap + 1e-12 < gross:
-        raise ValueError("insufficient active signals for the weight cap")
+    if raw.empty:
+        return pd.Series(dtype=float)
+    target_gross = min(gross, len(raw) * cap)
     weights = pd.Series(0.0, index=raw.index)
     remaining = list(raw.index)
-    residual = gross
+    residual = target_gross
     magnitude = raw.abs()
     while remaining:
         allocation = magnitude.loc[remaining] / magnitude.loc[remaining].sum() * residual

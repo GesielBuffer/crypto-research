@@ -12,6 +12,12 @@ class SlowTrendTests(unittest.TestCase):
         self.assertAlmostEqual(weights.abs().sum(), 1.0)
         self.assertLessEqual(weights.abs().max(), 0.10)
 
+    def test_sparse_signals_hold_cash_instead_of_breaking_cap(self):
+        raw = pd.Series({"A": 1.0, "B": -0.5, "C": 0.25})
+        weights = _capped_signed_weights(raw, gross=1.0, cap=0.10)
+        self.assertAlmostEqual(weights.abs().sum(), 0.30)
+        self.assertTrue((weights.abs() <= 0.10).all())
+
     def test_future_change_cannot_change_first_period(self):
         index = pd.date_range("2024-01-01", "2024-04-10", freq="4h", tz="UTC")
         symbols = [f"S{i:02d}" for i in range(16)]
