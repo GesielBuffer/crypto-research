@@ -4,7 +4,7 @@ hypothesis = "A trailing funding percentile identifies relative carry opportunit
 registered_on = "2026-09-26"
 amended_on = "2026-09-26"
 amendment = "Holdout cutoff accelerated to the last complete UTC day at the user's request, before any post-July structural data was downloaded."
-status = "PREREGISTERED"
+status = "FAIL_DISCOVERY"
 family = "structural_carry_adaptive"
 motivation = "V1 documented a large decline in absolute funding levels; V2 changes the signal family and requires a new untouched holdout."
 
@@ -64,3 +64,4 @@ role = "secondary stress only because August price outcomes were opened by prior
 discovery_effect = "At most one fixed configuration may be frozen. Discovery PASS does not approve trading."
 holdout_effect = "Only a fresh-holdout PASS can advance the candidate to shadow and paper evaluation."
 production_effect = "None until paper, Testnet, operational and human gates also pass."
+observed = "No configuration passed discovery; September remained unopened and no candidate was selected."

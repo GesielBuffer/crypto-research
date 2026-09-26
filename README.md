@@ -25,6 +25,12 @@ exclusivamente em observacoes anteriores. A descoberta nao le o holdout:
 .\.venv\Scripts\python.exe -m research.experiments.adaptive_carry
 ```
 
+Os quatro conjuntos do V2 falharam na descoberta: o resultado positivo de 2024
+nao persistiu em 2025/2026. Nenhum parametro foi selecionado e setembro de 2026
+permaneceu fechado. A proxima familia independente e momentum transversal com
+universo ampliado; retirar apenas o ativo perdedor depois deste resultado nao e
+evidencia valida.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

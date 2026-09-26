@@ -1,4 +1,6 @@
+import json
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
@@ -6,6 +8,15 @@ from research.experiments.adaptive_carry import simulate_adaptive_symbol
 
 
 class AdaptiveCarryTests(unittest.TestCase):
+    def test_frozen_discovery_decision_keeps_holdout_closed(self):
+        path = Path(__file__).parents[2] / "results" / "adaptive_carry_v2_discovery_decision.json"
+        report = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(report["strategy_version"], "ADAPTIVE_CARRY_V2")
+        self.assertEqual(report["decision"], "FAIL_DISCOVERY")
+        self.assertEqual(report["passing_parameter_sets"], 0)
+        self.assertIsNone(report["selected"])
+        self.assertEqual(report["holdout_status"], "UNOPENED")
+
     def test_threshold_uses_history_before_current_observation(self):
         funding_times = pd.date_range("2026-01-01", periods=7, freq="4h", tz="UTC")
         funding = pd.DataFrame({

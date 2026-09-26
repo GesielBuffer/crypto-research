@@ -1,0 +1,65 @@
+{
+  "candidates": [
+    {
+      "entry_percentile": 0.75,
+      "hold_funding_periods": 21,
+      "minimum_segment_profit_factor": 0.0,
+      "pass": false,
+      "pooled_drawdown": 0.030453599394431596,
+      "reasons": [
+        "year_2024_stress",
+        "year_2025_base",
+        "year_2025_stress",
+        "year_2026_base",
+        "year_2026_stress"
+      ]
+    },
+    {
+      "entry_percentile": 0.9,
+      "hold_funding_periods": 21,
+      "minimum_segment_profit_factor": 0.0,
+      "pass": false,
+      "pooled_drawdown": 0.020780906083710637,
+      "reasons": [
+        "year_2024_stress",
+        "year_2025_base",
+        "year_2025_stress",
+        "year_2026_base",
+        "year_2026_stress"
+      ]
+    },
+    {
+      "entry_percentile": 0.75,
+      "hold_funding_periods": 42,
+      "minimum_segment_profit_factor": 0.0,
+      "pass": false,
+      "pooled_drawdown": 0.013281526942723776,
+      "reasons": [
+        "year_2025_base",
+        "year_2025_stress",
+        "year_2026_base",
+        "year_2026_stress"
+      ]
+    },
+    {
+      "entry_percentile": 0.9,
+      "hold_funding_periods": 42,
+      "minimum_segment_profit_factor": 0.0,
+      "pass": false,
+      "pooled_drawdown": 0.011524446932945076,
+      "reasons": [
+        "year_2025_base",
+        "year_2025_stress",
+        "year_2026_base",
+        "year_2026_stress"
+      ]
+    }
+  ],
+  "decision": "FAIL_DISCOVERY",
+  "holdout_status": "UNOPENED",
+  "passing_parameter_sets": 0,
+  "selected": null,
+  "stage": "DISCOVERY",
+  "strategy_version": "ADAPTIVE_CARRY_V2",
+  "tested_parameter_sets": 4
+}

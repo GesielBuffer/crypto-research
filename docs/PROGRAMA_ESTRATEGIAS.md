@@ -33,10 +33,13 @@ O primeiro protocolo, `DELTA_NEUTRAL_CARRY_V1`, confirmou carry liquido no
 desenvolvimento, mas falhou por quebra de regime: o limiar anualizado absoluto
 de 10% produziu apenas cinco operacoes na validacao e nenhuma na confirmacao.
 A mediana movel de funding anualizado caiu de 8,58% em 2024 para 3,00% em 2025
-e 1,05% em 2026. A proxima hipotese de carry devera usar estado relativo
-calculado apenas com janela passada, e nao um corte absoluto reajustado.
+e 1,05% em 2026. O V2 testou o estado relativo, com percentil calculado apenas
+em observacoes anteriores, mas nenhum dos quatro conjuntos passou. A melhora
+de 2024 nao persistiu em 2025/2026; o holdout de setembro permaneceu fechado.
+O resultado encerra esta iteracao de carry em vez de iniciar novo ajuste de
+limiar sobre os mesmos dados.
 
-### 2. Momentum transversal em universo ampliado
+### 2. Momentum transversal em universo ampliado — proxima familia
 
 Classificar um universo liquido de perpetuos, comprar vencedores e vender
 perdedores com neutralizacao de beta e volatilidade. Quatro ativos sao
