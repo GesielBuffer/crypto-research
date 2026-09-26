@@ -1,0 +1,74 @@
+[experiment]
+strategy_version = "CROSS_SECTIONAL_FUNDING_CARRY_V1"
+hypothesis = "A market-balanced portfolio that is long the lowest-funding perpetuals and short the highest-funding perpetuals captures a persistent cross-sectional funding spread after price moves, turnover and costs."
+registered_on = "2026-09-26"
+status = "PREREGISTERED"
+family = "cross_sectional_funding_carry"
+
+[data]
+price_manifest = "manifests/cross_sectional_momentum_v1.json"
+funding_manifest = "manifests/cross_sectional_funding_carry_v1.json"
+interval = "4h"
+start = "2024-01-01"
+discovery_end = "2026-08-01"
+universe_source = "results/cross_sectional_momentum_v1_universe.csv"
+funding_endpoint = "https://fapi.binance.com/fapi/v1/fundingRate"
+
+[signal]
+trailing_funding_records = [3, 21]
+rebalance_funding_periods = [1, 3]
+ranking = "mean funding using settled records available at the rebalance timestamp"
+long_fraction = 0.25
+short_fraction = 0.25
+direction = "long lowest funding quartile and short highest funding quartile"
+entry = "first common 4h open strictly after the observed funding timestamp"
+
+[portfolio]
+gross_exposure = 1.0
+long_gross = 0.5
+short_gross = 0.5
+weighting = "equal weight within each quartile"
+round_trip_costs = [0.0006, 0.0014]
+cost_application = "round_trip_cost divided by two, charged per absolute signed weight change"
+funding_accounting = "long pays positive funding and short receives positive funding; only settlements after entry observation through exit observation are included"
+
+[splits]
+development = ["2024-04-01", "2025-01-01"]
+validation = ["2025-01-01", "2026-01-01"]
+confirmation = ["2026-01-01", "2026-08-01"]
+
+[research_continuation]
+minimum_periods_each_full_split = 80
+minimum_periods_confirmation = 45
+minimum_base_profit_factor_each_split = 1.00
+minimum_pooled_profit_factor = 1.08
+minimum_positive_symbols = 8
+max_pooled_drawdown = 0.20
+
+[holdout_selection]
+minimum_periods_each_full_split = 80
+minimum_periods_confirmation = 45
+base_cost_min_profit_factor_each_split = 1.10
+stress_cost_min_profit_factor_each_split = 1.00
+minimum_positive_symbols = 10
+max_pooled_drawdown = 0.15
+tie_break = "highest minimum base-cost split PF, then lower turnover, then longer trailing funding window"
+
+[fresh_holdout]
+start = "2026-09-01"
+end = "2026-09-26"
+status = "UNOPENED"
+minimum_periods = 8
+base_cost_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+max_drawdown = 0.08
+rule = "Only HOLDOUT_READY may open this interval; RESEARCH_CANDIDATE remains discovery-only."
+
+[opened_stress]
+start = "2026-08-01"
+end = "2026-09-01"
+role = "secondary stress only because August outcomes were opened by prior research"
+
+[decision]
+levels = ["REJECT", "RESEARCH_CANDIDATE", "HOLDOUT_READY"]
+production_effect = "None until fresh holdout, paper, Testnet, operational and human gates also pass."

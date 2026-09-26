@@ -15,6 +15,7 @@ que a selecao futura nao trate o melhor backtest como uma descoberta isolada.
 | CROSS_SECTIONAL_MOMENTUM_V1 | 4 | FAIL_DISCOVERY: instabilidade temporal e drawdown | momentum relativo; holdout de setembro permaneceu fechado |
 | SLOW_TREND_V1 | 4 | FAIL_DISCOVERY: PF instavel e drawdown de 44%-61% | trend following; holdout de setembro permaneceu fechado |
 | RESIDUAL_VALUE_V1 | 4 | FAIL_DISCOVERY: reversao apareceu so em 2025 | valor relativo; holdout de setembro permaneceu fechado |
+| CROSS_SECTIONAL_FUNDING_CARRY_V1 | 4 | PREREGISTERED | spread transversal de funding em 16 ativos |
 
 O numero total de configuracoes e familias sera usado nas correcoes de selecao
 quando houver uma candidata com serie de retornos de portfolio suficiente.

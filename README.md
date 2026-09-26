@@ -66,6 +66,14 @@ O `RESIDUAL_VALUE_V1` terminou em `FAIL_DISCOVERY`: a reversao observada em
 quatro familias do primeiro programa independente foram executadas e nenhuma
 foi promovida; setembro continua sendo um holdout intacto.
 
+Os criterios de promocao e de continuidade cientifica foram separados em
+`docs/AUDITORIA_CRITERIOS.md`. O proximo motor testa carry transversal de
+funding; ele baixa apenas dados publicos e mantem agosto/setembro fechados:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.cross_sectional_funding_carry --download
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

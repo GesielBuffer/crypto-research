@@ -100,6 +100,12 @@ nao ha estrategia autorizada para paper trading ou capital real. O proximo
 ciclo deve atacar as falhas observadas com uma hipotese nova e pre-registrada,
 sem retirar ativos, inverter sinais ou relaxar gates depois dos resultados.
 
+A auditoria em `docs/AUDITORIA_CRITERIOS.md` separou, prospectivamente,
+continuidade de pesquisa e promocao. O segundo ciclo comeca por
+`CROSS_SECTIONAL_FUNDING_CARRY_V1`: long nos contratos de menor funding e short
+nos de maior funding, com preco, funding e turnover contabilizados em carteira
+equilibrada. O protocolo foi congelado antes da aquisicao do funding ampliado.
+
 ## Arquitetura final pretendida
 
 Os motores aprovados nao serao somados por retorno historico maximo. O portfolio
