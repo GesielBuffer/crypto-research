@@ -44,6 +44,13 @@ passou simultaneamente estabilidade temporal, custo, amplitude e drawdown. O
 manifesto preserva os hashes dos 24 caches publicos; o holdout de setembro nao
 foi aberto.
 
+O motor seguinte testa trend following lento em quatro conjuntos de velocidades,
+reutilizando os mesmos dados e o universo ja congelado:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.slow_trend
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
