@@ -41,6 +41,8 @@ conta real.
 - `execution/config.py`: configuracao fail-closed; variaveis de ambiente nao conseguem habilitar conta real;
 - `execution/readiness.py`: gates objetivos de promocao;
 - `deployment/readiness.toml`: estado versionado da promocao.
+- `execution/shadow_funding.py`: observador da candidata V4 com funding publico,
+  estado persistente e carteira-alvo; nao importa nem chama adaptador de ordens.
 
 As protecoes usam o servico Algo atual da Binance USD-M
 (`/fapi/v1/algoOrder` e `/fapi/v1/openAlgoOrders`). Os tipos condicionais nao
@@ -72,6 +74,16 @@ Verifique o estado atual sem acessar exchange:
 
 Enquanto houver blockers, nenhum adaptador de conta real deve ser conectado ao
 `TradingService`.
+
+O modo shadow pode ser executado agora sem credenciais e sem exchange privada:
+
+```powershell
+.\.venv\Scripts\python.exe -m execution.shadow_funding
+```
+
+Ele registra apenas o estado do sinal em `runtime/`, que e ignorado pelo Git.
+Seu campo `execution = DISABLED_BY_DESIGN` e uma propriedade do programa, nao
+uma opcao de linha de comando.
 
 O ensaio local de recuperacao pode ser repetido com:
 

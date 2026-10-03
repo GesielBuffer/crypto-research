@@ -131,6 +131,17 @@ de 13,02%, ambas com 912 periodos e estabilidade em 2024, 2025 e 2026. Essa e
 evidencia externa forte, mas nao substitui um holdout temporal futuro e nao
 autoriza paper trading ou ordem real.
 
+Enquanto o holdout V4 acumula dados, o observador operacional calcula a
+carteira-alvo com funding publico e persiste estado em `runtime/`, sem possuir
+capacidade de enviar ordens:
+
+```powershell
+.\.venv\Scripts\python.exe -m execution.shadow_funding
+```
+
+O JSON informa longs, shorts, pesos, hash do sinal e blockers de producao. O
+campo `execution` permanece `DISABLED_BY_DESIGN`.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text

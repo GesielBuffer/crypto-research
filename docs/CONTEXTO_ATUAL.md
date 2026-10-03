@@ -25,7 +25,7 @@ os documentos e resultados vinculados continuam sendo a fonte detalhada.
   publicos; nao entram no Git.
 - Runtime seguro, protecao de posicao, reconciliacao, recovery, kill switch,
   paper exchange e adaptador restrito ao Binance Testnet estao implementados.
-- Suite atual: 148 testes unitarios aprovados; `pip check` sem conflitos.
+- Suite atual: 151 testes unitarios aprovados; `pip check` sem conflitos.
 - Nenhuma estrategia esta aprovada para paper trading ou capital real.
 - `real_trading_enabled = false`; nenhum comando deve alterar isso por inferencia.
 
@@ -123,6 +123,10 @@ O protocolo V4 ja esta congelado em
 `[2026-10-03, 2026-11-03)`, minimo de 24 periodos por venue, Binance obrigatoria
 e aprovacao de pelo menos duas das tres venues. Ele permanece `UNOPENED` e nao
 pode ser consultado antes de 3 de novembro de 2026.
+
+O observador `execution.shadow_funding` ja acompanha a regra V4 com endpoints
+publicos, preserva a histerese em `runtime/` e produz pesos-alvo auditaveis. Ele
+nao possui caminho de envio de ordem e declara `DISABLED_BY_DESIGN`.
 
 ## Comandos seguros
 
