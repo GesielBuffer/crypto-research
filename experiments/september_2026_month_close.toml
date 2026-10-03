@@ -1,0 +1,27 @@
+[experiment]
+experiment_id = "SEPTEMBER_2026_MONTH_CLOSE"
+registered_on = "2026-10-02"
+status = "PREREGISTERED_DIAGNOSTIC"
+strategy_version = "CROSS_SECTIONAL_FUNDING_CARRY_V3"
+strategy_change = "none"
+purpose = "Close the September calendar month without changing or reopening the failed formal holdout."
+
+[data]
+existing_extension_manifest = "manifests/cross_sectional_funding_carry_v3.json"
+closure_manifest = "manifests/september_2026_month_close.json"
+interval = "4h"
+closure_start = "2026-09-26"
+closure_end = "2026-10-01"
+universe_source = "results/cross_sectional_momentum_v1_universe.csv"
+
+[evaluation]
+month_start = "2026-09-01"
+month_end = "2026-10-01"
+increment_start = "2026-09-26"
+costs = [0.0006, 0.0014]
+metrics = ["samples", "mean_return", "median_return", "win_rate", "profit_factor", "max_compounded_drawdown"]
+
+[decision]
+formal_holdout_decision = "FAIL"
+effect = "DIAGNOSTIC_ONLY"
+rule = "The full-month result cannot alter, replace or reopen the holdout decision recorded through 2026-09-25."

@@ -18,6 +18,7 @@ que a selecao futura nao trate o melhor backtest como uma descoberta isolada.
 | CROSS_SECTIONAL_FUNDING_CARRY_V1 | 4 | RESEARCH_CANDIDATE: 3 conjuntos; 0 holdout-ready | spread transversal de funding; setembro fechado |
 | CROSS_SECTIONAL_FUNDING_CARRY_V2 | 1 | REJECT pelo protocolo; candidato congelado para V3 | PF 1,339, DD 11,3%; breadth por contagem inadequada |
 | CROSS_SECTIONAL_FUNDING_CARRY_V3 | 1 | FAIL no holdout: PF 0,992 base / 0,930 stress | V2 inalterada; setembro aberto uma vez |
+| SEPTEMBER_2026_MONTH_CLOSE | 1 diagnostico | PREREGISTERED | fechamento calendario; nao altera FAIL do holdout |
 
 O numero total de configuracoes e familias sera usado nas correcoes de selecao
 quando houver uma candidata com serie de retornos de portfolio suficiente.
