@@ -118,6 +118,19 @@ gate de amplitude, a mesma estrategia foi congelada como V3, sem retuning. Em
 agosto ela teve PF 1,195 base / 1,078 stress; no holdout de setembro teve PF
 0,992 base / 0,930 stress e media liquida negativa. Decisao: `FAIL_HOLDOUT`.
 
+### Replicacao cross-exchange
+
+`CROSS_EXCHANGE_FUNDING_REPLICATION_V1` transferiu a regra V3 sem alteracoes
+para Bybit e OKX, usando candles e funding publicos entre janeiro de 2024 e
+setembro de 2026. Os contratos foram elegiveis somente por cobertura minima de
+95%; nenhum retorno foi usado para escolher o universo.
+
+As duas venues passaram todos os gates pre-registrados. Bybit: PF 1,325 base,
+1,198 stress e drawdown 10,72%. OKX: PF 1,336 base, 1,207 stress e drawdown
+13,02%. Cada serie teve 912 periodos e PF base acima de 1 em 2024, 2025 e 2026.
+A decisao e `REPLICATION_CONFIRMED`, com efeito apenas cientifico: o proximo
+passo obrigatorio e um holdout temporal futuro, nao uma ordem real.
+
 ## Arquitetura final pretendida
 
 Os motores aprovados nao serao somados por retorno historico maximo. O portfolio

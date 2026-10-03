@@ -2,7 +2,7 @@
 
 Atualizado em: 2026-10-02
 Branch operacional: `main`  
-Ultimo estado consolidado: commit `ce0ddbe`
+Ultimo estado consolidado: replicacao cross-exchange concluida
 
 Este arquivo e o ponto de entrada para retomar o projeto. Ele indexa o estado;
 os documentos e resultados vinculados continuam sendo a fonte detalhada.
@@ -25,7 +25,7 @@ os documentos e resultados vinculados continuam sendo a fonte detalhada.
   publicos; nao entram no Git.
 - Runtime seguro, protecao de posicao, reconciliacao, recovery, kill switch,
   paper exchange e adaptador restrito ao Binance Testnet estao implementados.
-- Suite atual: 142 testes unitarios aprovados; `pip check` sem conflitos.
+- Suite atual: 148 testes unitarios aprovados; `pip check` sem conflitos.
 - Nenhuma estrategia esta aprovada para paper trading ou capital real.
 - `real_trading_enabled = false`; nenhum comando deve alterar isso por inferencia.
 
@@ -68,6 +68,18 @@ os documentos e resultados vinculados continuam sendo a fonte detalhada.
 - SHA-256 canonico:
   `44c81b89807494794689a27c7f4ababfb14591118e7a4ceb2cf8ffc6081f9480`.
 
+### Replicacao externa posterior
+
+- A V3 foi transferida sem alteracoes para Bybit e OKX em dados publicos de
+  janeiro de 2024 a setembro de 2026.
+- Bybit: 912 periodos, PF 1,325 base / 1,198 stress, drawdown 10,72%.
+- OKX: 912 periodos, PF 1,336 base / 1,207 stress, drawdown 13,02%.
+- As duas venues passaram os gates anuais e agregados: `REPLICATION_CONFIRMED`.
+- Isso e evidencia independente de venue, nao um holdout temporal futuro; nao
+  apaga setembro e ainda nao libera paper, Testnet promocional ou capital real.
+- Relatorio: `results/cross_exchange_funding_replication_v1_decision.json`.
+- SHA-256: `ecf3201f37e92a33720efc3b25a8d674cefd8591e960c881c6eeeddfa5c8773d`.
+
 ## O que a auditoria de criterios concluiu
 
 O antigo `PASS/FAIL` binario era insuficiente para orientar pesquisa. A nova
@@ -94,20 +106,17 @@ estrategia ser congelada, o holdout novo falhou. Portanto:
 - Carry transversal V1: `RESEARCH_CANDIDATE`.
 - Carry transversal V2: rejeitado pelo protocolo original, mas originou a V3.
 - Carry transversal V3: `FAIL_HOLDOUT`.
+- Replicacao Bybit/OKX da regra V3: `REPLICATION_CONFIRMED`.
 
 Detalhes e contagem de configuracoes: `experiments/TRIAL_LEDGER.md`.
 
 ## Proximo passo correto
 
-Nao retunar Binance usando setembro. O proximo ciclo deve buscar evidencia
-independente do mesmo mecanismo em outras venues, prioritariamente OKX e Bybit:
-
-1. congelar regra de contratos comparaveis, custos e periodos antes do download;
-2. adquirir candles e funding por endpoints publicos;
-3. reproduzir primeiro a estrategia V3 sem mudancas;
-4. medir persistencia cross-exchange e diferenca de microestrutura;
-5. somente uma hipotese que passe dados independentes recebe novo holdout;
-6. paper/Testnet continuam bloqueados ate essa aprovacao.
+Nao retunar Binance, Bybit ou OKX. Como a replicacao independente passou, o
+proximo ciclo deve congelar a mesma regra para um holdout temporal futuro nas
+tres venues. O periodo precisa comecar depois do registro, acumular a amostra
+minima e ser aberto uma unica vez. Enquanto isso, engenharia e ensaios locais
+podem avancar, mas paper promocional e capital real continuam bloqueados.
 
 ## Comandos seguros
 
@@ -135,6 +144,8 @@ modo real e nao usar credenciais reais.
 - Resultado final V3: `results/cross_sectional_funding_carry_v3_decision.json`.
 - Robustez leave-one-out: `results/cross_sectional_funding_carry_v3_leave_one_out.csv`.
 - Fechamento mensal: `results/september_2026_month_close.json`.
+- Manifesto cross-exchange: `manifests/cross_exchange_funding_replication_v1.json`.
+- Decisao cross-exchange: `results/cross_exchange_funding_replication_v1_decision.json`.
 
 ## Regra de continuidade
 

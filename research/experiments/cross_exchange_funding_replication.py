@@ -49,9 +49,20 @@ def load_protocol(path: Path = DEFAULT_PROTOCOL) -> dict:
 
 
 def _request_json(session: requests.Session, url: str, params: dict) -> dict:
-    response = session.get(url, params=params, timeout=30)
-    response.raise_for_status()
-    payload = response.json()
+    last_error: Exception | None = None
+    for attempt in range(4):
+        try:
+            response = session.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            payload = response.json()
+            break
+        except (requests.ConnectionError, requests.Timeout) as exc:
+            last_error = exc
+            if attempt == 3:
+                raise
+            time.sleep(0.5 * (2 ** attempt))
+    else:  # pragma: no cover - defensive; loop either breaks or raises
+        raise RuntimeError("request retry loop ended unexpectedly") from last_error
     if isinstance(payload, dict) and payload.get("retCode", 0) not in (0, "0"):
         raise RuntimeError(f"remote error {payload.get('retCode')}: {payload.get('retMsg')}")
     if isinstance(payload, dict) and payload.get("code", "0") != "0":

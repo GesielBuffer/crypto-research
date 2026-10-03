@@ -1,0 +1,259 @@
+{
+  "decision": "REPLICATION_CONFIRMED",
+  "effect": "research evidence only; cannot promote to paper or real trading without a future temporal holdout",
+  "experiment_id": "CROSS_EXCHANGE_FUNDING_REPLICATION_V1",
+  "source_strategy": "CROSS_SECTIONAL_FUNDING_CARRY_V3",
+  "strategy_changed": false,
+  "venues": {
+    "bybit": {
+      "coverage": [
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "BTC"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "ETH"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "SOL"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "XRP"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "DOGE"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "BNB"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "AVAX"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "ARB"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "FIL"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "LINK"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "ADA"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "OP"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "LTC"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "INJ"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "ETC"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.999667994687915,
+          "price_coverage": 1.0,
+          "symbol": "NEAR"
+        }
+      ],
+      "eligible_symbols": [
+        "ADA",
+        "ARB",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOGE",
+        "ETC",
+        "ETH",
+        "FIL",
+        "INJ",
+        "LINK",
+        "LTC",
+        "NEAR",
+        "OP",
+        "SOL",
+        "XRP"
+      ],
+      "full_base_profit_factor": 1.3247662114672447,
+      "full_drawdown": 0.10715150019159347,
+      "full_samples": 912,
+      "full_stress_profit_factor": 1.1978628012673282,
+      "passed": true,
+      "reasons": [],
+      "status": "PASS"
+    },
+    "okx": {
+      "coverage": [
+        {
+          "eligible": true,
+          "funding_coverage": 0.99933598937583,
+          "price_coverage": 1.0,
+          "symbol": "BTC"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359778478678,
+          "price_coverage": 1.0,
+          "symbol": "ETH"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359317360189,
+          "price_coverage": 1.0,
+          "symbol": "SOL"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359663199055,
+          "price_coverage": 1.0,
+          "symbol": "XRP"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359432639811,
+          "price_coverage": 1.0,
+          "symbol": "DOGE"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.99933588562417,
+          "price_coverage": 1.0,
+          "symbol": "BNB"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359432639811,
+          "price_coverage": 1.0,
+          "symbol": "AVAX"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.99933588562417,
+          "price_coverage": 1.0,
+          "symbol": "ARB"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359202080566,
+          "price_coverage": 1.0,
+          "symbol": "FIL"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359663199055,
+          "price_coverage": 1.0,
+          "symbol": "LINK"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359432639811,
+          "price_coverage": 1.0,
+          "symbol": "ADA"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993358971521322,
+          "price_coverage": 1.0,
+          "symbol": "OP"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359663199055,
+          "price_coverage": 1.0,
+          "symbol": "LTC"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993358740962077,
+          "price_coverage": 1.0,
+          "symbol": "INJ"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359663199055,
+          "price_coverage": 1.0,
+          "symbol": "ETC"
+        },
+        {
+          "eligible": true,
+          "funding_coverage": 0.9993359086800945,
+          "price_coverage": 1.0,
+          "symbol": "NEAR"
+        }
+      ],
+      "eligible_symbols": [
+        "ADA",
+        "ARB",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "DOGE",
+        "ETC",
+        "ETH",
+        "FIL",
+        "INJ",
+        "LINK",
+        "LTC",
+        "NEAR",
+        "OP",
+        "SOL",
+        "XRP"
+      ],
+      "full_base_profit_factor": 1.3361009832313753,
+      "full_drawdown": 0.13020060348638918,
+      "full_samples": 912,
+      "full_stress_profit_factor": 1.2071762846455114,
+      "passed": true,
+      "reasons": [],
+      "status": "PASS"
+    }
+  }
+}

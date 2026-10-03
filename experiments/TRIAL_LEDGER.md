@@ -19,7 +19,7 @@ que a selecao futura nao trate o melhor backtest como uma descoberta isolada.
 | CROSS_SECTIONAL_FUNDING_CARRY_V2 | 1 | REJECT pelo protocolo; candidato congelado para V3 | PF 1,339, DD 11,3%; breadth por contagem inadequada |
 | CROSS_SECTIONAL_FUNDING_CARRY_V3 | 1 | FAIL no holdout: PF 0,992 base / 0,930 stress | V2 inalterada; setembro aberto uma vez |
 | SEPTEMBER_2026_MONTH_CLOSE | 1 diagnostico | COMPLETED: PF 0,941 base / 0,880 stress | fechamento calendario; confirma FAIL |
-| CROSS_EXCHANGE_FUNDING_REPLICATION_V1 | 2 venues, 1 regra fixa | PREREGISTERED; fonte OKX emendada antes da aquisicao integral | replicacao externa OKX/Bybit; nao e holdout temporal |
+| CROSS_EXCHANGE_FUNDING_REPLICATION_V1 | 2 venues, 1 regra fixa | REPLICATION_CONFIRMED: Bybit PF 1,325/1,198; OKX PF 1,336/1,207 | replicacao externa OKX/Bybit; nao e holdout temporal |
 
 O numero total de configuracoes e familias sera usado nas correcoes de selecao
 quando houver uma candidata com serie de retornos de portfolio suficiente.
@@ -47,3 +47,8 @@ entre 43,9% e 61,4%, muito acima do limite pre-registrado de 15%.
 O valor residual V1 apresentou reversao em 2025, mas perdeu no desenvolvimento
 de 2024 e na confirmacao de 2026. Os drawdowns agregados variaram de 28,2% a
 47,5%; nenhuma configuracao foi congelada.
+
+A replicacao externa manteve sinal, universo, histerese, custos e gates da V3.
+As duas venues passaram todos os segmentos anuais e os limites agregados, com
+912 periodos cada. O resultado reabre a candidatura cientifica do mecanismo,
+mas nao apaga a falha Binance de setembro nem vale como holdout temporal futuro.

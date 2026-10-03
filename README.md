@@ -117,6 +117,20 @@ altera o holdout congelado:
 Setembro completo terminou com 29 periodos, PF 0,941 base, PF 0,880 stress e
 media liquida negativa. O diagnostico reforca, sem substituir, o `FAIL_HOLDOUT`.
 
+A regra congelada foi entao replicada sem retuning em dados independentes da
+Bybit e da OKX. O comando usa somente endpoints publicos, exige 95% de cobertura
+por contrato e aplica os mesmos custos e gates nas duas venues:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.cross_exchange_funding_replication --download
+```
+
+O resultado foi `REPLICATION_CONFIRMED`: Bybit teve PF 1,325 base / 1,198
+stress e drawdown de 10,72%; OKX teve PF 1,336 base / 1,207 stress e drawdown
+de 13,02%, ambas com 912 periodos e estabilidade em 2024, 2025 e 2026. Essa e
+evidencia externa forte, mas nao substitui um holdout temporal futuro e nao
+autoriza paper trading ou ordem real.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
@@ -131,7 +145,11 @@ dados historicos -> indicadores/features -> hipotese -> backtest
 
 ## Estado atual
 
-O laboratorio contem dezenas de experimentos sobre tendencia, reversao, extremos, fluxo, premium/basis, mark/index, lead-lag, regimes e robustez. A principal conclusao confirmada ate agora e negativa, mas valiosa:
+O laboratorio contem dezenas de experimentos sobre tendencia, reversao,
+extremos, fluxo, premium/basis, mark/index, lead-lag, regimes e robustez. A
+falha temporal de setembro permanece, mas o mecanismo de carry transversal foi
+replicado em Bybit e OKX. Existe agora uma candidata cientifica para um novo
+holdout futuro; ainda nao existe autorizacao para paper trading ou capital real.
 
 - A candidata C2 apresentou PF aproximado de **1,21** no desenvolvimento, usando custo de 0,06%.
 - No holdout de agosto de 2026, obteve apenas 47 operacoes, retorno medio negativo e PF aproximado de **0,71**.
