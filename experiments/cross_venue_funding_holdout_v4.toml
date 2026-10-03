@@ -1,0 +1,49 @@
+[experiment]
+experiment_id = "CROSS_VENUE_FUNDING_HOLDOUT_V4"
+strategy_version = "CROSS_SECTIONAL_FUNDING_CARRY_V4"
+registered_on = "2026-10-02"
+status = "PREREGISTERED_UNOPENED"
+parent = "CROSS_SECTIONAL_FUNDING_CARRY_V3"
+supporting_replication = "CROSS_EXCHANGE_FUNDING_REPLICATION_V1"
+strategy_change_from_parent = "none"
+hypothesis = "The unchanged funding-ranking mechanism persists prospectively across venues after successful independent market replication."
+
+[data]
+venues = ["binance", "bybit", "okx"]
+candidate_symbols = [
+  "BTC", "ETH", "SOL", "XRP", "DOGE", "BNB", "AVAX", "ARB",
+  "FIL", "LINK", "ADA", "OP", "LTC", "INJ", "ETC", "NEAR",
+]
+warmup_start = "2026-10-01"
+holdout_start = "2026-10-03"
+holdout_end = "2026-11-03"
+interval = "4h"
+minimum_symbol_coverage = 0.95
+minimum_eligible_symbols_per_venue = 12
+eligibility = "coverage only; no return, funding level or performance filter"
+
+[strategy]
+trailing_funding_records = 3
+rebalance_funding_periods = 3
+entry_fraction = 0.25
+exit_boundary = 0.50
+long_gross = 0.5
+short_gross = 0.5
+round_trip_costs = [0.0006, 0.0014]
+entry = "first venue 4h open strictly after the settled funding timestamp"
+
+[holdout]
+status = "UNOPENED"
+open_once_on_or_after = "2026-11-03"
+minimum_periods_per_venue = 24
+base_cost_min_profit_factor = 1.10
+stress_cost_min_profit_factor = 1.00
+max_drawdown = 0.08
+mean_return_must_be_positive = true
+venue_pass_rule = "Binance must pass and at least two of the three venues must pass every gate."
+rule = "No strategy, universe, parameter, cost or decision threshold may change after this registration."
+
+[promotion]
+pass_effect = "Advance to controlled shadow, paper and Testnet validation only; no real order permission."
+fail_effect = "Reject V4 without retuning this holdout."
+real_trading_rule = "A real order still requires paper and Testnet gates, live adapter review and explicit per-execution human authorization."

@@ -118,6 +118,12 @@ tres venues. O periodo precisa comecar depois do registro, acumular a amostra
 minima e ser aberto uma unica vez. Enquanto isso, engenharia e ensaios locais
 podem avancar, mas paper promocional e capital real continuam bloqueados.
 
+O protocolo V4 ja esta congelado em
+`experiments/cross_venue_funding_holdout_v4.toml`: periodo
+`[2026-10-03, 2026-11-03)`, minimo de 24 periodos por venue, Binance obrigatoria
+e aprovacao de pelo menos duas das tres venues. Ele permanece `UNOPENED` e nao
+pode ser consultado antes de 3 de novembro de 2026.
+
 ## Comandos seguros
 
 ```powershell

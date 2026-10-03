@@ -20,6 +20,7 @@ que a selecao futura nao trate o melhor backtest como uma descoberta isolada.
 | CROSS_SECTIONAL_FUNDING_CARRY_V3 | 1 | FAIL no holdout: PF 0,992 base / 0,930 stress | V2 inalterada; setembro aberto uma vez |
 | SEPTEMBER_2026_MONTH_CLOSE | 1 diagnostico | COMPLETED: PF 0,941 base / 0,880 stress | fechamento calendario; confirma FAIL |
 | CROSS_EXCHANGE_FUNDING_REPLICATION_V1 | 2 venues, 1 regra fixa | REPLICATION_CONFIRMED: Bybit PF 1,325/1,198; OKX PF 1,336/1,207 | replicacao externa OKX/Bybit; nao e holdout temporal |
+| CROSS_VENUE_FUNDING_HOLDOUT_V4 | 3 venues, 1 regra fixa | PREREGISTERED_UNOPENED `[2026-10-03, 2026-11-03)` | holdout temporal futuro; Binance obrigatoria e 2/3 venues |
 
 O numero total de configuracoes e familias sera usado nas correcoes de selecao
 quando houver uma candidata com serie de retornos de portfolio suficiente.

@@ -18,9 +18,9 @@ live_adapter_reviewed = false
 human_live_approval = false
 
 [evidence]
-current_candidate = ""
-current_holdout_decision = "FAIL"
-current_holdout_profit_factor = 0.991604061448304
+current_candidate = "CROSS_SECTIONAL_FUNDING_CARRY_V4"
+current_holdout_decision = "UNOPENED"
+last_holdout_profit_factor = 0.991604061448304
 last_holdout_candidate = "CROSS_SECTIONAL_FUNDING_CARRY_V3"
 latest_research_family = "CROSS_SECTIONAL_FUNDING_CARRY_V3"
 latest_research_decision = "FAIL_HOLDOUT"
@@ -32,6 +32,10 @@ latest_external_replication = "CROSS_EXCHANGE_FUNDING_REPLICATION_V1"
 latest_external_replication_decision = "REPLICATION_CONFIRMED"
 latest_external_replication_report = "results/cross_exchange_funding_replication_v1_decision.json"
 latest_external_replication_report_sha256 = "ecf3201f37e92a33720efc3b25a8d674cefd8591e960c881c6eeeddfa5c8773d"
+next_holdout_protocol = "experiments/cross_venue_funding_holdout_v4.toml"
+next_holdout_status = "UNOPENED"
+next_holdout_start = "2026-10-03"
+next_holdout_end = "2026-11-03"
 position_protection_evidence = "tests/unit/test_execution_runtime.py"
 testnet_protection_evidence = "tests/unit/test_binance_testnet.py"
 failure_recovery_report = "results/operational_recovery_rehearsal.json"
