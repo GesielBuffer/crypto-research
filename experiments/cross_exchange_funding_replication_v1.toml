@@ -30,6 +30,8 @@ interval = "240"
 [okx]
 price_endpoint = "https://www.okx.com/api/v5/market/history-candles"
 funding_endpoint = "https://www.okx.com/api/v5/public/funding-rate-history"
+funding_archive_endpoint = "https://www.okx.com/api/v5/public/market-data-history"
+funding_source_amendment = "registered before full acquisition: the rolling history endpoint does not retain the complete 2024-2026 window; use official module=3 monthly archives without changing symbols, dates, signal or gates"
 symbol_format = "{base}-USDT-SWAP"
 bar = "4H"
 
