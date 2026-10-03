@@ -1,6 +1,6 @@
 # Indice de contexto do projeto
 
-Atualizado em: 2026-09-26  
+Atualizado em: 2026-10-02  
 Branch operacional: `main`  
 Ultimo estado consolidado: commit `ce0ddbe`
 
@@ -59,6 +59,9 @@ os documentos e resultados vinculados continuam sendo a fonte detalhada.
   24 periodos, PF 0,992 base, PF 0,930 stress, media liquida base negativa e
   drawdown 4,82%.
 - Decisao congelada: `FAIL_HOLDOUT`.
+- Fechamento calendario `[2026-09-01, 2026-10-01)`: 29 periodos, PF 0,941
+  base, PF 0,880 stress, media liquida negativa e drawdown 5,51%. Os quatro
+  periodos adicionais tiveram PF 0,452 base e reforcaram o `FAIL`.
 - Setembro foi aberto uma vez e nunca pode voltar a ser tratado como holdout.
 - Relatorio canonico:
   `results/cross_sectional_funding_carry_v3_decision.json`.
@@ -131,6 +134,7 @@ modo real e nao usar credenciais reais.
 - Manifesto agosto/setembro: `manifests/cross_sectional_funding_carry_v3.json`.
 - Resultado final V3: `results/cross_sectional_funding_carry_v3_decision.json`.
 - Robustez leave-one-out: `results/cross_sectional_funding_carry_v3_leave_one_out.csv`.
+- Fechamento mensal: `results/september_2026_month_close.json`.
 
 ## Regra de continuidade
 

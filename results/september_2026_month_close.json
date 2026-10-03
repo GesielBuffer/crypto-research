@@ -1,0 +1,83 @@
+{
+  "effect": "DIAGNOSTIC_ONLY",
+  "experiment_id": "SEPTEMBER_2026_MONTH_CLOSE",
+  "formal_holdout_decision": "FAIL",
+  "full_month": [
+    {
+      "best_trade": 0.02505145102704906,
+      "cost": 0.0006,
+      "max_compounded_drawdown": 0.055089572528611463,
+      "max_losing_streak": 2,
+      "mean_funding_component": 5.3220462233169135e-05,
+      "mean_price_component": -0.00010565604602250503,
+      "mean_return": -0.00028199223403564135,
+      "mean_turnover": 0.7651888341543513,
+      "median_return": 0.0015154874304130477,
+      "profit_factor": 0.9409380102666984,
+      "q10": -0.0162056095575078,
+      "q90": 0.010129554671191015,
+      "samples": 29,
+      "win_rate": 0.6206896551724138,
+      "worst_trade": -0.03243160096377179
+    },
+    {
+      "best_trade": 0.024718117693715725,
+      "cost": 0.0014,
+      "max_compounded_drawdown": 0.057626927910155334,
+      "max_losing_streak": 2,
+      "mean_funding_component": 5.3220462233169135e-05,
+      "mean_price_component": -0.00010565604602250503,
+      "mean_return": -0.0005880677676973823,
+      "mean_turnover": 0.7651888341543513,
+      "median_return": 0.0011840588589844762,
+      "profit_factor": 0.8800078183240239,
+      "q10": -0.016512276224174467,
+      "q90": 0.009956602290238632,
+      "samples": 29,
+      "win_rate": 0.6206896551724138,
+      "worst_trade": -0.032645886678057505
+    }
+  ],
+  "increment_after_original_holdout": [
+    {
+      "best_trade": 0.006357204475366636,
+      "cost": 0.0006,
+      "max_compounded_drawdown": 0.008474686752045102,
+      "max_losing_streak": 1,
+      "mean_funding_component": 7.189624404761905e-05,
+      "mean_price_component": -0.001952795475895889,
+      "mean_return": -0.0021076849461339844,
+      "mean_turnover": 0.755952380952381,
+      "median_return": -0.003313019225340355,
+      "profit_factor": 0.4522767354279551,
+      "q10": -0.007882462719046152,
+      "q90": 0.004631360250143281,
+      "samples": 4,
+      "win_rate": 0.5,
+      "worst_trade": -0.008161905809221864
+    },
+    {
+      "best_trade": 0.006223871142033302,
+      "cost": 0.0014,
+      "max_compounded_drawdown": 0.009678171984256911,
+      "max_losing_streak": 1,
+      "mean_funding_component": 7.189624404761905e-05,
+      "mean_price_component": -0.001952795475895889,
+      "mean_return": -0.0024100658985149372,
+      "mean_turnover": 0.755952380952381,
+      "median_return": -0.0037892097015308312,
+      "profit_factor": 0.4035879231038878,
+      "q10": -0.008163415099998534,
+      "q90": 0.004446598345381376,
+      "samples": 4,
+      "win_rate": 0.5,
+      "worst_trade": -0.008285715333031388
+    }
+  ],
+  "period": [
+    "2026-09-01",
+    "2026-10-01"
+  ],
+  "strategy_changed": false,
+  "strategy_version": "CROSS_SECTIONAL_FUNDING_CARRY_V3"
+}

@@ -1,7 +1,7 @@
 [experiment]
 experiment_id = "SEPTEMBER_2026_MONTH_CLOSE"
 registered_on = "2026-10-02"
-status = "PREREGISTERED_DIAGNOSTIC"
+status = "COMPLETED_DIAGNOSTIC"
 strategy_version = "CROSS_SECTIONAL_FUNDING_CARRY_V3"
 strategy_change = "none"
 purpose = "Close the September calendar month without changing or reopening the failed formal holdout."
@@ -25,3 +25,4 @@ metrics = ["samples", "mean_return", "median_return", "win_rate", "profit_factor
 formal_holdout_decision = "FAIL"
 effect = "DIAGNOSTIC_ONLY"
 rule = "The full-month result cannot alter, replace or reopen the holdout decision recorded through 2026-09-25."
+observed = "Full September PF was 0.941 base and 0.880 stress over 29 periods; formal holdout FAIL remains unchanged."

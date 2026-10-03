@@ -114,6 +114,9 @@ altera o holdout congelado:
 .\.venv\Scripts\python.exe -m research.experiments.september_month_close --download
 ```
 
+Setembro completo terminou com 29 periodos, PF 0,941 base, PF 0,880 stress e
+media liquida negativa. O diagnostico reforca, sem substituir, o `FAIL_HOLDOUT`.
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
