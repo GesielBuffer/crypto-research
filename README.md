@@ -107,6 +107,13 @@ PF 0,992 no custo-base, 0,930 no custo de estresse e media liquida negativa em
 24 periodos. A decisao V3 e `FAIL_HOLDOUT`; setembro nao pode ser retunado e
 nenhuma estrategia esta aprovada para operar.
 
+O fechamento calendario completo de setembro e um diagnostico separado e nao
+altera o holdout congelado:
+
+```powershell
+.\.venv\Scripts\python.exe -m research.experiments.september_month_close --download
+```
+
 Laboratorio quantitativo em Python para pesquisar, testar e validar estrategias de criptomoedas com dados historicos da Binance. O projeto separa deliberadamente **pesquisa** de **execucao real**:
 
 ```text
