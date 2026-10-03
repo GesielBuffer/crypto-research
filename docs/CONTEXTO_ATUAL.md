@@ -1,6 +1,6 @@
 # Indice de contexto do projeto
 
-Atualizado em: 2026-10-02  
+Atualizado em: 2026-10-02
 Branch operacional: `main`  
 Ultimo estado consolidado: commit `ce0ddbe`
 

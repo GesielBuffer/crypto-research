@@ -1,0 +1,59 @@
+[experiment]
+experiment_id = "CROSS_EXCHANGE_FUNDING_REPLICATION_V1"
+registered_on = "2026-10-02"
+status = "PREREGISTERED"
+source_strategy = "CROSS_SECTIONAL_FUNDING_CARRY_V3"
+hypothesis = "The unchanged Binance funding-ranking mechanism transfers to independent OKX and Bybit perpetual market microstructure."
+role = "external venue replication; market outcomes are not a fresh temporal holdout"
+
+[data]
+venues = ["bybit", "okx"]
+candidate_symbols = [
+  "BTC", "ETH", "SOL", "XRP", "DOGE", "BNB", "AVAX", "ARB",
+  "FIL", "LINK", "ADA", "OP", "LTC", "INJ", "ETC", "NEAR",
+]
+start = "2024-01-01"
+evaluation_start = "2024-04-01"
+end = "2026-10-01"
+interval = "4h"
+minimum_symbol_coverage = 0.95
+minimum_eligible_symbols_per_venue = 12
+eligibility = "coverage only; no return, funding level or performance filter"
+
+[bybit]
+price_endpoint = "https://api.bybit.com/v5/market/kline"
+funding_endpoint = "https://api.bybit.com/v5/market/funding/history"
+category = "linear"
+symbol_format = "{base}USDT"
+interval = "240"
+
+[okx]
+price_endpoint = "https://www.okx.com/api/v5/market/history-candles"
+funding_endpoint = "https://www.okx.com/api/v5/public/funding-rate-history"
+symbol_format = "{base}-USDT-SWAP"
+bar = "4H"
+
+[strategy]
+trailing_funding_records = 3
+rebalance_funding_periods = 3
+entry_fraction = 0.25
+exit_boundary = 0.50
+long_gross = 0.5
+short_gross = 0.5
+round_trip_costs = [0.0006, 0.0014]
+entry = "first venue 4h open strictly after the settled funding timestamp"
+
+[evaluation]
+segments = [2024, 2025, 2026]
+minimum_periods_per_full_year = 200
+minimum_periods_2026_partial = 180
+base_cost_min_profit_factor_each_segment = 1.00
+base_cost_min_profit_factor_full_period = 1.10
+stress_cost_min_profit_factor_full_period = 1.00
+max_full_period_drawdown = 0.15
+
+[decision]
+levels = ["REPLICATION_REJECTED", "PARTIAL_REPLICATION", "REPLICATION_CONFIRMED"]
+confirmed = "both venues pass every registered gate"
+partial = "exactly one venue passes every registered gate"
+effect = "research evidence only; cannot promote to paper or real trading without a future temporal holdout"
